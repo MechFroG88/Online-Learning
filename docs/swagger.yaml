@@ -1,0 +1,628 @@
+swagger: "2.0"
+
+info:
+  version: '1'
+  description: "Chkl Self-Learning"
+  title: "Self-Learning"
+externalDocs:
+  description: "Github"
+  url: "https://github.com/MechFroG88/Self-learning"
+host:
+  mechfrog88.ddns.net
+schemes:
+- "http"
+- "https"
+paths:
+  /user:
+    post:
+      tags:
+      - "Users"
+      summary: "Create new user"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Create new user"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              example: "T00123"
+            cn_name:
+              type: "string"
+              example: "常常"
+            password:
+              type: "string"
+              example: "123456-78-1234"
+            type:
+              type: "integer"
+              example: "1"
+
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    get:
+      tags:
+      - "Users"
+      summary: "Returns current user data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                username:
+                  type: "string"
+                  example: "T00123"
+                cn_name:
+                  type: "string"
+                  example: "常常"
+                type:
+                  type: "integer"
+                  example: "1"
+                class:
+                  type: "array"
+                  items:
+                    type: "integer"
+                  example: [1,2,3,4]
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+  /users:
+    get:
+      tags:
+      - "Users"
+      summary: "Returns all users data"
+      responses:
+        200:
+          description: "Return all users data"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                username:
+                  type: "string"
+                  example: "T00123"
+                cn_name:
+                  type: "string"
+                  example: "常常"
+                type:
+                  type: "integer"
+                  example: "1"
+                class:
+                  type: "array"
+                  items:
+                    type: "integer"
+                  example: [1,2,3,4]
+
+                  
+                  
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+  
+  /user/login:
+    post:
+      tags:
+      - "Users"
+      summary : "Login"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Login user"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "integer"
+              example: "140145"
+            password:
+              type: "string"
+              example: "123456-78-1234"
+
+      responses:
+        200:
+          description: "Successful logged in"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /user/logout:
+    post:
+      tags:
+      - "Users"
+      summary : "Logout"
+              
+      responses:
+        200:
+          description: "Successful logged out"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+  /user/submit:
+    post:
+      tags:
+      - "Users"
+      summary : "submit lessons selection"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Edit user <br> provide lesson_id in the array"
+        schema:
+          type: "object"
+          properties:
+            user_id:
+              type: "integer"
+              example: "1"
+            period_id:
+              type: "integer"
+              example: "2"
+            date:
+              type: "string"
+              example: "2020-12-31"
+            class_id:
+              type: "integer"
+              example: "1"
+          
+          
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /user/{userId}:
+    post:
+      tags:
+      - "Users"
+      summary: "Edit user"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to edit"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "Body"
+        description: "Edit user"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              example: "T00123"
+            cn_name:
+              type: "string"
+              example: "常常"
+            password:
+              type: "string"
+              example: "123456-78-1234"
+            type:
+              type: "integer"
+              example: "1"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+    delete:
+      tags:
+      - "Users"
+      summary: "Delete user"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+  /event:
+    post:
+      tags:
+      - "Event"
+      summary: "Create new event"
+      parameters:
+      - in: "body"
+        name: "Body"
+        schema:
+          type: "object"
+          properties:
+            start_date:
+              type: "string"
+              example: "2020-12-31"
+            end_date:
+              type: "string"
+              example: "2020-12-31"
+            start_pick_datetime:
+              type: "string"
+              example: "2020-12-31 23:59:59"
+            end_pick_datetime:
+              type: "string"
+              example: "2020-12-31 23:59:59"
+            
+  
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    get:
+      tags:
+      - "Event"
+      summary: "Get all Event data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                start_date:
+                  type: "string"
+                  example: "2020-12-31"
+                end_date:
+                  type: "string"
+                  example: "2020-12-31"
+                start_pick_datetime:
+                  type: "string"
+                  example: "2020-12-31 23:59:59"
+                end_pick_datetime:
+                  type: "string"
+                  example: "2020-12-31 23:59:59"
+        401:  
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /event/{eventId}:
+    post:
+      tags:
+      - "Event"
+      summary: "Edit event"
+      parameters:
+      - name: "eventId"
+        in: "path"
+        description: "ID of event to edit"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "Body"
+        schema:
+          type: "object"
+          properties:
+            start_date:
+              type: "string"
+              example: "2020-12-31"
+            end_date:
+              type: "string"
+              example: "2020-12-31"
+            start_pick_datetime:
+              type: "string"
+              example: "2020-12-31 23:59:59"
+            end_pick_datetime:
+              type: "string"
+              example: "2020-12-31 23:59:59"
+  
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+      
+    delete:
+      tags:
+      - "Event"
+      summary: "Delete event"
+      parameters:
+      - name: "eventId"
+        in: "path"
+        description: "ID of event to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+  /period:
+    post:
+      tags:
+      - "Period"
+      summary: "Create new period"
+      parameters:
+      - in: "body"
+        name: "Body"
+        schema:
+          type: "object"
+          properties:
+            start_time:
+              type: "string"
+              example: "23:59:59"
+            end_time:
+              type: "string"
+              example: "23:59:59"
+            
+  
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    get:
+      tags:
+      - "Period"
+      summary: "Get all Period data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                start_time:
+                  type: "string"
+                  example: "23:59:59"
+                end_time:
+                  type: "string"
+                  example: "23:59:59"
+        401:  
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /period/{periodId}:
+    delete:
+      tags:
+      - "Period"
+      summary: "Delete Period"
+      parameters:
+      - name: "periodId"
+        in: "path"
+        description: "ID of event to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+  /day:
+    get:
+      tags:
+      - "Day"
+      summary: "Get all day data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                count:
+                  type: "integer"
+                  example: "10"
+        401:  
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /day/{dayId}:
+    post:
+      tags:
+      - "Day"
+      summary: "Edit day"
+      parameters:
+      - name: "dayId"
+        in: "path"
+        description: "ID of day to edit"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "Body"
+        schema:
+          type: "object"
+          properties:
+            count:
+              type: "integer"
+              example: "10"
+  
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+  
+  /limit:
+    get:
+      tags:
+      - "Limit"
+      summary: "Get limit data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                count:
+                  type: "integer"
+                  example: "10"
+        401:  
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+    post:
+      tags:
+      - "Limit"
+      summary: "Edit limit"
+      parameters:
+      - in: "body"
+        name: "Body"
+        schema:
+          type: "object"
+          properties:
+            count:
+              type: "integer"
+              example: "10"
+  
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /class:
+    post:
+      tags:
+      - "Class"
+      summary: "Create new class"
+      parameters:
+      - in: "body"
+        name: "Body"
+        schema:
+          type: "object"
+          properties:
+            cn_name:
+              type: "string"
+              example: "2慧"
+            en_name:
+              type: "string"
+              example: "2hui"
+  
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    get:
+      tags:
+      - "Class"
+      summary: "Get all class data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: 1
+                cn_name:
+                  type: "string"
+                  example: "2慧"
+                en_name:
+                  type: "string"
+                  example: "2hui"
+        401:  
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /class/{classId}:
+    post:
+      tags:
+      - "Class"
+      summary: "Edit class"
+      parameters:
+      - name: "classId"
+        in: "path"
+        description: "ID of class to edit"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "Body"
+        schema:
+          type: "object"
+          properties:
+            cn_name:
+              type: "string"
+              example: "2慧"
+            en_name:
+              type: "string"
+              example: "2hui"
+  
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+      
+    delete:
+      tags:
+      - "Class"
+      summary: "Delete class"
+      parameters:
+      - name: "classId"
+        in: "path"
+        description: "ID of class to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
