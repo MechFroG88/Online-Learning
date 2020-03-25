@@ -19,6 +19,7 @@ class CreateEventsTable extends Migration
             $table->date('end_date');
             $table->dateTime('start_pick_date');
             $table->dateTime('end_pick_date');
+            $table->softDeletes();
         });
     }
 

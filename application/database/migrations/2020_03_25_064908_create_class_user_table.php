@@ -17,7 +17,9 @@ class CreateClassUserTable extends Migration
             $table->increments('id');
             $table->integer('class_id');
             $table->integer('user_id');
-            $table->string('subject',50);
+            $table->integer('subject_id');
+            $table->index('class_id');
+            $table->index('user_id');
         });
     }
 

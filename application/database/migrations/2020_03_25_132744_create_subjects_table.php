@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLimitsTable extends Migration
+class CreateSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateLimitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('limits', function (Blueprint $table) {
+        Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('count');
+            $table->string('cn_name',50);
+            $table->string('en_name',50);
+            $table->integer('day');
+            $table->integer('week');
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +30,6 @@ class CreateLimitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('limits');
+        Schema::dropIfExists('subjects');
     }
 }

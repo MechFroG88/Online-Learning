@@ -17,6 +17,7 @@ class CreateClassesTable extends Migration
             $table->increments('id');
             $table->string('cn_name',30);
             $table->string('en_name',30);
+            $table->softDeletes();
         });
     }
 

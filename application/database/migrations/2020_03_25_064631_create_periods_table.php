@@ -19,6 +19,7 @@ class CreatePeriodsTable extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->index('event_id');
+            $table->softDeletes();
         });
     }
 
