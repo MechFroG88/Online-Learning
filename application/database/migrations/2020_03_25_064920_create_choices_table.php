@@ -19,11 +19,11 @@ class CreateChoicesTable extends Migration
             $table->integer('event_id');
             $table->integer('period_id');
             $table->date('date');
-            $table->string('method',50)->default("");
-            $table->text('link')->default("");
-            $table->text('streamId')->default("");
-            $table->text('streamPassword')->default("");
-            $table->longText('description')->default("");
+            $table->string('method',50);
+            $table->text('link');
+            $table->text('streamId');
+            $table->text('streamPassword');
+            $table->longText('description');
             $table->index('class_user_id');
             $table->index('event_id');
             $table->index('period_id');

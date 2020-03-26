@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Validator;
 
 class Controller extends BaseController
 {
@@ -14,11 +15,12 @@ class Controller extends BaseController
     protected function fail($validator)
     {
         $error = "";
-        foreach ($validator->messages()->getMessages() as $field_name => $messages)
+        $messages = $validator->messages();
+        foreach ($messages->all('<li>:message</li>') as $message)
         {
-            $error += $messages + "<br>";
+            $error = $error . $message;
         }
-        return response("Validation error : <br>" + $error,400);
+        return response("Validation error : <br>" . $error,400);
     }
 
     protected function ok()

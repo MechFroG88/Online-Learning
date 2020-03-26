@@ -15,6 +15,7 @@ class UserController extends Controller
     private $rules = [
         "username" => "required|unique:users",
         "cn_name"  => ["required","regex:/[\x{4e00}-\x{9fa5}]+/u"],
+        "en_name"  => "required",
         "password" => "required",
         "type"     => "required|integer|between:0,1",
     ];
@@ -39,7 +40,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($data->all(), $this->login_rules);
         if ($validator->fails()) return $this->fail($validator);
-        if (Auth::attempt($data,true)) {
+        if (Auth::attempt(["username" => $data->username , "password" => $data->password],true)) {
             return $this->get_current();
         } else {
             return response("Unauthorized",401);
@@ -71,9 +72,9 @@ class UserController extends Controller
     {
         $data = User::find(Auth::id());
         $data = json_decode($data->toJson());
-        $data['class_subject'] = DB::table('class_user')->where('user_id',Auth::id())
-                                                        ->select('class_id','subject_id')
-                                                        ->get();
+        $data->class_subject = DB::table('class_user')->where('user_id',Auth::id())
+                                                      ->select('class_id','subject_id')
+                                                      ->get();
         return response((array)$data,200);
     }
 

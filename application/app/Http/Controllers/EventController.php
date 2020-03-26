@@ -13,8 +13,8 @@ class EventController extends Controller
     private $rules = [
         "start_date"      => "required|date",
         "end_date"        => "required|date",
-        "start_pick_date" => "required|date",
-        "end_pick_date"   => "required|date",
+        "start_pick_datetime" => "required|date",
+        "end_pick_datetime"   => "required|date",
     ];
 
     public function create(Request $data)
@@ -25,10 +25,10 @@ class EventController extends Controller
         return $this->ok();
     }
 
-    public function get_all()
+    public function get()
     {
         $data = Event::all();
-        return response($data->toJson(),200);
+        return response((array)json_decode($data->toJson()),200);
     }
 
     public function edit(Request $data,$id)

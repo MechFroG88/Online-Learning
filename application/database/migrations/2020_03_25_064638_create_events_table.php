@@ -17,8 +17,8 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->date('start_date');
             $table->date('end_date');
-            $table->dateTime('start_pick_date');
-            $table->dateTime('end_pick_date');
+            $table->dateTime('start_pick_datetime');
+            $table->dateTime('end_pick_datetime');
             $table->softDeletes();
         });
     }
