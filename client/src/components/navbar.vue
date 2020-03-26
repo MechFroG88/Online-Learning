@@ -1,5 +1,5 @@
 <template>
-  <div id="_navbar">
+  <div id="_navbar" :key="user.id">
     <nav class="header">
       <section>
         <h4>{{ $t('header.title') }}</h4>
@@ -49,11 +49,18 @@ export default {
     locale: '',
   }),
   methods: {
-    ...mapMutations({ setLang: 'SET_LANG' }),
+    ...mapMutations({ 
+      setLang: 'SET_LANG',
+      resetUser: 'RESET_USER'
+    }),
     logout() {
       if (this.$route.name != 'login') 
         userLogout().then((data) => {
-          if (data.status == 200) this.$router.push('/');
+          if (data.status == 200) {
+            localStorage.clear();
+            this.resetUser();
+            this.$router.push('/');
+          }
         })
     }
   },

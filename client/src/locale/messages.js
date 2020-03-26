@@ -33,7 +33,12 @@ export default {
       confirmDelete: 'Confirm deletion?',
       confirm: 'Confirm',
       delete: 'Delete selection',
+      subject: 'Subject',
       subjectSelect: 'Please select subject',
+      link: 'Link',
+      streamId: 'Stream Id',
+      streamPassword: 'Stream Password',
+      description: 'Description'
     },
     timetable: {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -76,7 +81,12 @@ export default {
       confirmDelete: '确认删除?',
       confirm: '确认',
       delete: '删除选项',
+      subject: '科目',
       subjectSelect: '请选择科目',
+      link: '',
+      streamId: '',
+      streamPassword: '',
+      description: ''
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -119,7 +129,12 @@ export default {
       confirmDelete: '',
       confirm: 'Pasti',
       delete: 'Padam pilihan',
+      subject: '',
       subjectSelect: '',
+      link: '',
+      streamId: '',
+      streamPassword: '',
+      description: ''
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],

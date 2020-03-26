@@ -46,7 +46,7 @@
        {{ selected_event.end_pick_datetime | moment('DD-MM-YYYY, LT') }}
     </h5>
 
-    <carousel-3d v-if="selected_class != 0 && selected_event.id" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
+    <carousel-3d v-if="selected_class && selected_event.id" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
       @after-slide-change="onAfterSlideChange"
       :controls-width="30" :controls-height="60" :controls-visible="true" :clickable="false"
       :height="600" :key="selected_class" 
@@ -99,7 +99,7 @@
         </em></small>
         <form class="ten columns" @submit.prevent="submit">
           <div class="u-full-width subject">
-            <label for="choiceSubject">Subject: </label>
+            <label for="choiceSubject">{{ $t('modal.subject') }}: </label>
             <input class="u-full-width" type="text" id="choiceSubject" v-if="availableSubject.length == 1"
             v-model="modal.choice.subject_id" disabled>
             <select name="subject" id="choiceSubject" v-model="modal.choice.subject_id"
@@ -133,22 +133,22 @@
               </div>
             </div>
             <div class="u-full-width link">
-              <label for="choiceLink">Link: </label>
+              <label for="choiceLink">{{ $t('modal.link') }}: </label>
               <input class="u-full-width" type="text" id="choiceLink"
               v-model="modal.choice.link">
             </div>
             <div class="u-full-width streamId">
-              <label for="choiceStreamId">Stream Id: </label>
+              <label for="choiceStreamId">{{ $t('modal.streamId') }}: </label>
               <input class="u-full-width" type="text" id="choiceStreamId" 
               v-model="modal.choice.streamId">
             </div>
             <div class="u-full-width streamPassword">
-              <label for="choiceStreamPassword">Stream Password: </label>
+              <label for="choiceStreamPassword">{{ $t('modal.streamPassword') }}: </label>
               <input class="u-full-width" type="text" id="choiceStreamPassword" 
               v-model="modal.choice.streamPassword">
             </div>
             <div class="u-full-width description">
-              <label for="choiceDescription">Description: </label>
+              <label for="choiceDescription">{{ $t('modal.description') }}: </label>
               <input class="u-full-width" type="text" id="choiceDescription" 
               v-model="modal.choice.description">
             </div>
@@ -235,14 +235,17 @@ export default {
         this.selected_class = this.home.class;
         getAllEvents().then((data) => {
           if (data.status == 200) {
-            this.eventArr = data.data;
+            this.eventArr = data.data.sort((a, b) => 
+              moment(a.start_date).isBefore(b.start_date) ? -1 : 1
+            );
             getUserChoice().then((data) => {
               if (data.status == 200) {
                 this.choiceArr = data.data;
                 this.selected_event = this.home.event;
-                this.$nextTick(() => {
-                  this.$refs.eventCarousel.goSlide(this.home.index);
-                })
+                if (this.selected_class && this.selected_event.id)
+                  this.$nextTick(() => {
+                    this.$refs.eventCarousel.goSlide(this.home.index);
+                  })
               }
             })
           }

@@ -30,8 +30,8 @@ service.interceptors.response.use(function (response) {
 }, function (error) {
   app.$Progress.fail();
   if (error.response.status == 401 && router.app._route.fullPath != '/') {
-    // localStorage.clear();
-    // router.push('/');
+    localStorage.clear();
+    router.push('/');
   }
   return Promise.reject(error);
 });
