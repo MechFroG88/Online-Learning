@@ -40,6 +40,10 @@ export default {
           this.setUser(data.data);
           if (data.data.type == 1) this.$router.push('/home');
         }
+      }).catch((err) => {
+        if (error.response)
+          alert(err.response.data);
+        else alert(err.message);
       })
     },
   }

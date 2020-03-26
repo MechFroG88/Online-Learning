@@ -43,6 +43,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import { userLogout } from '@/api/users';
 export default {
   data: () => ({
     locale: '',
@@ -50,7 +51,10 @@ export default {
   methods: {
     ...mapMutations({ setLang: 'SET_LANG' }),
     logout() {
-      if (this.$route.name != 'login') this.$router.push('/')
+      if (this.$route.name != 'login') 
+        userLogout().then((data) => {
+          if (data.status == 200) this.$router.push('/');
+        })
     }
   },
   mounted() {
