@@ -17,7 +17,7 @@ class Choice extends Model
      * @var array
      */
     protected $fillable = [
-        'class_user_id','event_id','period_id','date','method','link','id','password','description'
+        'class_user_id','event_id','period_id','date','method','link','streamId','streamPassword','description'
     ];
 
     public function event()

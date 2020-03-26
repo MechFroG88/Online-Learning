@@ -8,7 +8,7 @@ class Day extends Model
 {
 
     public $timestamps = false;
-    protected $table = 'dayss';
+    protected $table = 'days';
 
     /**
      * The attributes that are mass assignable.

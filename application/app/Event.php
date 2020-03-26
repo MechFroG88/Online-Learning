@@ -17,11 +17,11 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'start_date','end_date','start_pick_date','end_pick_date'
+        'start_date','end_date','start_pick_datetime','end_pick_datetime'
     ];
 
     protected $dates = [
-        'start_date','end_date','start_pick_date','end_pick_date'
+        'start_date','end_date','start_pick_datetime','end_pick_datetime'
     ];
 
     protected $hidden = [
