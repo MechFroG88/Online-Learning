@@ -9,6 +9,9 @@ use App\Event;
 use App\User;
 use App\Class_user;
 use App\Subject;
+use DB;
+use DateTime;
+use Auth;
 
 class ChoiceController extends Controller
 {
@@ -16,7 +19,7 @@ class ChoiceController extends Controller
     private $edit_rules = [
         "method"         => "",
         "link"           => "",
-        "streamid"       => "",
+        "streamId"       => "",
         "streamPassword" => "",
         "description"    => "",
     ];
@@ -34,9 +37,18 @@ class ChoiceController extends Controller
     {
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail($validator);
-        $error = check($data->all());
+        $error = $this->check_condition($data->all());
         if (isset($error)) return response($error,400);
-        Choice::create($data->all());
+        $data = $data->all();
+        foreach($this->edit_rules as $key => $value){
+            $data[$key] = $value; 
+        }
+        $data['class_user_id'] = DB::table('class_user')->where([
+            "class_id" => $data['class_id'],
+            "user_id" => $data['user_id'],
+            "subject_id" => $data['subject_id']
+        ])->first()->id;
+        Choice::create($data);
         return $this->ok();
     }
 
@@ -47,7 +59,9 @@ class ChoiceController extends Controller
         foreach ($choices as $choice){
             $choice = json_decode($choice->toJson());
             $choice->cn_name = $choice->class_user->user->cn_name;
+            $choice->en_name = $choice->class_user->user->en_name;
             $choice->class_id = $choice->class_user->class_id;
+            $choice->user_id = $choice->class_user->user_id;
             $choice->subject_id = $choice->class_user->subject_id;
             unset($choice->class_user_id);
             unset($choice->class_user);
@@ -58,20 +72,23 @@ class ChoiceController extends Controller
 
     public function get_related()
     {
-        $user_class_ids = DB::table('class_user')->where('user_id',Auth::id())->select('id')->get();
+        $class_user_ids = DB::table('class_user')->where('user_id',Auth::id())->select('id')->get();
         $ids = [];
-        foreach($id as $user_class_ids){
+        foreach($class_user_ids as $id){
             array_push($ids,$id->id);
         }
 
-        $choices = Choice::whereIn('id',$ids)->get();
+        $choices = Choice::whereIn('class_user_id',$ids)->get();
         $data = [];
         foreach ($choices as $choice){
             $choice = json_decode($choice->toJson());
-            $choice->cn_name = $choice->user_class->user->cn_name;
-            $choice->class_id = $choice->user_class->class_id;
-            $choice->subject_id = $choice->user_class->subject_id;
-            unset($choice->user);
+            $choice->cn_name = $choice->class_user->user->cn_name;
+            $choice->en_name = $choice->class_user->user->en_name;
+            $choice->class_id = $choice->class_user->class_id;
+            $choice->user_id = $choice->class_user->user_id;
+            $choice->subject_id = $choice->class_user->subject_id;
+            unset($choice->class_user_id);
+            unset($choice->class_user);
             array_push($data,$choice);
         }
         return response($data,200);
@@ -80,6 +97,7 @@ class ChoiceController extends Controller
     public function edit(Request $data,$id)
     {
         $validator = Validator::make($data->all(),$this->edit_rules);
+        if ($id != Auth::id() && Auth::user()->type != 0) response("Unauthorized",401);
         if ($validator->fails()) return $this->fail($validator);
         Choice::where('id', $id)
             ->update([
@@ -94,18 +112,19 @@ class ChoiceController extends Controller
 
     public function delete(Request $data,$id)
     {
+        if ($id != Auth::id() && Auth::user()->type != 0) response("Unauthorized",401);
         Choice::where('id', $id)->delete();
         return $this->ok();
     }
 
-    private function check($data)
+    private function check_condition($data)
     {
-        $event = Event::find($data->event_id);
-        $subject = Subject::find($data->subject_id);
-        $user = DB::table('users')->find($data->user_id)->doesntExists();
-        $period = DB::table('periods')->find($data->period_id)->doesntExists();
-        $class = DB::table('classes')->find($data->class_id)->doesntExists();
-        $date = strtotime($data->$date);
+        $event = Event::find($data['event_id']);
+        $subject = Subject::find($data['subject_id']);
+        $user = DB::table('users')->where('id',$data['user_id'])->doesntExist();
+        $period = DB::table('periods')->where('id',$data['period_id'])->doesntExist();
+        $class = DB::table('classes')->where('id',$data['class_id'])->doesntExist();
+        $date = DateTime::createFromFormat('Y-m-d',$data['date']);
         $now = date('Y-m-d H:i:s');
 
         if ($event == null) return "Event does not exist";
@@ -116,40 +135,40 @@ class ChoiceController extends Controller
         if ($date > $event->end_date || $date < $event->start_date) return "Date not in range";
         
         if (Auth::user()->type != 0){
-            if (Auth::id() != $data->user_id) return "Unauthorized";
-            if ($now > $event->end_pick_date || $now < $event->start_pick_date) return "Date not in range";
+            if (Auth::id() != $data['user_id']) return "Unauthorized";
+            if ($now > $event->end_pick_datetime || $now < $event->start_pick_datetime) return "Date not in range";
         }
 
         $id = DB::table('class_user')->where([
-            "user_id" => $data->user_id,
-            "class_id" => $data->class_id,
-            "subject_id" => $data->subject_id,
+            "user_id" => $data['user_id'],
+            "class_id" => $data['class_id'],
+            "subject_id" => $data['subject_id'],
         ])->select('id')->first();
 
         if (!isset($id)) return "Teacher does not teach this class or subject";
 
-        $user_class_ids = DB::table('class_user')->where('class_id',$data->class_id)->select('id')->get();
+        $class_user_ids = DB::table('class_user')->where('class_id',$data['class_id'])->select('id')->get();
         $ids = [];
-        foreach($user_class_ids as $id){
+        foreach($class_user_ids as $id){
             array_push($ids,$id->id);
         }
 
-        if (DB::table('choices')->whereIn('id',ids)
+        if (DB::table('choices')->whereIn('class_user_id',$ids)
         ->where([
-            "event_id" => $data->event_id,
-            "period_id" => $data->period_id
+            "event_id" => $data['event_id'],
+            "period_id" => $data['period_id']
         ])->exists()) return "The current period has been chosen";
-        
-        if(DB::table('choices')->whereDate('date',$now)
+
+        if(DB::table('choices')->whereDate('date',$date)
         ->where([
-            "user_class_id" => $id,
-            "event_id" => $data->event_id,
+            "class_user_id" => $id->id,
+            "event_id" => $data['event_id'],
         ])->count() >= $subject->day) return "The daily limit of the subject is reached";
-        
+
         if(DB::table('choices')->whereBetween('date',[strtotime("monday this week"),strtotime("sunday this week")])
         ->where([
-            "user_class_id" => $id,
-            "event_id" => $data->event_id,
+            "class_user_id" => $id->id,
+            "event_id" => $data['event_id'],
         ])->count() >= $subject->week) return "The weekly limit of the subject is reached";
 
     }

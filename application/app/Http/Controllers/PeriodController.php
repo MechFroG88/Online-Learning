@@ -10,8 +10,8 @@ class PeriodController extends Controller
 {
 
     private $rules = [
-        "start_time"  => "required|date",
-        "end_time"    => "required|date",
+        "start_time"  => "required|date_format:H:i:s",
+        "end_time"    => "required|date_format:H:i:s|after:start_time",
     ];
 
 
@@ -26,7 +26,7 @@ class PeriodController extends Controller
     public function get()
     {
         $data = Period::all();
-        return response($data->toJson(),200);
+        return response((array)json_decode($data->toJson()),200);
     }
 
     public function delete(Request $data,$id)

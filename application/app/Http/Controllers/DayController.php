@@ -16,7 +16,7 @@ class DayController extends Controller
     public function get()
     {
         $data = Day::all();
-        return response($data->toJson(),200);
+        return response((array)json_decode($data->toJson()),200);
     }
 
     public function edit(Request $data,$id)
