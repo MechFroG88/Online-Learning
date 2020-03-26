@@ -3,6 +3,13 @@
     margin-bottom: 2rem;
   }
 
+  .no-class {
+    font-weight: 500; 
+    color: #a0a0b3;
+    margin-top: 5rem; 
+    text-align: center;
+  }
+
   .slide {
     background-color: #fcfcfc;
     border: solid 1px #eee;
@@ -48,6 +55,25 @@
           font-weight: 500;
         }
       }
+
+      @media screen and (min-width: 1000px) {
+        .three {
+          width: 13.3333333333%;
+        }
+
+        .eight {
+          width: 74.0%; 
+        }
+      }
+
+      .three {
+
+      }
+    }
+    &.delete-modal .modal-container {
+      min-height: inherit;
+      width: 20%;
+      min-width: 200px;
     }
   }
 }

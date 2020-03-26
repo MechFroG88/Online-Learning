@@ -31,7 +31,7 @@ service.interceptors.response.use(function (response) {
   app.$Progress.fail();
   if (error.response.status == 401 && router.app._route.fullPath != '/') {
     // localStorage.clear();
-    router.push('/');
+    // router.push('/');
   }
   return Promise.reject(error);
 });

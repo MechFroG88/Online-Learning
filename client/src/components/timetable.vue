@@ -10,38 +10,48 @@
           {{ $t('timetable.empty') }}
         </div>
       </div>
-      <div class="period-cell" :key="period.id">
+      <div class="period-cell" 
+      :class="[
+        filtered_choice.filter(el => el.period_id == period.id)[0] ? 
+          filtered_choice.filter(el => el.period_id == period.id)[0].user_id == user.id 
+            ? 'self'
+          : 'occupied' 
+        : 'empty'
+      ]"
+      :key="period.id">
         <div class="time">
           <span>{{ period.start_time }}</span>
         </div>
         <div class="info">
-          <div class="occupied" 
-          v-if="fc = filtered_choice.filter(el => el.period_id == period.id)[0]"
-          :style="{
-            'background-color': getColor(fc.subject_id),
-            'color': getFontColor(getColor(fc.subject_id))
-          }">
+          <div v-if="fc = filtered_choice.filter(el => el.period_id == period.id)[0]" style="position: relative;">
+            <!-- <div class="btn-remove" @click="remove(period,
+            filtered_choice.filter(el => el.period_id == period.id)[0])"
+            v-if="fc.user_id == user.id">
+              {{ $t('timetable.delete') }}
+            </div> -->
             <div class="teacher-name">
-              <!-- {{ lang == 'cn' ? fc.cn_name : fc.en_name }} -->
-              {{ fc.cn_name }}
+              {{ lang == 'cn' ? fc.cn_name : fc.en_name }}
+               -- 
+              {{ lang == 'cn' ? getSubject(fc.subject_id).cn_name
+               : getSubject(fc.subject_id).en_name }}
             </div>
             
-            <button class="button button-primary edit" 
-            @click="edit(period, 
-            filtered_choice.filter(el => el.period_id == period.id)[0])"
+            <button class="button button-success" 
+            style="margin-top: .5rem;"
             v-if="fc.user_id == user.id"
-            style="margin-top: .5rem;">
+            @click="edit(period, 
+            filtered_choice.filter(el => el.period_id == period.id)[0])">
               {{ $t('timetable.modify') }}
             </button>
           </div>
-          <div class="empty" v-else>
+          <div v-else>
             <button class="button select" @click="select(period)">
               {{ $t('timetable.select') }}
             </button>
           </div>
         </div>
       </div>
-      <div class="period-cell end-filler" :key="period.end_time"
+      <div class="period-cell" :key="period.end_time"
       v-if="ind == periods.length - 1">
         <div class="time">
           <span>{{ period.end_time }}</span>
@@ -59,7 +69,7 @@ import { mapState } from 'vuex';
 export default {
   props: {
     date: {
-      type: Date,
+      type: String,
       required: true
     },
     periods: {
@@ -69,11 +79,15 @@ export default {
     choices: {
       type: Array,
       default: () => [],
+    },
+    subjects: {
+      type: Array,
+      default: () => [],
     }
   },
   mounted() {
     this.filtered_choice = this.choices.filter(el => 
-      moment(el.date).format() == moment(this.date, 'DD/MM/YYYY').format());
+      moment(el.date, 'YYYY-MM-DD').format('DD-MM-YYYY') == this.date);
   },
   data: () => ({
     infos: [],
@@ -81,35 +95,6 @@ export default {
     selected_period: {},
   }),
   methods: {
-    getColor(subject) {
-      function hashCode(str) {
-        var hash = 0;
-        for (var i = 0; i < str.length; i++) {
-          hash = str.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        return hash;
-      } 
-
-      function intToRGB(i) {
-        var hex = ((i>>24)&0xFF).toString(16) +
-                ((i>>16)&0xFF).toString(16) +
-                ((i>>8)&0xFF).toString(16) +
-                (i&0xFF).toString(16);
-                
-        hex += '000000';
-        return hex.substring(0, 6);
-      }
-      return '#'+intToRGB(hashCode(subject.toString().repeat(10000000)));
-    },
-    getFontColor(bgColor) {
-      let red   = parseInt('0x'+bgColor.substring(0,2)),
-          green = parseInt('0x'+bgColor.substring(2,4)),
-          blue  = parseInt('0x'+bgColor.substring(4));
-
-      let luminance = ( 0.299 * red + 0.587 * green + 0.114 * blue)/255;
-      if (luminance > 0.5) return '#000';
-      return '#fff';
-    },
     select(period) {
       this.$emit('selected', this.date, period);
       this.$parent.$parent.$parent.$refs.modal.active = true;
@@ -117,6 +102,9 @@ export default {
     edit(period, choice) {
       this.$emit('edit', this.date, period, choice);
       this.$parent.$parent.$parent.$refs.modal.active = true;
+    },
+    getSubject(id) {
+      return this.subjects.filter(el => el.id == id)[0];
     }
   },
   computed: {

@@ -14,28 +14,53 @@
     .info {
       flex: 5;
       border-top: solid 1px #ddd;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: inherit;
-
-      .occupied, .empty {
-        height: 100%;
-        width: 100%;
+      &, & > div {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 1rem 0;
+        width: 100%;
+        padding: .5rem 0;
       }
-      .edit {
-        font-size: 1.2rem;
-        height: 3rem;
-        line-height: 3rem;
-        padding: 0 2rem;
+
+      .select {
+        margin: 0;
       }
+      .btn-remove {
+        position: absolute; 
+        right: 2rem; 
+        top: 0; 
+        font-weight: 900;
+        font-size: 1.8rem; 
+        cursor: pointer;
+        color: $error-color;
+      }
+    }
+
+    &.occupied .info {
+      background-color: lighten($primary-color, 30%);
+      border-color: $primary-color;
+      border-width: 1.5px;
+      border-top-style: dashed;
+    }
+
+    &.occupied+.period-cell .info {
+      border-color: $primary-color;
+      border-width: 1.5px;
+      border-top-style: dashed;
+    }
+
+    &.self .info {
+      background-color: lighten($success-color, 30%);
+      border-color: $success-color !important;
+      border-width: 1.5px;
+      border-top-style: dashed;
+    }
+    
+    &.self+.period-cell .info {
+      border-color: $success-color;
+      border-width: 1.5px;
+      border-top-style: dashed;
     }
 
     &:last-of-type {
