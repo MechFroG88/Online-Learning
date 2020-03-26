@@ -9,6 +9,11 @@
 <script>
 import navbar from '@/components/navbar';
 export default {
+  metaInfo() {
+    return {
+      title: this.$t('header.title')
+    }
+  },
   components: {
     navbar
   },

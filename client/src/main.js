@@ -23,8 +23,15 @@ Vue.use(VueProgressBar, {
   failedColor: 'f56c6c'
 });
 
+// carousel
 import Carousel3d from 'vue-carousel-3d';
 Vue.use(Carousel3d);
+
+// meta data
+import VueMeta from 'vue-meta';
+Vue.use(VueMeta, {
+  refreshOnceOnNavigation: true
+});
 
 Vue.config.productionTip = false
 

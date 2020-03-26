@@ -46,7 +46,8 @@
        {{ selected_event.end_pick_datetime | moment('DD-MM-YYYY, LT') }}
     </h5>
 
-    <carousel-3d v-if="selected_class != 0" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
+    <carousel-3d v-if="selected_class && selected_event.id" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
+      @after-slide-change="onAfterSlideChange"
       :controls-width="30" :controls-height="60" :controls-visible="true" :clickable="false"
       :height="600" :key="selected_class" 
       :disable3d="true" :space="400">
@@ -70,33 +71,26 @@
     </carousel-3d>
 
     <h4 class="no-class" v-else>
-      {{ $t('home.classSelect') }}
+      <span v-if="selected_event.id">{{ $t('home.classSelect') }}</span>
+      <span v-else>{{ $t('home.eventSelect') }}</span>
     </h4>
 
     <!-- modal templates -->
-    <modal ref="confirmModal" class="delete-modal">
-      <div class="modal-body">
-        <h5>{{ $t('modal.confirmDelete') }}</h5>
-        <button class="button button-error" style="float: right; margin-top: 3rem;">
-          {{ $t('modal.confirm') }}
-        </button>
-      </div>
-    </modal>
     <modal ref="modal">
       <div class="modal-body">
         <h5 class="time row">
           <div class="label columns three">
             {{ $t('modal.date') }}:
           </div>
-          <div class="columns eight">
-            {{ modal.date }}
+          <div class="columns nine">
+            {{ today = modal.date }} ({{ getDay(today) }})
           </div>
         </h5>
         <h5 class="time row">
           <div class="label columns three">
             {{ $t('modal.time') }}:
           </div>
-          <div class="columns eight">
+          <div class="columns nine">
             {{ modal.period.start_time }} - {{ modal.period.end_time }}
           </div>
         </h5>
@@ -105,50 +99,60 @@
         </em></small>
         <form class="ten columns" @submit.prevent="submit">
           <div class="u-full-width subject">
-            <label for="choiceSubject">Subject: </label>
-            <input class="u-full-width" type="text" id="choiceSubject"
-            v-model="modal.choice.subject">
+            <label for="choiceSubject">{{ $t('modal.subject') }}: </label>
+            <input class="u-full-width" type="text" id="choiceSubject" v-if="availableSubject.length == 1"
+            v-model="modal.choice.subject_id" disabled>
+            <select name="subject" id="choiceSubject" v-model="modal.choice.subject_id"
+            :disabled="modal.choice.id ? true : false">
+              <option value="" selected disabled>
+                {{ $t('modal.subjectSelect') }}
+              </option>
+              <option v-for="subject in availableSubject" :key="subject.id"
+              :value="subject.id">
+                {{ lang == 'cn' ? subject.cn_name : subject.en_name }}
+              </option>
+            </select>
           </div>
-          <div class="u-full-width method">
-            <label>{{ $t('modal.method') }}: </label>
-            <div class="u-full-width">
-              <input type="radio" name="method" id="zoom" value="zoom" selected
-              v-model="modal.choice.method">
-              <span class="label-body">
-                  Zoom
-              </span>
-            </div>
-            <div class="u-full-width">
-              <input type="radio" name="method" id="others" value="others"
-              v-model="modal.choice.method">
-              <span class="label-body">
-                  {{ $t('modal.otherMethod') }}:
-              </span>
-              <input type="text" v-model="modal.otherMethod" style="margin-left: .5rem;">
-            </div>
-          </div>
-          <div class="u-full-width link">
-            <label for="choiceLink">Link: </label>
-            <input class="u-full-width" type="text" id="choiceLink"
-            v-model="modal.choice.link">
-          </div>
-          <div class="u-full-width streamId">
-            <label for="choiceStreamId">Stream Id: </label>
-            <input class="u-full-width" type="text" id="choiceStreamId" 
-            v-model="modal.choice.streamId">
-          </div>
-          <div class="u-full-width streamPassword">
-            <label for="choiceStreamPassword">Stream Password: </label>
-            <input class="u-full-width" type="text" id="choiceStreamPassword" 
-            v-model="modal.choice.streamPassword">
-          </div>
-          <div class="u-full-width description">
-            <label for="choiceDescription">Description: </label>
-            <input class="u-full-width" type="text" id="choiceDescription" 
-            v-model="modal.choice.description">
-          </div>
-
           <div v-if="modal.choice.id">
+            <div class="u-full-width method">
+              <label>{{ $t('modal.method') }}: </label>
+              <div class="u-full-width">
+                <input type="radio" name="method" id="zoom" value="zoom" selected
+                v-model="modal.choice.method">
+                <span class="label-body">
+                    Zoom
+                </span>
+              </div>
+              <div class="u-full-width">
+                <input type="radio" name="method" id="others" value="others"
+                v-model="modal.choice.method">
+                <span class="label-body">
+                    {{ $t('modal.otherMethod') }}:
+                </span>
+                <input type="text" v-model="modal.otherMethod" style="margin-left: .5rem;">
+              </div>
+            </div>
+            <div class="u-full-width link">
+              <label for="choiceLink">{{ $t('modal.link') }}: </label>
+              <input class="u-full-width" type="text" id="choiceLink"
+              v-model="modal.choice.link">
+            </div>
+            <div class="u-full-width streamId">
+              <label for="choiceStreamId">{{ $t('modal.streamId') }}: </label>
+              <input class="u-full-width" type="text" id="choiceStreamId" 
+              v-model="modal.choice.streamId">
+            </div>
+            <div class="u-full-width streamPassword">
+              <label for="choiceStreamPassword">{{ $t('modal.streamPassword') }}: </label>
+              <input class="u-full-width" type="text" id="choiceStreamPassword" 
+              v-model="modal.choice.streamPassword">
+            </div>
+            <div class="u-full-width description">
+              <label for="choiceDescription">{{ $t('modal.description') }}: </label>
+              <input class="u-full-width" type="text" id="choiceDescription" 
+              v-model="modal.choice.description">
+            </div>
+            
             <input type="submit" class="button button-primary" 
             style="margin-top: 1rem;"
             :value="$t('modal.submit')">
@@ -171,7 +175,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import { classes, periods, choices } from '@/api/mock/event';
 import { getAllClass } from '@/api/class';
 import { getAllEvents } from '@/api/event';
@@ -205,6 +209,7 @@ export default {
       period: {},
       choice: {
         id: 0,
+        subject_id: '',
         method: 'zoom',
         link: '',
         streamId: '',
@@ -215,6 +220,11 @@ export default {
     }
   }),
   mounted() {
+    getAllSubjects().then((data) => {
+      if (data.status == 200) {
+        this.subjectArr = data.data;
+        }
+      })
     getAllClass().then((data) => {
       let classes = new Set();
       for (let classobj of this.user.class_subject) classes.add(classobj.class_id);
@@ -222,11 +232,24 @@ export default {
         let allClasses = data.data;
         for (let class_id of classes)
           this.classArr.push(allClasses.filter(el => el.id == class_id)[0]);
-      }
-    })
-    getAllEvents().then((data) => {
-      if (data.status == 200) {
-        this.eventArr = data.data;
+        this.selected_class = this.home.class;
+        getAllEvents().then((data) => {
+          if (data.status == 200) {
+            this.eventArr = data.data.sort((a, b) => 
+              moment(a.start_date).isBefore(b.start_date) ? -1 : 1
+            );
+            getUserChoice().then((data) => {
+              if (data.status == 200) {
+                this.choiceArr = data.data;
+                this.selected_event = this.home.event;
+                if (this.selected_class && this.selected_event.id)
+                  this.$nextTick(() => {
+                    this.$refs.eventCarousel.goSlide(this.home.index);
+                  })
+              }
+            })
+          }
+        })
       }
     })
     getAllPeriods().then((data) => {
@@ -238,37 +261,34 @@ export default {
         }))
       }
     })
-    getUserChoice().then((data) => {
-      if (data.status == 200) {
-        this.choiceArr = data.data;
-      }
-    })
-    getAllSubjects().then((data) => {
-      if (data.status == 200) {
-        this.subjectArr = data.data;
-      }
-    })
   },
   methods: {
-    goToIndex(index) {
-      this.$refs.eventCarousel.goSlide(index);
-    },
+    ...mapMutations({
+      setClass: 'SET_CLASS',
+      setEvent: 'SET_EVENT',
+      setIndex: 'SET_INDEX'
+    }),
     getDay(day) {
       let days = this.$t('timetable.days');
       return days[moment(day, 'DD/MM/YYYY').day()];
     },
     selected(date, period) {
       // submit period first
-      
-      this.modal.date = date;
-      this.modal.period = period;
+      if (this.availableSubject.length == 1) {
+        this.submit();
+        this.$refs.modal.active = false;
+        location.reload();
+      }
+      else {
+        this.modal.date = date;
+        this.modal.period = period;
+      }
     },
     update(date, period, choice) {
       // update choice data for that period
       this.modal.date = date;
       this.modal.period = period;
       this.modal.choice = choice;
-      console.log(choice);
 
       if (choice.method != 'zoom' && choice.method) {
         this.modal.choice.otherMethod = choice.method;
@@ -277,7 +297,14 @@ export default {
     },
     remove() {
       deleteChoice(this.modal.choice.id).then((data) => {
-        console.log(data);
+        if (data.status == 200) {
+          this.$refs.modal.active = false;
+          location.reload();
+        }
+      }).catch((err) => {
+        if (error.response)
+          alert(err.response.data);
+        else alert(err.message);
       })
     },
     submit() {
@@ -291,11 +318,16 @@ export default {
         }, this.modal.choice.id).then((data) => {
           if (data.status == 200) {
             this.$refs.modal.active = false;
+            location.reload();
           }
         }).catch((err) => {
-          console.log(err);
+          if (error.response)
+            alert(err.response.data);
+          else alert(err.message);
         }).finally(() => {
           this.modal.choice = {
+            id: 0,
+            subject: '',
             method: 'zoom',
             link: '',
             streamId: '',
@@ -306,27 +338,47 @@ export default {
       }
       else {
         submitChoice({
-          event_id: selected_event.id,
+          event_id: this.selected_event.id,
           user_id: this.user.id,
+          subject_id: this.availableSubject.length == 1 ? 
+                      this.availableSubject[0].id 
+                      : this.modal.choice.subject_id,
+          period_id: this.modal.period.id,
+          date: moment(this.modal.date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+          class_id: this.selected_class
+        }).then((data) => {
+          if (data.status == 200) {
+            this.$refs.modal.active = false;
+            location.reload();
+          }
+        }).catch((err) => {
+          if (error.response)
+            alert(err.response.data);
+          else alert(err.message);
         })
       }
     },
+    onAfterSlideChange(index) {
+      this.setIndex(index);
+    }
   },
   computed: {
     ...mapState({ 
       lang: 'lang', 
-      user: 'user' 
+      user: 'user',
+      home: 'home'
     }),
   },
   watch: {
     selected_class(id) {
       this.availableSubject = this.user.class_subject.filter(el => el.class_id == id)
         .map(el => this.subjectArr.filter(elem => elem.id == el.subject_id)[0]);
-      console.log(this.availableSubject);
+      this.setClass(id);
     },
     selected_event(event) {
       this.start_date = event.start_date;
       this.diff_days = moment(event.end_date).diff(moment(event.start_date), 'days') + 1;
+      this.setEvent(event);
     }
   },
   filters: {

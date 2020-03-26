@@ -20,7 +20,7 @@ export default {
       classSelect: 'Please select a class',
       event: 'Week',
       eventSelect: 'Please select an event',
-      eventEffect: 'Period for class selection'
+      eventEffect: 'Period for class selection',
     },
     modal: {
       date: 'Date',
@@ -32,7 +32,13 @@ export default {
       initSubmit: 'Confirm select',
       confirmDelete: 'Confirm deletion?',
       confirm: 'Confirm',
-      delete: 'Delete selection'
+      delete: 'Delete selection',
+      subject: 'Subject',
+      subjectSelect: 'Please select subject',
+      link: 'Link',
+      streamId: 'Stream Id',
+      streamPassword: 'Stream Password',
+      description: 'Description'
     },
     timetable: {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -62,7 +68,7 @@ export default {
       classSelect: '请选择班级',
       event: '上课周',
       eventSelect: '请选择网上授课学期',
-      eventEffect: '有效选课期'
+      eventEffect: '有效选课期',
     },
     modal: {
       date: '日期',
@@ -74,7 +80,13 @@ export default {
       initSubmit: '确认选择',
       confirmDelete: '确认删除?',
       confirm: '确认',
-      delete: '删除选项'
+      delete: '删除选项',
+      subject: '科目',
+      subjectSelect: '请选择科目',
+      link: '',
+      streamId: '',
+      streamPassword: '',
+      description: ''
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -116,7 +128,13 @@ export default {
       initSubmit: 'Sahkan pilihan',
       confirmDelete: 'Pastikan padam?',
       confirm: 'Sahkan',
-      delete: 'Padam pilihan'
+      delete: 'Padam pilihan',
+      subject: '',
+      subjectSelect: '',
+      link: '',
+      streamId: '',
+      streamPassword: '',
+      description: ''
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],

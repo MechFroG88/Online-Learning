@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    lang: '',
+    lang: 'cn',
     user: {
       id: 0,
       username: "",
@@ -15,6 +15,13 @@ export default new Vuex.Store({
       type: null,
       class_subject: []
     },
+    home: {
+      event: {
+        id: 0
+      },
+      class: 0,
+      index: 0,
+    }
   },
   mutations: {
     SET_LANG(state, lang) {
@@ -31,6 +38,15 @@ export default new Vuex.Store({
         type: null,
         class_subject: []
       };
+    },
+    SET_CLASS(state, classs) {
+      state.home.class = classs;
+    },
+    SET_EVENT(state, event) {
+      state.home.event = event;
+    },
+    SET_INDEX(state, index) {
+      state.home.index = index;
     }
   },
   actions: {
