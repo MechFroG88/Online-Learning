@@ -5,8 +5,16 @@ $primary-color: #1EAEDB;
 $primary-hover-color: #0FA0CE;
 
 @import 'views/login.scss';
+@import 'views/homepage.scss';
 
+@import 'components/modal.scss';
 @import 'components/navbar.scss';
+@import 'components/timetable.scss';
+
+body {
+  padding: 0;
+  margin: 0;
+}
 
 ::-webkit-scrollbar {
   width: .8rem;

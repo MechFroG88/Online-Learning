@@ -1,0 +1,52 @@
+#_timetable {
+  .period-cell {
+    min-height: 7rem;
+    display: flex;
+    justify-content: space-between;
+    .time {
+      flex: 1;
+      position: relative;
+      span {
+        position: absolute;
+        transform: translateY(-50%);
+      }
+    }
+    .info {
+      flex: 5;
+      border-top: solid 1px #ddd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: inherit;
+
+      .occupied, .empty {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 0;
+      }
+      .edit {
+        font-size: 1.2rem;
+        height: 3rem;
+        line-height: 3rem;
+        padding: 0 2rem;
+      }
+    }
+
+    &:last-of-type {
+      min-height: inherit;
+    }
+
+    &.filler {
+      .info {
+        font-weight: 500;
+        background-color: rgba(#c0c5d3, .3);
+      }
+    }
+  }
+}

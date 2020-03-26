@@ -1,0 +1,53 @@
+#_homepage {
+  .class-select-group {
+    margin-bottom: 2rem;
+  }
+
+  .slide {
+    background-color: #fcfcfc;
+    border: solid 1px #eee;
+    padding: 1.5rem;
+    transition: filter 500ms;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.2);
+    height: 60vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: .5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #cfcfcf;
+    }
+
+    .slide-container {
+      @media screen and (min-width: 550px) {
+        padding: 0 1rem;
+      }
+      .title {
+        text-align: center;
+      }
+      .timetable {
+        margin-top: 3rem;
+      }
+    }
+  }
+
+  #_modal {
+    .modal-body {
+      padding: 1rem;
+      .time {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+        @media screen and (min-width: 550px) {
+          flex-direction: row;
+        }
+        .label {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
