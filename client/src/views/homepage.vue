@@ -82,7 +82,7 @@
           <div class="label columns three">
             {{ $t('modal.date') }}:
           </div>
-          <div class="columns eight">
+          <div class="columns nine">
             {{ today = modal.date }} ({{ getDay(today) }})
           </div>
         </h5>
@@ -90,7 +90,7 @@
           <div class="label columns three">
             {{ $t('modal.time') }}:
           </div>
-          <div class="columns eight">
+          <div class="columns nine">
             {{ modal.period.start_time }} - {{ modal.period.end_time }}
           </div>
         </h5>
