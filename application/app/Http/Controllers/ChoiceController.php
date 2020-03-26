@@ -149,8 +149,8 @@ class ChoiceController extends Controller
 
         $class_user_ids = DB::table('class_user')->where('class_id',$data['class_id'])->select('id')->get();
         $ids = [];
-        foreach($class_user_ids as $id){
-            array_push($ids,$id->id);
+        foreach($class_user_ids as $id_){
+            array_push($ids,$id_->id);
         }
 
         if (DB::table('choices')->whereIn('class_user_id',$ids)
