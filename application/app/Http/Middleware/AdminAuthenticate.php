@@ -5,12 +5,12 @@ use Illuminate\Support\Facades\Auth;
 
 use Closure;
 
-class Authenticate 
+class AdminAuthenticate
 {
 
     public function handle($request, Closure $next)
     {
-        if(Auth::check()){
+        if(Auth::check() && Auth::user()->type == 0){
             return $next($request);
         }
         return response("Unauthorized",401);
