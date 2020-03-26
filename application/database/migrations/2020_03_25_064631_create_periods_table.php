@@ -15,10 +15,8 @@ class CreatePeriodsTable extends Migration
     {
         Schema::create('periods', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('event_id');
             $table->time('start_time');
             $table->time('end_time');
-            $table->index('event_id');
             $table->softDeletes();
         });
     }
