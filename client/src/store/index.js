@@ -9,25 +9,28 @@ export default new Vuex.Store({
   state: {
     lang: '',
     user: {
-      id: 1,
-      username: "T00123",
-      cn_name: "米莱",
-      type: 1,
-      class_subject: [
-        {
-          class: 1,
-          subject: 1
-        },
-        {
-          class: 2,
-          subject: 1
-        }
-      ]
+      id: 0,
+      username: "",
+      cn_name: "",
+      type: null,
+      class_subject: []
     },
   },
   mutations: {
     SET_LANG(state, lang) {
       state.lang = lang;
+    },
+    SET_USER(state, user) {
+      state.user = user;
+    },
+    RESET_USER(state) {
+      state.user = {
+        id: 0,
+        username: "",
+        cn_name: "",
+        type: null,
+        class_subject: []
+      };
     }
   },
   actions: {

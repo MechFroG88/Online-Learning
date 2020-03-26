@@ -3,7 +3,7 @@
   :class="{ 'active': active }">
     <div class="modal-container">
       <span class="close" @click="active = false;">&times;</span>
-      <slot name="body"></slot>
+      <slot></slot>
     </div>
     <a class="modal-overlay" @click="active = false"></a>
   </div>

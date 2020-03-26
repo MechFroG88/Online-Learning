@@ -23,7 +23,7 @@ export function editClass(data, classId) {
   })
 }
 
-export function editClass(classId) {
+export function deleteClass(classId) {
   return request({
     method: 'DELETE',
     url: `/class/${classId}`

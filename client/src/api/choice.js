@@ -1,5 +1,12 @@
 import request from './request';
 
+export function getAllChoices() {
+  return request({
+    method: 'GET',
+    url: '/choice'
+  })
+}
+
 export function submitChoice(data) {
   return request({
     method: 'POST',
@@ -8,7 +15,7 @@ export function submitChoice(data) {
   })
 }
 
-export function userChoice() {
+export function getUserChoice() {
   return request({
     method: 'GET',
     url: '/choice/user'
@@ -25,7 +32,7 @@ export function editChoice(data, choiceId) {
 
 export function deleteChoice(choiceId) {
   return request({
-    method: 'POST',
+    method: 'DELETE',
     url: `/choice/${choiceId}`
   })
 }

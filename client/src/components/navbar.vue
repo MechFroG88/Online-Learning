@@ -10,7 +10,7 @@
           <div>
             <strong>
               <div v-if="user.id">
-                {{ $t('header.loginStatus') }} {{user.cn_name}}
+                {{ $t('header.loginStatus') }} {{lang == 'cn' ? user.cn_name : user.en_name}}
               </div>
               <div v-else>
                 {{ $t('header.noLogin') }}

@@ -26,16 +26,17 @@
     position: absolute;
     top: 50vh;
     left: 50vw;
-    // margin: 50vh auto;
     padding: 3rem;
     transform: translate(-50%, -50%);
     border: 1px solid #ccc;
     border-radius: .3rem;
     box-shadow: 1px 2px 12px 0 rgba(0,0,0,0.1);
     width: 40%;
-    min-width: 320px;
-    min-height: 400px;
+    min-width: 250px;
+    max-width: 95vw;
+    max-height: 80vh;
     z-index: 100;
+    overflow: inherit;
 
     .close {
       color: #aaa;

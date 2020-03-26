@@ -2,13 +2,15 @@
   <div id="_login">
     <form @submit.prevent="login">
       <div class="username-form-group">
-        <label for="username-label">{{ $t('login.fields.username') }}</label>
-        <input class="u-full-width username-input" type="text" id="username-label"
+        <label for="username">{{ $t('login.fields.username') }}</label>
+        <input class="u-full-width username-input" type="text" id="username"
+        autocomplete="username"
         v-model="user.username">
       </div>
       <div class="password-form-group">
-        <label for="password-label">{{ $t('login.fields.password') }}</label>
-        <input class="u-full-width password-input" type="password" id="password-label"
+        <label for="password">{{ $t('login.fields.password') }}</label>
+        <input class="u-full-width password-input" type="password" id="password"
+        autocomplete="current-password"
         v-model="user.password">
       </div>
       <div class="submit-button">
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import { userLogin } from '@/api/users';
 export default {
   data: () => ({
@@ -28,9 +31,15 @@ export default {
     }
   }),
   methods: {
+    ...mapMutations({
+      setUser: 'SET_USER'
+    }),
     login() {
-      userLogin(this.user).then(({ data }) => {
-        console.log(data);
+      userLogin(this.user).then((data) => {
+        if (data.status == 200) {
+          this.setUser(data.data);
+          if (data.data.type == 1) this.$router.push('/home');
+        }
       })
     },
   }
