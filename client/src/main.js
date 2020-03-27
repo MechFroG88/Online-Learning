@@ -5,6 +5,7 @@ import store from './store'
 
 // skeleton.css and styles
 import '@/assets/scss/skeleton.css';
+import '@/assets/scss/normalize.css';
 import '@/assets/scss/style.scss';
 
 // feather icons

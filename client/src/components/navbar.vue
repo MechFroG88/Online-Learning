@@ -61,9 +61,9 @@ export default {
       if (this.$route.name != 'login') 
         userLogout().then((data) => {
           if (data.status == 200) {
+            this.$router.push('/');
             this.resetHome();
             this.resetUser();
-            this.$router.push('/');
           }
         })
     }
