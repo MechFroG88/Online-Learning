@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import { userLogin } from '@/api/users';
 export default {
   data: () => ({
@@ -30,6 +30,12 @@ export default {
       password: ''
     }
   }),
+  mounted() {
+    if (this.local_user.id) {
+      if (this.local_user.type == 1) this.$router.push('/home');
+      else this.$router.push('/admin');
+    }
+  },
   methods: {
     ...mapMutations({
       setUser: 'SET_USER'
@@ -46,8 +52,10 @@ export default {
       }).then((data) => {
         if (data.status == 200) {
           this.setUser(data.data);
-          if (data.data.type == 1) this.$router.push('/home');
-          else this.$router.push('/admin');
+          this.$nextTick(() => {
+            if (data.data.type == 1) this.$router.push('/home');
+            else this.$router.push('/admin');
+          })
         }
       }).catch((err) => {
         if (err.response)
@@ -55,6 +63,11 @@ export default {
         else alert(err.message);
       })
     },
+  },
+  computed: {
+    ...mapState({
+      local_user: 'user'
+    })
   }
 }
 </script>

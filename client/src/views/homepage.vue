@@ -47,7 +47,7 @@
     </h5>
 
     <carousel-3d v-if="selected_class && selected_event.id" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
-      @after-slide-change="onAfterSlideChange"
+      @after-slide-change="onAfterSlideChange" :loop="false" :minSwipeDistance="2000"
       :controls-width="30" :controls-height="60" :controls-visible="true" :clickable="false"
       :height="600" :key="selected_class" 
       :disable3d="true" :space="400">
