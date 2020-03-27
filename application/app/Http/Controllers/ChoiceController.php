@@ -156,7 +156,8 @@ class ChoiceController extends Controller
         
         if (Auth::user()->type != 0){
             if (Auth::id() != $data['user_id']) return "Unauthorized";
-            if ($now > $event->end_pick_datetime || $now < $event->start_pick_datetime) return "Date not in range";
+            if ($now > $event->end_pick_datetime) return "The selection period has over";
+            if ($now < $event->start_pick_datetime) return "The selection period has not started";
         }
 
         $id = DB::table('class_user')->where([
