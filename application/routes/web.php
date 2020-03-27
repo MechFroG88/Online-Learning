@@ -84,3 +84,4 @@ Route::middleware('auth')->post('choice/{id}','ChoiceController@edit');
 Route::middleware('auth')->delete('choice/{id}','ChoiceController@delete');
 
 
+Route::middleware('admin')->get('export', 'ExportController@export')->name('export');
