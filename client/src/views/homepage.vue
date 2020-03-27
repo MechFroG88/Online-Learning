@@ -373,7 +373,7 @@ export default {
           event_id: this.selected_event.id,
           user_id: this.user.id,
           subject_id: this.availableSubject.length == 1 ? 
-                      this.availableSubject[0].id 
+                      this.availableSubject[0].subject_id 
                       : this.modal.choice.subject_id,
           period_id: this.modal.period.id,
           date: moment(this.modal.date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
