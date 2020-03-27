@@ -12,7 +12,7 @@ export default {
       title: 'Login',
       fields: {
         username: 'Teacher code',
-        password: 'Password'
+        password: 'IC'
       }
     },
     home: {
@@ -60,7 +60,7 @@ export default {
       title: '登入',
       fields: {
         username: '教师编号',
-        password: '密码'
+        password: 'IC身份证号码'
       }
     },
     home: {
@@ -107,27 +107,27 @@ export default {
     login: {
       title: 'Log masuk',
       fields: {
-        username: 'No. pendaftaran',
-        password: 'Kata laluan'
+        username: 'ID Guru',
+        password: 'IC'
       }
     },
     home: {
       class: 'Kelas',
       classSelect: 'Sila pilih kelas',
       event: 'Minggu',
-      eventSelect: '',
-      eventEffect: '',
+      eventSelect: 'Sila pilih minggu',
+      eventEffect: 'Tempoh pemilihan jadual'
     },
     modal: {
       date: 'Tarikh',
       time: 'Masa',
-      initHint: '',
+      initHint: 'Oleh kerana cikgu mengajar pelbagai mata pelajaran dalam kelas ini, cikgu patut memilih subjek yang sesuai untuk tempoh masa ini dan mengesahkan pilihan cikgu di bawah.',
       method: 'Platform Pembelajaran',
       otherMethod: 'Lain-lain, sila nyatakan',
-      submit: '',
-      initSubmit: '',
-      confirmDelete: '',
-      confirm: 'Pasti',
+      submit: 'Serahkan',
+      initSubmit: 'Sahkan pilihan',
+      confirmDelete: 'Pastikan padam?',
+      confirm: 'Sahkan',
       delete: 'Padam pilihan',
       subject: '',
       subjectSelect: '',
@@ -138,8 +138,8 @@ export default {
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
-      empty: '',
-      select: '',
+      empty: 'Waktu Rehat',
+      select: 'Pilih',
       modify: 'Ubah informasi',
     }
   }
