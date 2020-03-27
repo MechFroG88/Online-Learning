@@ -54,13 +54,14 @@ export default {
   methods: {
     ...mapMutations({ 
       setLang: 'SET_LANG',
-      resetUser: 'RESET_USER'
+      resetUser: 'RESET_USER',
+      resetHome: 'RESET_HOME'
     }),
     logout() {
       if (this.$route.name != 'login') 
         userLogout().then((data) => {
           if (data.status == 200) {
-            localStorage.clear();
+            this.resetHome();
             this.resetUser();
             this.$router.push('/');
           }

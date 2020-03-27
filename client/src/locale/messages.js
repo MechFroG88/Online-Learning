@@ -48,13 +48,22 @@ export default {
       start_date: 'Start of class week',
       end_date: 'End of class week',
       start_pick_datetime: 'Start of period for class selection',
-      end_pick_datetime: 'End of period for class selection'
+      end_pick_datetime: 'End of period for class selection',
+      username: 'Username',
+      password: 'Password',
+      user_type: 'User type',
+      user_typeSelect: 'Please select user type',
+      passwordHint: 'Leave blank if you wish to not change password'
     },
     timetable: {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       empty: 'Empty Period',
       select: 'Select',
       modify: 'Modify',
+    },
+    table: {
+      teacher: 'Teacher',
+      admin: 'Admin'
     }
   },
   cn: {
@@ -106,13 +115,22 @@ export default {
       start_date: '',
       end_date: '',
       start_pick_datetime: '',
-      end_pick_datetime: ''
+      end_pick_datetime: '',
+      username: '',
+      password: '',
+      user_type: '',
+      user_typeSelect: '',
+      passwordHint: ''
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
       empty: '非上课时间',
       select: '选择',
       modify: '修改',
+    },
+    table: {
+      teacher: '教师',
+      admin: '管理员'
     }
   },
   bm: {
@@ -164,13 +182,22 @@ export default {
       start_date: '',
       end_date: '',
       start_pick_datetime: '',
-      end_pick_datetime: ''
+      end_pick_datetime: '',
+      username: '',
+      password: '',
+      user_type: '',
+      user_typeSelect: '',
+      passwordHint: ''
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
       empty: 'Waktu Rehat',
       select: 'Pilih',
       modify: 'Ubah informasi',
+    },
+    table: {
+      teacher: 'Guru',
+      admin: ''
     }
   }
 }
