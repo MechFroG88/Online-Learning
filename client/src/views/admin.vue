@@ -2,15 +2,15 @@
   <div id="_admin">
     <nav>
       <h5>
-        Navigate <i class="icon-location" style="margin-left: 1rem;"></i>
+        {{ $t('admin.navigate') }} <i class="icon-location" style="margin-left: 1rem;"></i>
       </h5>
       <ul>
-        <li><a href="#user">User</a></li>
-        <li><a href="#event">Event</a></li>
-        <li><a href="#period">Periods</a></li>
-        <li><a href="#class">Class</a></li>
-        <li><a href="#subject">Subjects</a></li>
-        <li><a href="#day">Day</a></li>
+        <li><a href="#user">{{ $t('admin.users') }}</a></li>
+        <li><a href="#event">{{ $t('admin.events') }}</a></li>
+        <li><a href="#period">{{ $t('admin.periods') }}</a></li>
+        <li><a href="#class">{{ $t('admin.class') }}</a></li>
+        <li><a href="#subject">{{ $t('admin.subjects') }}</a></li>
+        <li><a href="#day">{{ $t('admin.day') }}</a></li>
       </ul>
     </nav>
     <div class="dashboard">
@@ -24,8 +24,8 @@
         hoverable
         title>
           <template slot="title">
-            Users
-            <button class="button-primary" @click="openUser()">Add</button>
+            {{ $t('admin.users') }}
+            <button class="button-primary" @click="openUser()">{{ $t('table.add') }}</button>
           </template>
           <template slot="type" slot-scope="{ data }">
             {{ data.type == 1 ?  $t('table.teacher') : $t('table.admin') }}
@@ -55,8 +55,8 @@
         hoverable
         title>
           <template slot="title">
-            Events
-            <button class="button-primary" @click="openEvent()">Add</button>
+            {{ $t('admin.events') }}
+            <button class="button-primary" @click="openEvent()">{{ $t('table.add') }}</button>
           </template>
           <template slot="action" slot-scope="{ data }">
             <button class="button button-primary" @click="openEvent(data, false)">更改</button>
@@ -73,8 +73,8 @@
         hoverable
         title>
           <template slot="title">
-            Periods
-            <button class="button-primary" @click="openPeriod()">Add</button>
+            {{ $t('admin.periods') }}
+            <button class="button-primary" @click="openPeriod()">{{ $t('table.add') }}</button>
           </template>
           <template slot="action" slot-scope="{ data }">
             <button class="button button-error" @click="confirmDelete(data.id, 'period')">删除</button>
@@ -90,8 +90,8 @@
         hoverable
         title>
           <template slot="title">
-            Class
-            <button class="button-primary" @click="openClass()">Add</button>
+            {{ $t('admin.class') }}
+            <button class="button-primary" @click="openClass()">{{ $t('table.add') }}</button>
           </template>
           <template slot="action" slot-scope="{ data }">
             <button class="button button-primary" @click="openClass(data, false)">更改</button>
@@ -109,8 +109,8 @@
         hoverable
         title>
           <template slot="title">
-            Subjects
-            <button class="button-primary" @click="openSubject()">Add</button>
+            {{ $t('admin.subjects') }}
+            <button class="button-primary" @click="openSubject()">{{ $t('table.add') }}</button>
           </template>
           <template slot="action" slot-scope="{ data }">
             <button class="button button-primary" @click="openSubject(data, false)">更改</button>
@@ -127,7 +127,7 @@
         hoverable
         title>
           <template slot="title">
-            Period count (per day)
+            {{ $t('admin.day') }}
           </template>
           <template slot="id" slot-scope="{ data }">
             {{ $t('timetable.days')[data.id%7] }}
