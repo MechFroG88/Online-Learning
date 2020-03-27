@@ -26,9 +26,10 @@ Route::post('hash','UserController@hash');
 Route::post('user/login','UserController@login');
 Route::middleware('auth')->post('user/logout','UserController@logout');
 Route::middleware('auth')->get('user','UserController@get_current');
-Route::middleware('admin')->post('users','UserController@get_all');
+Route::middleware('admin')->get('users','UserController@get_all');
 Route::middleware('auth')->post('user/{id}','UserController@edit');
-Route::middleware('admin')->delete('user{id}','UserController@delete');
+Route::middleware('admin')->delete('user/{id}','UserController@delete');
+Route::middleware('admin')->post('user','UserController@create');
 
 /**
  * Event Route

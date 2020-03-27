@@ -35,19 +35,19 @@ class EventController extends Controller
     {
         $validator = Validator::make($data->all(),$this->rules);
         if ($validator->fails()) return $this->fail($validator);
-        User::where('id', $id)
+        Event::where('id', $id)
             ->update([
                 "start_date" => $data->start_date,
                 "end_date" => $data->end_date,
-                "start_pick_date" => $data->start_pick_date,
-                "end_pick_date" => $data->end_pick_date,
+                "start_pick_datetime" => $data->start_pick_datetime,
+                "end_pick_datetime" => $data->end_pick_datetime,
             ]);
         return $this->ok();
     }
 
     public function delete(Request $data,$id)
     {
-        User::where('id', $id)->delete();
+        Event::where('id', $id)->delete();
         return $this->ok();
     }
 }

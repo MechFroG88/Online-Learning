@@ -16,9 +16,17 @@ class UserController extends Controller
         "username" => "required|unique:users",
         "cn_name"  => ["required","regex:/[\x{4e00}-\x{9fa5}]+/u"],
         "en_name"  => "required",
-        "password" => "required",
+        "password" => "",
         "type"     => "required|integer|between:0,1",
     ];
+
+    private $edit_rules = [
+        "cn_name"  => ["required","regex:/[\x{4e00}-\x{9fa5}]+/u"],
+        "en_name"  => "required",
+        "password" => "",
+        "type"     => "required|integer|between:0,1",
+    ];
+
 
     private $login_rules = [
         "username" => "required",
@@ -64,8 +72,16 @@ class UserController extends Controller
 
     public function get_all()
     {
-        $data = User::all();
-        return response($data->toJson(),200);
+        $users = User::all();
+        $data = [];
+        foreach($users as $user){
+            $user = json_decode($user->toJson());
+            $user->class_subject = DB::table('class_user')->where('user_id',$user->id)
+                                                          ->select('class_id','subject_id')
+                                                          ->get();
+            array_push($data,$user);
+        }
+        return response($data,200);
     }
 
     public function get_current()
@@ -80,14 +96,17 @@ class UserController extends Controller
 
     public function edit(Request $data,$id)
     {
-        $validator = Validator::make($data->all(),$this->rules);
+        $validator = Validator::make($data->all(),$this->edit_rules);
         if ($validator->fails()) return $this->fail($validator);
         if (Auth::user()->type != 0 && Auth::id() != $id) return response("Unauthorized",400);
-        $data->merge(['password' => Hash::make($data->ic)]); 
+        if (isset($data->password) && $data->password != ""){
+            $data->merge(['password' => Hash::make($data->password)]);
+        }
+        else $data->password = User::where('id', $id)->select('password')->first()->password;
         User::where('id', $id)
             ->update([
-                "username" => $data->username,
                 "cn_name" => $data->cn_name,
+                "en_name" => $data->en_name,
                 "password" => $data->password,
                 "type" => $data->type,
             ]);

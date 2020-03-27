@@ -86,8 +86,14 @@ class ChoiceController extends Controller
 
     public function get_related()
     {
-        $class_user_ids = DB::table('class_user')->where('user_id',Auth::id())->select('id')->get();
+        $class_user_ids = DB::table('class_user')->where('user_id',Auth::id())->select('class_id')->get();
+        $class_ids = [];
+        foreach($class_user_ids as $id){
+            array_push($class_ids,$id->class_id);
+        }
+
         $ids = [];
+        $class_user_ids = DB::table('class_user')->whereIn('class_id',$class_ids)->select('id')->get();
         foreach($class_user_ids as $id){
             array_push($ids,$id->id);
         }
