@@ -43,8 +43,12 @@ export default {
       en_name: 'English name',
       day: 'Period limit per day',
       week: 'Period limit per week',
-      start_time: '',
-      end_time: ''
+      start_time: 'Period start time',
+      end_time: 'Period end time',
+      start_date: 'Start of class week',
+      end_date: 'End of class week',
+      start_pick_datetime: 'Start of period for class selection',
+      end_pick_datetime: 'End of period for class selection'
     },
     timetable: {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -98,7 +102,11 @@ export default {
       day: '',
       week: '',
       start_time: '',
-      end_time: ''
+      end_time: '',
+      start_date: '',
+      end_date: '',
+      start_pick_datetime: '',
+      end_pick_datetime: ''
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -152,7 +160,11 @@ export default {
       day: '',
       week: '',
       start_time: '',
-      end_time: ''
+      end_time: '',
+      start_date: '',
+      end_date: '',
+      start_pick_datetime: '',
+      end_pick_datetime: ''
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
