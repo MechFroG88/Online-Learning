@@ -696,10 +696,9 @@ export default {
           deleteUser(this.delete.id).then((data) => {
             if (data.status == 200) {
               this.$refs.confirmModal.active = false;
-              getAllClass().then((data) => {
+              getUsers().then((data) => {
                 if (data.status == 200) {
-                  this.classArr = data.data;
-                  this.buildClassRel();
+                  this.userArr = data.data;
                   this.$nextTick(this.$forceUpdate);
                 }
               })
@@ -746,9 +745,10 @@ export default {
           deleteClass(this.delete.id).then((data) => {
             if (data.status == 200) {
               this.$refs.confirmModal.active = false;
-              getUsers().then((data) => {
+              getAllClass().then((data) => {
                 if (data.status == 200) {
-                  this.userArr = data.data;
+                  this.classArr = data.data;
+                  this.buildClassRel();
                   this.$nextTick(this.$forceUpdate);
                 }
               })
