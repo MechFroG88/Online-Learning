@@ -48,8 +48,22 @@ class ChoiceController extends Controller
             "user_id" => $data['user_id'],
             "subject_id" => $data['subject_id']
         ])->first()->id;
-        Choice::create($data);
-        return $this->ok();
+        $choice = Choice::create($data);
+        return $this->get($choice->id);
+    }
+
+    public function get($choice_id)
+    {
+        $choice = Choice::find($choice_id);
+        $choice = json_decode($choice->toJson());
+        $choice->cn_name = $choice->class_user->user->cn_name;
+        $choice->en_name = $choice->class_user->user->en_name;
+        $choice->class_id = $choice->class_user->class_id;
+        $choice->user_id = $choice->class_user->user_id;
+        $choice->subject_id = $choice->class_user->subject_id;
+        unset($choice->class_user_id);
+        unset($choice->class_user);
+        return response((array)$choice,200);
     }
 
     public function get_all()
@@ -154,6 +168,7 @@ class ChoiceController extends Controller
         }
 
         if (DB::table('choices')->whereIn('class_user_id',$ids)
+        ->whereDate('date',$date)
         ->where([
             "event_id" => $data['event_id'],
             "period_id" => $data['period_id']
