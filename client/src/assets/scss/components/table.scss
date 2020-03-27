@@ -1,19 +1,23 @@
 #_table {
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: auto;
   table {
     background-color: #fff;
+    // box-shadow: 0 1.5px 6px 3px rgba(#ccc, .35);
     border-style: hidden;
     border-radius: .35rem;
-    box-shadow: 0 1.5px 6px 3px rgba(#ccc, .35);
     border-collapse: collapse;
+    margin: 0;
 
     .title {
       td {
-        padding: .8rem 1.2rem;
+        padding: 1rem 2rem;
         .title_name {
           float: left;
-          font-size: 1.2rem;
+          font-size: 2.4rem;
           @media screen and (max-width: 1280px) {
-            font-size: 1rem;
+            font-size: 2rem;
           }
         }
         .input-group {
@@ -24,14 +28,14 @@
             @media screen and (max-width: 1280px) {
               padding-right: 0;
               &::placeholder {
-                font-size: .5rem;
+                font-size: 1rem;
               }
             }
             &::placeholder {
               color: $text-gray;
               font-size: $font-size-sm;
               @media screen and (max-width: 1440px) {
-                font-size: .6rem;
+                font-size: 1.2rem;
               }
             }
           }
@@ -50,15 +54,16 @@
         border: none;
       }
       td {
-        padding: .4rem 0;
+        padding: .8rem .5rem;
         text-align: left;
         font-size: $font-size-lg;
-        max-width: 4.8rem;
+        max-width: 10rem;
+        min-width: 5rem;
         @media screen and (max-width: 1440px) {
-          font-size: .75rem;
+          font-size: 1.5rem;
         }
         &:first-child {
-          padding-left: 1.2rem;
+          padding-left: 2rem;
         }
       }
     }
@@ -67,12 +72,15 @@
       height: 2.5rem;
       td {
         &:first-child {
-          padding: 0 1.2rem;
+          padding-left: 2rem;
+        }
+        &:last-child {
+          padding-right: 2rem;
         }
         @media screen and (max-width: 1024px) {
           font-size: $font-size-sm;
         }
-        font-size: $font-size-lg;
+        font-size: $font-size;
         font-weight: 300;
         color: lighten($text-gray, 8%);
       }

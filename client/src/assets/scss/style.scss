@@ -15,10 +15,15 @@ $font-size-lg: 1.8rem !default;
 @import 'views/login.scss';
 @import 'views/homepage.scss';
 
+@import 'components/loading.scss';
 @import 'components/modal.scss';
 @import 'components/navbar.scss';
 @import 'components/table.scss';
 @import 'components/timetable.scss';
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   padding: 0;
@@ -60,5 +65,18 @@ body {
   &:hover, &:focus, &:focus-within {
     background-color: $error-color;
     border-color: $error-color;
+  }
+}
+
+.has-icon-right {
+  position: relative;
+  input {
+    margin: 0;
+  }
+  .form-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }

@@ -40,7 +40,8 @@ export function userLogout() {
 export function editUser(data, userId) {
   return request({
     method: 'POST',
-    url: `/user/${userId}`
+    url: `/user/${userId}`,
+    data
   })
 }
 

@@ -5,7 +5,6 @@
       :class="{
       'striped': striped,
       'hoverable': hoverable,
-      'loading loading-lg': is_loading
     }">
       <tr class="title" v-if="title || navbar" :class="navbar ? 'navbar_title' : ''">
         <td align="justify" :colspan="columns.length">
@@ -15,7 +14,7 @@
           <div class="input-group input-inline has-icon-right" v-if="navbar">
             <input class="form-input" type="text" 
             :placeholder="navbar" v-model="search.message" @keyup="searchData">
-            <i class="form-icon icon icon-search"></i>
+            <i class="form-icon icon-search"></i>
           </div>
         </td>
       </tr>
@@ -25,7 +24,15 @@
           v-for="column in columns"
           :key="column.label"
           :class="`col_${column.field}`"
-        >{{column.label}}</td>
+          :style="[column.hide ? 'display: none' : '']">
+          {{ lang == 'cn' ? column.cn_label : column.en_label }}
+        </td>
+      </tr>
+
+      <tr v-if="is_loading">
+        <td align="justify" :colspan="columns.length || 1">
+          <div class="loading"></div>
+        </td>
       </tr>
 
       <tr v-if="tableData.length == 0 && !is_loading && emptyMessage">
@@ -42,7 +49,8 @@
 
       
       <tr v-for="(row, row_num) in displayData" :key="row_num" :class="`row row_${row_num}`">
-        <td v-for="column in columns" :key="column.field" :class="`col_${column.field}`">
+        <td v-for="column in columns" :key="column.field" :class="`col_${column.field}`"
+        :style="[column.hide ? 'display: none' : '']">
           <slot
             :name="column.field"
             :data="row">
@@ -57,6 +65,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   props: {
     columns: Array,
@@ -88,19 +97,21 @@ export default {
       if (this.search.message == '') {
         this.displayData = this.originalData;
       } else {
-        var searchColumns = this.search.columns;
-        var searchMessage = this.search.message;
-        this.displayData = this.originalData.filter((row) => {
-          let found = false;
-          Object.keys(row).forEach((k) => {
-            if(searchColumns.indexOf(k) > -1) {
-              if(JSON.stringify(row[k]).includes(searchMessage)) {
-                found = true;
+        // var searchColumns = this.search.columns;
+        for (let searchColumns of this.search.columns) {
+          var searchMessage = this.search.message;
+          this.displayData = this.originalData.filter((row) => {
+            let found = false;
+            Object.keys(row).forEach((k) => {
+              if(searchColumns.indexOf(k) > -1) {
+                if(JSON.stringify(row[k]).includes(searchMessage)) {
+                  found = true;
+                }
               }
-            }
-          });
-          return found;
-        })
+            });
+            return found;
+          })
+        }
       }
     }
   },
@@ -116,5 +127,10 @@ export default {
         .map(({field}) => field);
     }
   },
+  computed: {
+    ...mapState({
+      lang: 'lang'
+    })
+  }
 };
 </script>

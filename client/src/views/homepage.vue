@@ -302,7 +302,7 @@ export default {
           location.reload();
         }
       }).catch((err) => {
-        if (error.response)
+        if (err.response)
           alert(err.response.data);
         else alert(err.message);
       })
@@ -321,7 +321,7 @@ export default {
             location.reload();
           }
         }).catch((err) => {
-          if (error.response)
+          if (err.response)
             alert(err.response.data);
           else alert(err.message);
         }).finally(() => {
@@ -348,11 +348,10 @@ export default {
           class_id: this.selected_class
         }).then((data) => {
           if (data.status == 200) {
-            this.$refs.modal.active = false;
-            location.reload();
+            this.update(this.modal.date, this.modal.period, data.data);
           }
         }).catch((err) => {
-          if (error.response)
+          if (err.response)
             alert(err.response.data);
           else alert(err.message);
         })

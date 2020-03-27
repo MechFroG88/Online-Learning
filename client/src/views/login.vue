@@ -35,14 +35,22 @@ export default {
       setUser: 'SET_USER'
     }),
     login() {
-      userLogin(this.user).then((data) => {
+      let icArr = this.user.password.split("").filter(el => el != '-');
+      if (/^[0-9]{12}$/.test(icArr.join(''))) {
+        icArr.splice(8, 0, '-');
+        icArr.splice(6, 0, '-');
+      }
+      userLogin({
+        username: this.user.username, 
+        password: icArr.join('')
+      }).then((data) => {
         if (data.status == 200) {
           this.setUser(data.data);
           if (data.data.type == 1) this.$router.push('/home');
           else this.$router.push('/admin');
         }
       }).catch((err) => {
-        if (error.response)
+        if (err.response)
           alert(err.response.data);
         else alert(err.message);
       })

@@ -7,6 +7,9 @@ import store from './store'
 import '@/assets/scss/skeleton.css';
 import '@/assets/scss/style.scss';
 
+// feather icons
+import '@/assets/icons/feather/feather-webfont/feather.css';
+
 // localizations
 import VueI18n from 'vue-i18n';
 import messages from '@/locale/messages.js';
