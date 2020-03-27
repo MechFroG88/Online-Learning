@@ -22,6 +22,10 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: () => import('@/views/admin.vue')
+  },
+  {
+    path: '/*',
+    redirect: { name: 'login' }
   }
 ]
 

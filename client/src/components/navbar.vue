@@ -5,7 +5,10 @@
         <h4>{{ $t('header.title') }}</h4>
       </section>
       <section class="settings dropdown">
-        <button class="button-primary button dropdown-button">{{ $t('header.settings') }}</button>
+        <button class="button-primary button dropdown-button" 
+        style="display: flex; align-items: center;">
+          {{ $t('header.settings') }} <i class="icon-cog" style="margin-left: .6rem;"></i>
+        </button>
         <div class="dropdown-menu">
           <div>
             <strong>
