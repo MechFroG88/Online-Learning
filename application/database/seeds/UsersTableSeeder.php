@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'type' => 0,
             'cn_name' => '教务处',
             'en_name' => 'JIAO WU CHU',
-            'password' => Hash::make('741018-14-5477'),
+            'password' => Hash::make('111111-00-2222'),
         ],
         ]);
     }
