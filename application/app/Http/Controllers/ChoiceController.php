@@ -144,7 +144,7 @@ class ChoiceController extends Controller
         $user = DB::table('users')->where('id',$data['user_id'])->doesntExist();
         $period = DB::table('periods')->where('id',$data['period_id'])->doesntExist();
         $class = DB::table('classes')->where('id',$data['class_id'])->doesntExist();
-        $date = DateTime::createFromFormat('Y-m-d',$data['date']);
+        $date = DateTime::createFromFormat('Y-m-d h:i:s',$data['date'] . " 00:00:00");
         $now = date('Y-m-d H:i:s');
 
         if ($event == null) return "Event does not exist";
