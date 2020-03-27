@@ -97,20 +97,23 @@ export default {
       if (this.search.message == '') {
         this.displayData = this.originalData;
       } else {
-        // var searchColumns = this.search.columns;
+        this.displayData = [];
+        var searchMessage = this.search.message.toLowerCase();
         for (let searchColumns of this.search.columns) {
-          var searchMessage = this.search.message;
-          this.displayData = this.originalData.filter((row) => {
-            let found = false;
-            Object.keys(row).forEach((k) => {
-              if(searchColumns.indexOf(k) > -1) {
-                if(JSON.stringify(row[k]).includes(searchMessage)) {
-                  found = true;
+          this.displayData = [
+            ...this.displayData,
+            ...this.originalData.filter((row) => {
+              let found = false;
+              Object.keys(row).forEach((k) => {
+                if(searchColumns.indexOf(k) > -1) {
+                  if(JSON.stringify(row[k]).toLowerCase().includes(searchMessage)) {
+                    found = true;
+                  }
                 }
-              }
-            });
-            return found;
-          })
+              });
+              return found;
+            })
+          ]
         }
       }
     }

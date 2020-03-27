@@ -1,8 +1,8 @@
 #_table {
   max-height: 80vh;
   overflow-y: scroll;
-  overflow-x: auto;
   table {
+    min-width: 80rem;
     background-color: #fff;
     // box-shadow: 0 1.5px 6px 3px rgba(#ccc, .35);
     border-style: hidden;

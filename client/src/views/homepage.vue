@@ -46,7 +46,7 @@
        {{ selected_event.end_pick_datetime | moment('DD-MM-YYYY, LT') }}
     </h5>
 
-    <carousel-3d v-if="selected_class && selected_event.id" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
+    <carousel-3d v-if="showCarousel && selected_class && selected_event.id" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
       @after-slide-change="onAfterSlideChange" :loop="false" :minSwipeDistance="2000"
       :controls-width="30" :controls-height="60" :controls-visible="true" :clickable="false"
       :height="600" :key="selected_class" 
@@ -200,6 +200,7 @@ export default {
     availableSubject: [],
     start_date: null,
     diff_days: 0,
+    showCarousel: true,
     selected_class: 0,
     selected_event: {
       id: 0
@@ -277,7 +278,18 @@ export default {
       if (this.availableSubject.length == 1) {
         this.submit();
         this.$refs.modal.active = false;
-        location.reload();
+        getUserChoice().then((data) => {
+          if (data.status == 200) {
+            this.showCarousel = false;
+            this.choiceArr = data.data;
+            this.$nextTick(() => {
+              this.showCarousel = true;
+              this.$nextTick(() => {
+                this.$refs.eventCarousel.goSlide(this.home.index);
+              })
+            });
+          }
+        })
       }
       else {
         this.modal.date = date;
@@ -299,7 +311,18 @@ export default {
       deleteChoice(this.modal.choice.id).then((data) => {
         if (data.status == 200) {
           this.$refs.modal.active = false;
-          location.reload();
+          getUserChoice().then((data) => {
+            if (data.status == 200) {
+              this.showCarousel = false;
+              this.choiceArr = data.data;
+              this.$nextTick(() => {
+                this.showCarousel = true;
+                this.$nextTick(() => {
+                  this.$refs.eventCarousel.goSlide(this.home.index);
+                })
+              });
+            }
+          })
         }
       }).catch((err) => {
         if (err.response)
@@ -318,7 +341,18 @@ export default {
         }, this.modal.choice.id).then((data) => {
           if (data.status == 200) {
             this.$refs.modal.active = false;
-            location.reload();
+            getUserChoice().then((data) => {
+              if (data.status == 200) {
+                this.showCarousel = false;
+                this.choiceArr = data.data;
+                this.$nextTick(() => {
+                  this.showCarousel = true;
+                  this.$nextTick(() => {
+                    this.$refs.eventCarousel.goSlide(this.home.index);
+                  })
+                });
+              }
+            })
           }
         }).catch((err) => {
           if (err.response)
@@ -348,6 +382,18 @@ export default {
           class_id: this.selected_class
         }).then((data) => {
           if (data.status == 200) {
+            getUserChoice().then((data) => {
+              if (data.status == 200) {
+                this.showCarousel = false;
+                this.choiceArr = data.data;
+                this.$nextTick(() => {
+                  this.showCarousel = true;
+                  this.$nextTick(() => {
+                    this.$refs.eventCarousel.goSlide(this.home.index);
+                  })
+                })
+              }
+            })
             this.update(this.modal.date, this.modal.period, data.data);
           }
         }).catch((err) => {

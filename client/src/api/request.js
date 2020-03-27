@@ -32,6 +32,7 @@ service.interceptors.response.use(function (response) {
   if (error.response.status == 401 && router.app._route.fullPath != '/') {
     localStorage.clear();
     router.push('/');
+    location.reload();
   }
   return Promise.reject(error);
 });
