@@ -43,8 +43,10 @@ export default {
       en_name: 'English name',
       day: 'Period limit per day',
       week: 'Period limit per week',
-      start_time: '',
-      end_time: '',
+      start_date: 'Start date of school week',
+      end_date: 'End date of school week',
+      start_time: 'Start time',
+      end_time: 'End time',
       start_pick_datetime: 'Start of period for class selection',
       end_pick_datetime: 'End of period for class selection',
       username: 'Username',
@@ -61,7 +63,17 @@ export default {
     },
     table: {
       teacher: 'Teacher',
-      admin: 'Admin'
+      admin: 'Admin',
+      add: 'Add'
+    },
+    admin: {
+      navigate: 'Navigate',
+      users: 'Users',
+      events: 'School week',
+      periods: 'Periods',
+      class: 'Class',
+      subjects: 'Subjects',
+      day: 'No. of period per day'
     }
   },
   cn: {
@@ -108,15 +120,17 @@ export default {
       en_name: '名字（英）',
       day: '每天选课限制',
       week: '每星期选课限制',
-      start_time: '',
-      end_time: '',
-      start_pick_datetime: 'Start of period for class selection',
-      end_pick_datetime: 'End of period for class selection',
-      username: 'Username',
-      password: 'Password',
-      user_type: 'User type',
-      user_typeSelect: 'Please select user type',
-      passwordHint: 'Leave blank if you wish to not change password'
+      start_date: '上课周开始日期',
+      end_date: '上课周结束日期',
+      start_time: '开始时间',
+      end_time: '结束时间',
+      start_pick_datetime: '选课开始日期',
+      end_pick_datetime: '选课结束日期',
+      username: '用户名',
+      password: '密码',
+      user_type: '用户类型',
+      user_typeSelect: '请选择用户类型',
+      passwordHint: '若不要更改密码，请将此处留空'
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -126,7 +140,17 @@ export default {
     },
     table: {
       teacher: '教师',
-      admin: '管理员'
+      admin: '管理员',
+      add: '新增'
+    },
+    admin: {
+      navigate: '导航',
+      users: '用户',
+      events: '上课周',
+      periods: '节次',
+      class: '班级',
+      subjects: '科目',
+      day: '每日节数'
     }
   },
   bm: {
@@ -173,15 +197,17 @@ export default {
       en_name: 'English name',
       day: 'Period limit per day',
       week: 'Period limit per week',
-      start_time: '',
-      end_time: '',
-      start_pick_datetime: '',
-      end_pick_datetime: '',
-      username: '',
-      password: '',
-      user_type: '',
-      user_typeSelect: '',
-      passwordHint: ''
+      start_date: 'Tarikh mula minggu kelas',
+      end_date: 'Tarikh tamat minggu kelas',
+      start_time: 'Masa mula',
+      end_time: 'Masa tamat',
+      start_pick_datetime: 'Masa mula memilih kelas',
+      end_pick_datetime: 'Masa tamat memilih kelas',
+      username: 'Username',
+      password: 'Kata laluan',
+      user_type: 'Jenis pengguna',
+      user_typeSelect: 'Sila pilih jenis pengguna',
+      passwordHint: 'Sila tinggalkan kosong jika anda tidak ingin mengubah password'
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
@@ -190,8 +216,18 @@ export default {
       modify: 'Ubah informasi',
     },
     table: {
-      teacher: '',
-      admin: ''
+      teacher: 'Guru',
+      admin: 'Admin',
+      add: 'Tambah'
+    },
+    admin: {
+      navigate: 'Navigasi',
+      users: 'Akaun pengguna',
+      events: 'Minggu bersekolah',
+      periods: 'Waktu',
+      class: 'Kelas',
+      subjects: 'Mata pelajaran',
+      day: 'Bilangan tempoh kelas setiap hari'
     }
   }
 }
