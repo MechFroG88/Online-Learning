@@ -97,11 +97,9 @@ export default {
   methods: {
     select(period) {
       this.$emit('selected', this.date, period);
-      this.$parent.$parent.$parent.$refs.modal.active = true;
     },
     edit(period, choice) {
       this.$emit('edit', this.date, period, choice);
-      this.$parent.$parent.$parent.$refs.modal.active = true;
     },
     getSubject(id) {
       return this.subjects.filter(el => el.id == id)[0];

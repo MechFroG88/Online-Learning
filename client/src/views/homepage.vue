@@ -273,25 +273,13 @@ export default {
     },
     selected(date, period) {
       // submit period first
+      this.modal.date = date;
+      this.modal.period = period;
       if (this.availableSubject.length == 1) {
         this.submit();
-        this.$refs.modal.active = false;
-        getUserChoice().then((data) => {
-          if (data.status == 200) {
-            this.showCarousel = false;
-            this.choiceArr = data.data;
-            this.$nextTick(() => {
-              this.showCarousel = true;
-              this.$nextTick(() => {
-                this.$refs.eventCarousel.goSlide(this.home.index);
-              })
-            });
-          }
-        })
       }
       else {
-        this.modal.date = date;
-        this.modal.period = period;
+        this.$refs.modal.active = true;
       }
     },
     update(date, period, choice) {
@@ -304,6 +292,7 @@ export default {
         this.modal.choice.otherMethod = choice.method;
         this.modal.choice.method = 'others';
       }
+      this.$refs.modal.active = true;
     },
     remove() {
       deleteChoice(this.modal.choice.id).then((data) => {
