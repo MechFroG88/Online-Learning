@@ -8,13 +8,15 @@
     }">
       <tr class="title" v-if="title || navbar" :class="navbar ? 'navbar_title' : ''">
         <td align="justify" :colspan="columns.length">
-          <span class="title_name">
-            <slot name="title" v-if="title" />
-          </span>
-          <div class="input-group input-inline has-icon-right" v-if="navbar">
-            <input class="form-input" type="text" 
-            :placeholder="navbar" v-model="search.message" @keyup="searchData">
-            <i class="form-icon icon-search"></i>
+          <div class="title-container">
+            <div class="title_name">
+              <slot name="title" v-if="title" />
+            </div>
+            <div class="input-group input-inline has-icon-right" v-if="navbar">
+              <input class="form-input" type="text" 
+              :placeholder="navbar" v-model="search.message" @keyup="searchData">
+              <i class="form-icon icon-search"></i>
+            </div>
           </div>
         </td>
       </tr>

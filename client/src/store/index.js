@@ -39,6 +39,15 @@ export default new Vuex.Store({
         class_subject: []
       };
     },
+    RESET_HOME(state) {
+      state.home = {
+        event: {
+          id: 0
+        },
+        class: 0,
+        index: 0,
+      };
+    },
     SET_CLASS(state, classs) {
       state.home.class = classs;
     },

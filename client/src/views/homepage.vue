@@ -94,14 +94,12 @@
             {{ modal.period.start_time }} - {{ modal.period.end_time }}
           </div>
         </h5>
-        <small style="color: red;" v-if="modal.choice.id == 0"><em>
+        <!-- <small style="color: red;" v-if="modal.choice.id == 0"><em>
           * {{ $t('modal.initHint') }} 
-        </em></small>
+        </em></small> -->
         <form class="ten columns" @submit.prevent="submit">
           <div class="u-full-width subject">
             <label for="choiceSubject">{{ $t('modal.subject') }}: </label>
-            <input class="u-full-width" type="text" id="choiceSubject" v-if="availableSubject.length == 1"
-            v-model="modal.choice.subject_id" disabled>
             <select name="subject" id="choiceSubject" v-model="modal.choice.subject_id"
             :disabled="modal.choice.id ? true : false">
               <option value="" selected disabled>

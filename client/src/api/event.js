@@ -1,7 +1,7 @@
 import request from './request';
 
 export function createEvent(data) {
-  return ({
+  return request({
     method: 'POST',
     url: '/event',
     data
