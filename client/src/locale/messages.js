@@ -83,10 +83,10 @@ export default {
       delete: '删除选项',
       subject: '科目',
       subjectSelect: '请选择科目',
-      link: '',
-      streamId: '',
-      streamPassword: '',
-      description: ''
+      link: '远程教学链接(link)',
+      streamId: '远程教学ID',
+      streamPassword: '远程教学密码',
+      description: '其他详情'
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -129,12 +129,12 @@ export default {
       confirmDelete: 'Pastikan padam?',
       confirm: 'Sahkan',
       delete: 'Padam pilihan',
-      subject: '',
-      subjectSelect: '',
-      link: '',
-      streamId: '',
-      streamPassword: '',
-      description: ''
+      subject: 'subjek',
+      subjectSelect: 'Sila pilih subjek',
+      link: 'Link',
+      streamId: 'Stream Id',
+      streamPassword: 'Stream Password',
+      description: 'Lain-lain Informasi'
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
