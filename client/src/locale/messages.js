@@ -38,7 +38,13 @@ export default {
       link: 'Link',
       streamId: 'Stream Id',
       streamPassword: 'Stream Password',
-      description: 'Description'
+      description: 'Description',
+      cn_name: 'Chinese name',
+      en_name: 'English name',
+      day: 'Period limit per day',
+      week: 'Period limit per week',
+      start_time: '',
+      end_time: ''
     },
     timetable: {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -86,7 +92,13 @@ export default {
       link: '远程教学链接(link)',
       streamId: '远程教学ID',
       streamPassword: '远程教学密码',
-      description: '其他详情'
+      description: '其他详情',
+      cn_name: '',
+      en_name: '',
+      day: '',
+      week: '',
+      start_time: '',
+      end_time: ''
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -134,7 +146,13 @@ export default {
       link: 'Link',
       streamId: 'Stream Id',
       streamPassword: 'Stream Password',
-      description: 'Lain-lain Informasi'
+      description: 'Lain-lain Informasi',
+      cn_name: '',
+      en_name: '',
+      day: '',
+      week: '',
+      start_time: '',
+      end_time: ''
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
