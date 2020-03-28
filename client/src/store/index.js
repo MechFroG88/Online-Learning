@@ -16,6 +16,14 @@ export default new Vuex.Store({
       type: null,
       class_subject: []
     },
+    sub_user: {
+      id: 0,
+      username: "",
+      cn_name: "",
+      en_name: "",
+      type: null,
+      class_subject: []
+    },
     home: {
       event: {
         id: 0
@@ -33,6 +41,19 @@ export default new Vuex.Store({
     },
     RESET_USER(state) {
       state.user = {
+        id: 0,
+        username: "",
+        cn_name: "",
+        en_name: "",
+        type: null,
+        class_subject: []
+      };
+    },
+    SET_SUBUSER(state, sub_user) {
+      state.sub_user = sub_user;
+    },
+    RESET_SUBUSER(state) {
+      state.sub_user = {
         id: 0,
         username: "",
         cn_name: "",

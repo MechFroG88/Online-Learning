@@ -75,7 +75,12 @@ export default {
       subjects: 'Subjects',
       day: 'No. of period per day',
       export: 'Export Data',
-      download: 'Download'
+      download: 'Download',
+      choice: 'Choose',
+      home: {
+        currentLogin: 'Currently choosing as {name}',
+        back: 'Back'
+      }
     }
   },
   cn: {
@@ -154,7 +159,12 @@ export default {
       subjects: '科目',
       day: '每日节数',
       export: '输出资料',
-      download: '下载'
+      download: '下载',
+      choice: '选择',
+      home: {
+        currentLogin: '正以{name}身份进行选择',
+        back: '返回'
+      }
     }
   },
   bm: {
@@ -233,7 +243,12 @@ export default {
       subjects: 'Subjek',
       day: 'Bilangan tempoh kelas setiap hari',
       export: 'Eksport maklumat',
-      download: 'Muat turun'
+      download: 'Muat turun',
+      choice: 'Pilih',
+      home: {
+        currentLogin: 'Currently choosing as {name}',
+        back: 'Balik'
+      }
     }
   }
 }

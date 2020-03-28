@@ -18,7 +18,7 @@ const routes = [
     path: '/home',
     name: 'home',
     meta: {
-      permissions: 1
+      permissions: [0, 1]
     },
     component: () => import('@/views/homepage.vue')
   },
@@ -26,9 +26,17 @@ const routes = [
     path: '/admin',
     name: 'admin',
     meta: {
-      permissions: 0
+      permissions: [0]
     },
     component: () => import('@/views/admin.vue')
+  },
+  {
+    path: '/admin/choice',
+    name: 'choice',
+    meta: {
+      permissions: [0]
+    },
+    component: () => import('@/views/homepage.vue')
   },
   {
     path: '/*',
@@ -46,7 +54,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   console.log(to);
   if (to.meta.permissions != undefined) {
-    if (to.meta.permissions != store.state.user.type) {
+    if (to.meta.permissions.indexOf(store.state.user.type) == -1) {
       if (store.state.user.type == 0) next({ name: 'admin' });
       else if (store.state.user.type == 1) next({ name: 'home' });
       else next({ name: 'login' });

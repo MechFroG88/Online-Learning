@@ -4,7 +4,8 @@ let user = [
   { field: 'en_name', cn_label: '英文姓名', en_label: 'english name', search: true },
   { field: 'type', cn_label: '用户类型', en_label: 'user type' },
   { field: 'class_subjects', cn_label: '任教班级-科目', en_label: 'class and subject(s) in charge' },
-  { field: 'action', cn_label: '操作', en_label: 'action' }
+  { field: 'action', cn_label: '操作', en_label: 'action' },
+  { field: 'choice', cn_label: '选择', en_label: 'choose period' }
 ];
 
 let event = [
