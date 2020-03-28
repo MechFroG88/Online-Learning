@@ -73,7 +73,9 @@ export default {
       periods: 'Periods',
       class: 'Class',
       subjects: 'Subjects',
-      day: 'No. of period per day'
+      day: 'No. of period per day',
+      export: 'Export Data',
+      download: 'Download'
     }
   },
   cn: {
@@ -150,7 +152,9 @@ export default {
       periods: '节次',
       class: '班级',
       subjects: '科目',
-      day: '每日节数'
+      day: '每日节数',
+      export: '输出资料',
+      download: '下载'
     }
   },
   bm: {
@@ -227,7 +231,9 @@ export default {
       periods: 'Waktu',
       class: 'Kelas',
       subjects: 'Mata pelajaran',
-      day: 'Bilangan tempoh kelas setiap hari'
+      day: 'Bilangan tempoh kelas setiap hari',
+      export: 'Eksport maklumat',
+      download: 'Muat turun'
     }
   }
 }
