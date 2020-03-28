@@ -271,8 +271,8 @@ export default {
       if (data.status == 200) {
         this.periodArr = data.data.map(el => ({
           id: el.id,
-          start_time: this.$options.filters.moment_time(el.start_time, 'hh:mm:ss', 'hh:mm'),
-          end_time: this.$options.filters.moment_time(el.end_time, 'hh:mm:ss', 'hh:mm')
+          start_time: this.$options.filters.moment_time(el.start_time, 'HH:mm:ss', 'HH:mm'),
+          end_time: this.$options.filters.moment_time(el.end_time, 'HH:mm:ss', 'HH:mm')
         }))
       }
     })

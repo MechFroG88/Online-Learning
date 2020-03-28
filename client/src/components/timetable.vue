@@ -24,11 +24,6 @@
         </div>
         <div class="info">
           <div v-if="fc = filtered_choice.filter(el => el.period_id == period.id)[0]" style="position: relative;">
-            <!-- <div class="btn-remove" @click="remove(period,
-            filtered_choice.filter(el => el.period_id == period.id)[0])"
-            v-if="fc.user_id == user.id">
-              {{ $t('timetable.delete') }}
-            </div> -->
             <div class="teacher-name">
               {{ lang == 'cn' ? fc.cn_name : fc.en_name }}
                -- 
