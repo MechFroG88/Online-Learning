@@ -114,6 +114,36 @@ class ChoiceController extends Controller
         return response($data,200);
     }
 
+    public function get_related_id($id)
+    {
+        $class_user_ids = DB::table('class_user')->where('user_id',$id)->select('class_id')->get();
+        $class_ids = [];
+        foreach($class_user_ids as $id){
+            array_push($class_ids,$id->class_id);
+        }
+
+        $ids = [];
+        $class_user_ids = DB::table('class_user')->whereIn('class_id',$class_ids)->select('id')->get();
+        foreach($class_user_ids as $id){
+            array_push($ids,$id->id);
+        }
+
+        $choices = Choice::whereIn('class_user_id',$ids)->get();
+        $data = [];
+        foreach ($choices as $choice){
+            $choice = json_decode($choice->toJson());
+            $choice->cn_name = $choice->class_user->user->cn_name;
+            $choice->en_name = $choice->class_user->user->en_name;
+            $choice->class_id = $choice->class_user->class_id;
+            $choice->user_id = $choice->class_user->user_id;
+            $choice->subject_id = $choice->class_user->subject_id;
+            unset($choice->class_user_id);
+            unset($choice->class_user);
+            array_push($data,$choice);
+        }
+        return response($data,200);
+    }
+
     public function edit(Request $data,$id)
     {
         $choice = Choice::find($id);
