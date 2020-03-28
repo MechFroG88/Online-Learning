@@ -44,6 +44,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log(to);
   if (to.meta.permissions != undefined) {
     if (to.meta.permissions != store.state.user.type) {
       if (store.state.user.type == 0) next({ name: 'admin' });
