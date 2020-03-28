@@ -12,7 +12,7 @@
         <li><a href="#subject">{{ $t('admin.subjects') }}</a></li>
         <li><a href="#day">{{ $t('admin.day') }}</a></li>
       </ul>
-      <h5>
+      <h5 style="margin-top: 1rem;">
         {{ $t('admin.export') }} <i class="icon-cloud-download" style="margin-left: .8rem;"></i>
       </h5>
       <button class="button-primary" 
@@ -52,6 +52,11 @@
             <button class="button button-primary" @click="openUser(data, false)">更改</button>
             <button class="button button-error" @click="confirmDelete(data.id, 'user')"
             style="margin-left: .5rem;">删除</button>
+          </template>
+          <template slot="choice" slot-scope="{ data }">
+            <button class="button-success" @click="enterChoice(data)">
+              {{ $t('admin.choice') }}
+            </button>
           </template>
         </dt-table>
       </div>
@@ -322,7 +327,7 @@
 <script>
 import columns from '@/api/tableColumns';
 import moment from 'moment';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 import { createUser, getUsers, editUser, deleteUser } from '@/api/users';
 import { createEvent, getAllEvents, editEvent, deleteEvent } from '@/api/event';
@@ -431,6 +436,9 @@ export default {
     }
   }),
   methods: {
+    ...mapMutations({
+      setSub: 'SET_SUBUSER'
+    }),
     openUser(data, isAdd = true) {
       this.isAdd = isAdd;
       if (!this.isAdd) this.edit.id = data.id;
@@ -791,6 +799,10 @@ export default {
         this.subjRel[subject.id] = 
           [subject.cn_name, subject.en_name]
       }
+    },
+    enterChoice(sub_user) {
+      this.setSub(sub_user);
+      this.$router.push({ name: 'choice' });
     },
     exportData() {
       window.open(request.defaults.baseURL + 'export', '_blank');

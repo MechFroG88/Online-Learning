@@ -1,5 +1,14 @@
 <template>
   <div id="_homepage">
+    <div class="display-info" v-if="$route.name == 'choice'">
+      <h5><em>
+        {{ $t('admin.home.currentLogin', { name: lang == 'cn' ? user.cn_name : user.en_name }) }}
+      </em></h5>
+      <button class="button-error" @click="backToAdmin">
+        {{ $t('admin.home.back') }}
+      </button>
+    </div>
+
     <div class="selects row">
       <div class="event-select-group six columns">
         <label class="event-select">
@@ -190,11 +199,13 @@ export default {
     modal
   },
   data: () => ({
+    isAdmin: false,
     classArr: [],
     eventArr: [],
     periodArr: [],
     choiceArr: [],
     subjectArr: [],
+    user: {},
     availableSubject: [],
     start_date: null,
     diff_days: 0,
@@ -219,6 +230,11 @@ export default {
     }
   }),
   mounted() {
+    if (this.$route.name == 'home') this.user = this.$store.state.user;
+    else {
+      this.isAdmin = true;
+      this.user = this.$store.state.sub_user;
+    }
     getAllSubjects().then((data) => {
       if (data.status == 200) {
         this.subjectArr = data.data;
@@ -237,7 +253,7 @@ export default {
             this.eventArr = data.data.sort((a, b) => 
               moment(a.start_date).isBefore(b.start_date) ? -1 : 1
             );
-            getUserChoice().then((data) => {
+            getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
               if (data.status == 200) {
                 this.choiceArr = data.data;
                 this.selected_event = this.home.event;
@@ -265,7 +281,8 @@ export default {
     ...mapMutations({
       setClass: 'SET_CLASS',
       setEvent: 'SET_EVENT',
-      setIndex: 'SET_INDEX'
+      setIndex: 'SET_INDEX',
+      resetSub: 'RESET_SUBUSER'
     }),
     getDay(day) {
       let days = this.$t('timetable.days');
@@ -298,7 +315,7 @@ export default {
       deleteChoice(this.modal.choice.id).then((data) => {
         if (data.status == 200) {
           this.$refs.modal.active = false;
-          getUserChoice().then((data) => {
+          getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
             if (data.status == 200) {
               this.showCarousel = false;
               this.choiceArr = data.data;
@@ -336,7 +353,7 @@ export default {
           description: this.modal.choice.description
         }, this.modal.choice.id).then((data) => {
           if (data.status == 200) {
-            getUserChoice().then((data) => {
+            getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
               if (data.status == 200) {
                 this.showCarousel = false;
                 this.choiceArr = data.data;
@@ -387,9 +404,9 @@ export default {
           class_id: this.selected_class
         }).then((data) => {
           if (data.status == 200) {
-            if (this.user.username == 'T00110')
+            if (this.$store.state.user.username == 'T00110')
               this.$notify('刘老师的课我们也能上吗？😣😣😣')
-            if (this.user.username == 'T00139')
+            if (this.$store.state.user.username == 'T00139')
               this.$notify('葱哥的课就是我们想上的课！😍')
             this.update(this.modal.date, this.modal.period, data.data);
           }
@@ -408,7 +425,7 @@ export default {
               text: err.message
             })
         }).finally(() => {
-          getUserChoice().then((data) => {
+          getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
             if (data.status == 200) {
               this.showCarousel = false;
               this.choiceArr = data.data;
@@ -425,12 +442,15 @@ export default {
     },
     onAfterSlideChange(index) {
       this.setIndex(index);
+    },
+    backToAdmin() {
+      this.resetSub();
+      this.$router.push({ name: 'admin' });
     }
   },
   computed: {
     ...mapState({ 
-      lang: 'lang', 
-      user: 'user',
+      lang: 'lang',
       home: 'home'
     }),
   },

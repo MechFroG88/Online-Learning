@@ -1,4 +1,10 @@
 #_homepage {
+  .display-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .class-select-group {
     margin-bottom: 2rem;
   }
