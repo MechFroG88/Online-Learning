@@ -391,18 +391,6 @@ export default {
               this.$notify('刘老师的课我们也能上吗？😣😣😣')
             if (this.user.username == 'T00139')
               this.$notify('葱哥的课就是我们想上的课！😍')
-            getUserChoice().then((data) => {
-              if (data.status == 200) {
-                this.showCarousel = false;
-                this.choiceArr = data.data;
-                this.$nextTick(() => {
-                  this.showCarousel = true;
-                  this.$nextTick(() => {
-                    this.$refs.eventCarousel.goSlide(this.home.index);
-                  })
-                })
-              }
-            })
             this.update(this.modal.date, this.modal.period, data.data);
           }
         }).catch((err) => {
@@ -418,6 +406,19 @@ export default {
               title: 'Error submitting choice',
               text: err.message
             })
+        }).finally(() => {
+          getUserChoice().then((data) => {
+            if (data.status == 200) {
+              this.showCarousel = false;
+              this.choiceArr = data.data;
+              this.$nextTick(() => {
+                this.showCarousel = true;
+                this.$nextTick(() => {
+                  this.$refs.eventCarousel.goSlide(this.home.index);
+                })
+              })
+            }
+          })
         })
       }
     },
