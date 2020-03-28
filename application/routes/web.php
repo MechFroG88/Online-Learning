@@ -80,6 +80,7 @@ Route::middleware('admin')->delete('subject/{id}','SubjectController@delete');
 Route::middleware('admin')->get('choice','ChoiceController@get_all');
 Route::middleware('auth')->post('choice/submit','ChoiceController@submit');
 Route::middleware('auth')->get('choice/user','ChoiceController@get_related');
+Route::middleware('admin')->get('choice/user/{id}','ChoiceController@get_related_id');
 Route::middleware('auth')->post('choice/{id}','ChoiceController@edit');
 Route::middleware('auth')->delete('choice/{id}','ChoiceController@delete');
 
