@@ -116,8 +116,9 @@ class ChoiceController extends Controller
 
     public function edit(Request $data,$id)
     {
+        $choice = Choice::find($id);
         $validator = Validator::make($data->all(),$this->edit_rules);
-        if ($id != Auth::id() && Auth::user()->type != 0) response("Unauthorized",401);
+        if ($choice->class_user->user_id != Auth::id() && Auth::user()->type != 0) return response("Unauthorized",400);
         if ($validator->fails()) return $this->fail($validator);
         Choice::where('id', $id)
             ->update([
@@ -132,7 +133,14 @@ class ChoiceController extends Controller
 
     public function delete(Request $data,$id)
     {
-        if ($id != Auth::id() && Auth::user()->type != 0) response("Unauthorized",401);
+        if (Auth::user()->type != 0){
+            $choice = Choice::with('event')->where('id',$id)->first();
+            $event = $choice->event;
+            $now = date('Y-m-d H:i:s'); 
+            if (Auth::id() != $choice->class_user->user_id) return response("Unauthorized",400);
+            if ($now > $event->end_pick_datetime) return response("The selection period has over",400);
+            if ($now < $event->start_pick_datetime) return response("The selection period has not started",400);
+        }
         Choice::where('id', $id)->delete();
         return $this->ok();
     }

@@ -98,7 +98,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($data->all(),$this->edit_rules);
         if ($validator->fails()) return $this->fail($validator);
-        if (Auth::user()->type != 0 && Auth::id() != $id) return response("Unauthorized",400);
+        if (Auth::user()->type != 0 && Auth::id() != (int)$id) return response("Unauthorized",400);
         if (isset($data->password) && $data->password != ""){
             $data->merge(['password' => Hash::make($data->password)]);
         }
