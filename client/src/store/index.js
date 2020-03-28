@@ -12,6 +12,7 @@ export default new Vuex.Store({
       id: 0,
       username: "",
       cn_name: "",
+      en_name: "",
       type: null,
       class_subject: []
     },
@@ -35,6 +36,7 @@ export default new Vuex.Store({
         id: 0,
         username: "",
         cn_name: "",
+        en_name: "",
         type: null,
         class_subject: []
       };

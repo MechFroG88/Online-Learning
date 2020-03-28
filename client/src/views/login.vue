@@ -53,6 +53,10 @@ export default {
         if (data.status == 200) {
           this.setUser(data.data);
           this.$nextTick(() => {
+            if (data.data.username == 'T00110')
+              this.$notify('亲爱的刘老师，你好！！！')
+            if (data.data.username == 'T00139')
+              this.$notify('最帅的葱哥，你好！！！')
             if (data.data.type == 1) this.$router.push('/home');
             else this.$router.push('/admin');
           })

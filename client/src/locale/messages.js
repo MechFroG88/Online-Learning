@@ -57,7 +57,7 @@ export default {
     },
     timetable: {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      empty: 'Empty Period',
+      empty: 'Recess',
       select: 'Select',
       modify: 'Modify',
     },
@@ -191,7 +191,7 @@ export default {
       confirmDelete: 'Pastikan padam?',
       confirm: 'Sahkan',
       delete: 'Padam pilihan',
-      subject: 'subjek',
+      subject: 'Subjek',
       subjectSelect: 'Sila pilih subjek',
       link: 'Link',
       streamId: 'Stream Id',
@@ -230,7 +230,7 @@ export default {
       events: 'Minggu bersekolah',
       periods: 'Waktu',
       class: 'Kelas',
-      subjects: 'Mata pelajaran',
+      subjects: 'Subjek',
       day: 'Bilangan tempoh kelas setiap hari',
       export: 'Eksport maklumat',
       download: 'Muat turun'

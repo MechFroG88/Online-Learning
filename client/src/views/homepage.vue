@@ -387,6 +387,10 @@ export default {
           class_id: this.selected_class
         }).then((data) => {
           if (data.status == 200) {
+            if (this.user.username == 'T00110')
+              this.$notify('刘老师的课我们也能上吗？😣😣😣')
+            if (this.user.username == 'T00139')
+              this.$notify('葱哥的课就是我们想上的课！😍')
             getUserChoice().then((data) => {
               if (data.status == 200) {
                 this.showCarousel = false;
