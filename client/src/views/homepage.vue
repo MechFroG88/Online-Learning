@@ -289,7 +289,7 @@ export default {
       this.modal.choice = choice;
 
       if (choice.method != 'zoom' && choice.method) {
-        this.modal.choice.otherMethod = choice.method;
+        this.modal.otherMethod = choice.method;
         this.modal.choice.method = 'others';
       }
       this.$refs.modal.active = true;
