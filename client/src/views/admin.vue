@@ -12,6 +12,14 @@
         <li><a href="#subject">{{ $t('admin.subjects') }}</a></li>
         <li><a href="#day">{{ $t('admin.day') }}</a></li>
       </ul>
+      <h5>
+        {{ $t('admin.export') }} <i class="icon-cloud-download" style="margin-left: .8rem;"></i>
+      </h5>
+      <button class="button-primary" 
+      style="margin-top: .5rem;"
+      @click="exportData">
+        {{ $t('admin.download') }}
+      </button>
     </nav>
     <div class="dashboard">
       <div id="user">
@@ -322,6 +330,7 @@ import { createPeriod, getAllPeriods, deletePeriod } from '@/api/period';
 import { createClass, getAllClass, editClass, deleteClass } from '@/api/class';
 import { createSubject, getAllSubjects, editSubject, deleteSubject } from '@/api/subject';
 import { getAllDays, editDay } from '@/api/day';
+import request from '@/api/request';
 
 import dtTable from '@/components/table';
 import modal from '@/components/modal';
@@ -782,7 +791,10 @@ export default {
         this.subjRel[subject.id] = 
           [subject.cn_name, subject.en_name]
       }
-    }
+    },
+    exportData() {
+      window.open(request.defaults.baseURL + 'export', '_blank');
+    },
   },
   computed: {
     ...mapState({

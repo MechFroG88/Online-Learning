@@ -313,8 +313,17 @@ export default {
         }
       }).catch((err) => {
         if (err.response)
-          alert(err.response.data);
-        else alert(err.message);
+          this.$notify({
+            type: 'error',
+            title: 'Error deleting choice',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error deleting choice',
+            text: err.message
+          })
       })
     },
     submit() {
@@ -343,8 +352,17 @@ export default {
           }
         }).catch((err) => {
           if (err.response)
-            alert(err.response.data);
-          else alert(err.message);
+            this.$notify({
+              type: 'error',
+              title: 'Error editing',
+              text: err.response.data
+            })
+          else
+            this.$notify({
+              type: 'error',
+              title: 'Error editing',
+              text: err.message
+            })
         }).finally(() => {
           this.modal.choice = {
             id: 0,
@@ -369,24 +387,39 @@ export default {
           class_id: this.selected_class
         }).then((data) => {
           if (data.status == 200) {
-            getUserChoice().then((data) => {
-              if (data.status == 200) {
-                this.showCarousel = false;
-                this.choiceArr = data.data;
-                this.$nextTick(() => {
-                  this.showCarousel = true;
-                  this.$nextTick(() => {
-                    this.$refs.eventCarousel.goSlide(this.home.index);
-                  })
-                })
-              }
-            })
+            if (this.user.username == 'T00110')
+              this.$notify('刘老师的课我们也能上吗？😣😣😣')
+            if (this.user.username == 'T00139')
+              this.$notify('葱哥的课就是我们想上的课！😍')
             this.update(this.modal.date, this.modal.period, data.data);
           }
         }).catch((err) => {
+          this.$refs.modal.active = false;
           if (err.response)
-            alert(err.response.data);
-          else alert(err.message);
+            this.$notify({
+              type: 'error',
+              title: 'Error submitting choice',
+              text: err.response.data
+            })
+          else
+            this.$notify({
+              type: 'error',
+              title: 'Error submitting choice',
+              text: err.message
+            })
+        }).finally(() => {
+          getUserChoice().then((data) => {
+            if (data.status == 200) {
+              this.showCarousel = false;
+              this.choiceArr = data.data;
+              this.$nextTick(() => {
+                this.showCarousel = true;
+                this.$nextTick(() => {
+                  this.$refs.eventCarousel.goSlide(this.home.index);
+                })
+              })
+            }
+          })
         })
       }
     },

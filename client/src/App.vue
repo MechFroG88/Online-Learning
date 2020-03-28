@@ -3,6 +3,7 @@
     <navbar>
       <router-view/>
     </navbar>
+    <notifications position="top left" />
   </div>
 </template>
 
