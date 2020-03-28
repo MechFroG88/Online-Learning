@@ -23,7 +23,7 @@ class Class_user extends Model
         'deleted_at'
     ];
 
-    protected $with = ['user'];
+    protected $with = ['user','subject','class'];
 
     public function choices()
     {
@@ -37,7 +37,7 @@ class Class_user extends Model
 
     public function class()
     {
-        return $this->belongsTo('App\Class');
+        return $this->belongsTo('App\_Class');
     }
 
     public function user()
