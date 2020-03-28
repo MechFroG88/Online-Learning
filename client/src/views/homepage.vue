@@ -241,10 +241,10 @@ export default {
               if (data.status == 200) {
                 this.choiceArr = data.data;
                 this.selected_event = this.home.event;
-                if (this.selected_class && this.selected_event.id)
-                  this.$nextTick(() => {
-                    this.$refs.eventCarousel.goSlide(this.home.index);
-                  })
+                this.$nextTick(() => {
+                  if (this.showCarousel && this.selected_class && this.selected_event.id && this.$refs.eventCarousel)
+                      this.$refs.eventCarousel.goSlide(this.home.index);
+                })
               }
             })
           }
@@ -331,12 +331,11 @@ export default {
         editChoice({
           method: this.modal.choice.method != 'zoom' ? this.modal.otherMethod : 'zoom',
           link: this.modal.choice.link,
-          streamid: this.modal.choice.streamId,
+          streamId: this.modal.choice.streamId,
           streamPassword: this.modal.choice.streamPassword,
           description: this.modal.choice.description
         }, this.modal.choice.id).then((data) => {
           if (data.status == 200) {
-            this.$refs.modal.active = false;
             getUserChoice().then((data) => {
               if (data.status == 200) {
                 this.showCarousel = false;
@@ -364,6 +363,7 @@ export default {
               text: err.message
             })
         }).finally(() => {
+          this.$refs.modal.active = false;
           this.modal.choice = {
             id: 0,
             subject: '',
