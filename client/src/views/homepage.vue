@@ -394,6 +394,7 @@ export default {
             this.update(this.modal.date, this.modal.period, data.data);
           }
         }).catch((err) => {
+          this.$refs.modal.active = false;
           if (err.response)
             this.$notify({
               type: 'error',
