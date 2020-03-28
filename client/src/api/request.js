@@ -29,6 +29,14 @@ service.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
   app.$Progress.fail();
+  if (error.message == 'Network Error') 
+    app.$notify({
+      type: 'error',
+      title: '网络异常，请稍后再试。'
+    })
+  else if (error.response.status == 401 && router.app._route.fullPath != '/') {
+    localStorage.clear();
+  }
   return Promise.reject(error);
 });
 
