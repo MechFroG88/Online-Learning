@@ -123,7 +123,7 @@ class ChoiceController extends Controller
             ->update([
                 "method"         => isset($data->method) ? $data->method : "",
                 "link"           => isset($data->link) ? $data->link : "",
-                "streamid"       => isset($data->streamId) ? $data->streamId : "",
+                "streamId"       => isset($data->streamId) ? $data->streamId : "",
                 "streamPassword" => isset($data->streamPassword) ? $data->streamPassword : "",
                 "description"    => isset($data->description) ? $data->description : "",
             ]);
