@@ -313,8 +313,17 @@ export default {
         }
       }).catch((err) => {
         if (err.response)
-          alert(err.response.data);
-        else alert(err.message);
+          this.$notify({
+            type: 'error',
+            title: 'Error deleting choice',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error deleting choice',
+            text: err.message
+          })
       })
     },
     submit() {
@@ -343,8 +352,17 @@ export default {
           }
         }).catch((err) => {
           if (err.response)
-            alert(err.response.data);
-          else alert(err.message);
+            this.$notify({
+              type: 'error',
+              title: 'Error editing',
+              text: err.response.data
+            })
+          else
+            this.$notify({
+              type: 'error',
+              title: 'Error editing',
+              text: err.message
+            })
         }).finally(() => {
           this.modal.choice = {
             id: 0,
@@ -385,8 +403,17 @@ export default {
           }
         }).catch((err) => {
           if (err.response)
-            alert(err.response.data);
-          else alert(err.message);
+            this.$notify({
+              type: 'error',
+              title: 'Error submitting choice',
+              text: err.response.data
+            })
+          else
+            this.$notify({
+              type: 'error',
+              title: 'Error submitting choice',
+              text: err.message
+            })
         })
       }
     },

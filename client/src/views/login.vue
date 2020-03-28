@@ -59,8 +59,17 @@ export default {
         }
       }).catch((err) => {
         if (err.response)
-          alert(err.response.data);
-        else alert(err.message);
+          this.$notify({
+            type: 'error',
+            title: 'Error login',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error login',
+            text: err.message
+          })
       })
     },
   },

@@ -37,6 +37,10 @@ Vue.use(VueMeta, {
   refreshOnceOnNavigation: true
 });
 
+// notification
+import Notifications from 'vue-notification';
+Vue.use(Notifications);
+
 Vue.config.productionTip = false
 
 export default new Vue({
