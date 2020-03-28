@@ -15,10 +15,10 @@ export function submitChoice(data) {
   })
 }
 
-export function getUserChoice() {
+export function getUserChoice(id) {
   return request({
     method: 'GET',
-    url: '/choice/user'
+    url: id ? `/choice/user/${id}` : '/choice/user'
   })
 }
 

@@ -199,6 +199,7 @@ export default {
     modal
   },
   data: () => ({
+    isAdmin: false,
     classArr: [],
     eventArr: [],
     periodArr: [],
@@ -230,7 +231,10 @@ export default {
   }),
   mounted() {
     if (this.$route.name == 'home') this.user = this.$store.state.user;
-    else this.user = this.$store.state.sub_user;
+    else {
+      this.isAdmin = true;
+      this.user = this.$store.state.sub_user;
+    }
     getAllSubjects().then((data) => {
       if (data.status == 200) {
         this.subjectArr = data.data;
@@ -249,7 +253,7 @@ export default {
             this.eventArr = data.data.sort((a, b) => 
               moment(a.start_date).isBefore(b.start_date) ? -1 : 1
             );
-            getUserChoice().then((data) => {
+            getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
               if (data.status == 200) {
                 this.choiceArr = data.data;
                 this.selected_event = this.home.event;
@@ -311,7 +315,7 @@ export default {
       deleteChoice(this.modal.choice.id).then((data) => {
         if (data.status == 200) {
           this.$refs.modal.active = false;
-          getUserChoice().then((data) => {
+          getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
             if (data.status == 200) {
               this.showCarousel = false;
               this.choiceArr = data.data;
@@ -349,7 +353,7 @@ export default {
           description: this.modal.choice.description
         }, this.modal.choice.id).then((data) => {
           if (data.status == 200) {
-            getUserChoice().then((data) => {
+            getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
               if (data.status == 200) {
                 this.showCarousel = false;
                 this.choiceArr = data.data;
@@ -421,7 +425,7 @@ export default {
               text: err.message
             })
         }).finally(() => {
-          getUserChoice().then((data) => {
+          getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
             if (data.status == 200) {
               this.showCarousel = false;
               this.choiceArr = data.data;
