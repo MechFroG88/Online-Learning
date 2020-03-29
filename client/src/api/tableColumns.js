@@ -4,8 +4,8 @@ let user = [
   { field: 'en_name', cn_label: '英文姓名', en_label: 'english name', search: true },
   { field: 'type', cn_label: '用户类型', en_label: 'user type' },
   { field: 'class_subjects', cn_label: '任教班级-科目', en_label: 'class and subject(s) in charge' },
+  { field: 'choice', cn_label: '选择', en_label: 'choose period' },
   { field: 'action', cn_label: '操作', en_label: 'action' },
-  { field: 'choice', cn_label: '选择', en_label: 'choose period' }
 ];
 
 let event = [
@@ -13,8 +13,8 @@ let event = [
   { field: 'end_date', cn_label: '结束日期', en_label: 'end date' },
   { field: 'start_pick_datetime', cn_label: '开始选课日期', en_label: 'selection start time' },
   { field: 'end_pick_datetime', cn_label: '结束选课日期', en_label: 'selection end time' },
+  { field: 'export', cn_label: '输出资料', en_label: 'export data' },
   { field: 'action', cn_label: '操作', en_label: 'action' },
-  { field: 'export', cn_label: '输出资料', en_label: 'export data' }
 ];
 
 let period = [
