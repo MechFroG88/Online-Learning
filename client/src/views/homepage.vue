@@ -292,6 +292,15 @@ export default {
       // submit period first
       this.modal.date = date;
       this.modal.period = period;
+      this.modal.choice = {
+        id: 0,
+        subject_id: 0,
+        method: 'zoom',
+        link: '',
+        streamId: '',
+        streamPassword: '',
+        description: ''
+      };
       if (this.availableSubject.length == 1) {
         this.submit();
       }

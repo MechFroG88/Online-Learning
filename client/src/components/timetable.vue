@@ -83,7 +83,6 @@ export default {
   mounted() {
     if (this.$route.name == 'home') this.user = this.$store.state.user;
     else {
-      this.isAdmin = true;
       this.user = this.$store.state.sub_user;
     }
     this.filtered_choice = this.choices.filter(el => 
@@ -93,6 +92,7 @@ export default {
     infos: [],
     filtered_choice: [],
     selected_period: {},
+    user: {},
   }),
   methods: {
     select(period) {
