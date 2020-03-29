@@ -103,9 +103,6 @@
             {{ modal.period.start_time }} - {{ modal.period.end_time }}
           </div>
         </h5>
-        <!-- <small style="color: red;" v-if="modal.choice.id == 0"><em>
-          * {{ $t('modal.initHint') }} 
-        </em></small> -->
         <form class="ten columns" @submit.prevent="submit">
           <div class="u-full-width subject">
             <label for="choiceSubject">{{ $t('modal.subject') }}: </label>
@@ -300,7 +297,7 @@ export default {
         streamId: '',
         streamPassword: '',
         description: ''
-      };
+      };C
       if (this.availableSubject.length == 1) {
         this.submit();
       }

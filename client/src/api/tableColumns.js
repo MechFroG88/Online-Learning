@@ -13,7 +13,8 @@ let event = [
   { field: 'end_date', cn_label: '结束日期', en_label: 'end date' },
   { field: 'start_pick_datetime', cn_label: '开始选课日期', en_label: 'selection start time' },
   { field: 'end_pick_datetime', cn_label: '结束选课日期', en_label: 'selection end time' },
-  { field: 'action', cn_label: '操作', en_label: 'action' }
+  { field: 'action', cn_label: '操作', en_label: 'action' },
+  { field: 'export', cn_label: '输出资料', en_label: 'export data' }
 ];
 
 let period = [

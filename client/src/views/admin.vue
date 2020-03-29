@@ -12,14 +12,14 @@
         <li><a href="#subject">{{ $t('admin.subjects') }}</a></li>
         <li><a href="#day">{{ $t('admin.day') }}</a></li>
       </ul>
-      <h5 style="margin-top: 1rem;">
+      <!-- <h5 style="margin-top: 1rem;">
         {{ $t('admin.export') }} <i class="icon-cloud-download" style="margin-left: .8rem;"></i>
       </h5>
       <button class="button-primary" 
       style="margin-top: .5rem;"
       @click="exportData">
         {{ $t('admin.download') }}
-      </button>
+      </button> -->
     </nav>
     <div class="dashboard">
       <div id="user">
@@ -75,6 +75,11 @@
             <button class="button button-primary" @click="openEvent(data, false)">更改</button>
             <button class="button button-error" @click="confirmDelete(data.id, 'event')"
             style="margin-left: .5rem;">删除</button>
+          </template>
+          <template slot="export" slot-scope="{ data }">
+            <button class="button-success" @click="exportData(data.id)">
+              {{ $t('admin.download') }}
+            </button>
           </template>
         </dt-table>
       </div>
@@ -804,8 +809,8 @@ export default {
       this.setSub(sub_user);
       this.$router.push({ name: 'choice' });
     },
-    exportData() {
-      window.open(request.defaults.baseURL + 'export', '_blank');
+    exportData(id) {
+      window.open(request.defaults.baseURL + `export/${id}`, '_blank');
     },
   },
   computed: {
