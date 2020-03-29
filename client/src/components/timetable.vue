@@ -81,6 +81,11 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.name == 'home') this.user = this.$store.state.user;
+    else {
+      this.isAdmin = true;
+      this.user = this.$store.state.sub_user;
+    }
     this.filtered_choice = this.choices.filter(el => 
       moment(el.date, 'YYYY-MM-DD').format('DD-MM-YYYY') == this.date);
   },
@@ -102,8 +107,7 @@ export default {
   },
   computed: {
     ...mapState({ 
-      lang: 'lang', 
-      user: 'user' 
+      lang: 'lang'
     }),
   }
 }
