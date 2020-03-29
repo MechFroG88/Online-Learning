@@ -11,6 +11,12 @@ use DateTime;
 class ChoiceExport implements FromArray, WithHeadings, ShouldAutoSize
 {
 
+    public $event_id;
+
+    function __construct($event_id) {
+        $this->event_id = $event_id;
+    }
+
     public function headings(): array
     {
         return [
@@ -31,7 +37,7 @@ class ChoiceExport implements FromArray, WithHeadings, ShouldAutoSize
     public function array(): array
     {
         $data = [];
-        $choices = Choice::with('period')->get();
+        $choices = Choice::with('period')->where('event_id',$this->event_id)->get();
         foreach ($choices as $choice){
             $row = [];
             array_push($row,$choice->date);

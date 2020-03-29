@@ -231,6 +231,13 @@ class ChoiceController extends Controller
             "event_id" => $data['event_id'],
         ])->count() >= $subject->week) return "The weekly limit of the subject is reached";
 
+        if (DB::table('choice')->whereDate('date',$date)
+        ->where([
+            "event_id" => $data['event_id'],
+            "class_user_id" => $id,
+            "period_id" => $data['period_id'],
+        ])->exists()) return "The same choice has been made";
+
     }
 
 }
