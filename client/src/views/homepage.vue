@@ -103,9 +103,6 @@
             {{ modal.period.start_time }} - {{ modal.period.end_time }}
           </div>
         </h5>
-        <!-- <small style="color: red;" v-if="modal.choice.id == 0"><em>
-          * {{ $t('modal.initHint') }} 
-        </em></small> -->
         <form class="ten columns" @submit.prevent="submit">
           <div class="u-full-width subject">
             <label for="choiceSubject">{{ $t('modal.subject') }}: </label>
@@ -271,8 +268,8 @@ export default {
       if (data.status == 200) {
         this.periodArr = data.data.map(el => ({
           id: el.id,
-          start_time: this.$options.filters.moment_time(el.start_time, 'hh:mm:ss', 'hh:mm'),
-          end_time: this.$options.filters.moment_time(el.end_time, 'hh:mm:ss', 'hh:mm')
+          start_time: this.$options.filters.moment_time(el.start_time, 'HH:mm:ss', 'HH:mm'),
+          end_time: this.$options.filters.moment_time(el.end_time, 'HH:mm:ss', 'HH:mm')
         }))
       }
     })
@@ -292,6 +289,15 @@ export default {
       // submit period first
       this.modal.date = date;
       this.modal.period = period;
+      this.modal.choice = {
+        id: 0,
+        subject_id: 0,
+        method: 'zoom',
+        link: '',
+        streamId: '',
+        streamPassword: '',
+        description: ''
+      };C
       if (this.availableSubject.length == 1) {
         this.submit();
       }

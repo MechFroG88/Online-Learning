@@ -24,11 +24,6 @@
         </div>
         <div class="info">
           <div v-if="fc = filtered_choice.filter(el => el.period_id == period.id)[0]" style="position: relative;">
-            <!-- <div class="btn-remove" @click="remove(period,
-            filtered_choice.filter(el => el.period_id == period.id)[0])"
-            v-if="fc.user_id == user.id">
-              {{ $t('timetable.delete') }}
-            </div> -->
             <div class="teacher-name">
               {{ lang == 'cn' ? fc.cn_name : fc.en_name }}
                -- 
@@ -86,6 +81,10 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.name == 'home') this.user = this.$store.state.user;
+    else {
+      this.user = this.$store.state.sub_user;
+    }
     this.filtered_choice = this.choices.filter(el => 
       moment(el.date, 'YYYY-MM-DD').format('DD-MM-YYYY') == this.date);
   },
@@ -93,6 +92,7 @@ export default {
     infos: [],
     filtered_choice: [],
     selected_period: {},
+    user: {},
   }),
   methods: {
     select(period) {
@@ -107,8 +107,7 @@ export default {
   },
   computed: {
     ...mapState({ 
-      lang: 'lang', 
-      user: 'user' 
+      lang: 'lang'
     }),
   }
 }
