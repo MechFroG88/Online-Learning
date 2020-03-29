@@ -5,23 +5,38 @@
         {{ $t('admin.navigate') }} <i class="icon-location" style="margin-left: 1rem;"></i>
       </h5>
       <ul>
-        <li><a href="#user">{{ $t('admin.users') }}</a></li>
         <li><a href="#event">{{ $t('admin.events') }}</a></li>
+        <li><a href="#user">{{ $t('admin.users') }}</a></li>
         <li><a href="#period">{{ $t('admin.periods') }}</a></li>
         <li><a href="#class">{{ $t('admin.class') }}</a></li>
         <li><a href="#subject">{{ $t('admin.subjects') }}</a></li>
         <li><a href="#day">{{ $t('admin.day') }}</a></li>
       </ul>
-      <!-- <h5 style="margin-top: 1rem;">
-        {{ $t('admin.export') }} <i class="icon-cloud-download" style="margin-left: .8rem;"></i>
-      </h5>
-      <button class="button-primary" 
-      style="margin-top: .5rem;"
-      @click="exportData">
-        {{ $t('admin.download') }}
-      </button> -->
     </nav>
     <div class="dashboard">
+      <div id="event">
+        <dt-table
+        :columns="columns.event"
+        :tableData="eventArr"
+        hoverable
+        title>
+          <template slot="title">
+            {{ $t('admin.events') }}
+            <button class="button-primary" @click="openEvent()">{{ $t('table.add') }}</button>
+          </template>
+          <template slot="action" slot-scope="{ data }">
+            <button class="button button-primary" @click="openEvent(data, false)">更改</button>
+            <button class="button button-error" @click="confirmDelete(data.id, 'event')"
+            style="margin-left: .5rem;">删除</button>
+          </template>
+          <template slot="export" slot-scope="{ data }">
+            <button class="button-success" @click="exportData(data.id)">
+              {{ $t('admin.download') }}
+            </button>
+          </template>
+        </dt-table>
+      </div>
+
       <div id="user">
         <dt-table
         v-if="Object.keys(classRel).length 
@@ -60,30 +75,7 @@
           </template>
         </dt-table>
       </div>
-
-      <div id="event">
-        <dt-table
-        :columns="columns.event"
-        :tableData="eventArr"
-        hoverable
-        title>
-          <template slot="title">
-            {{ $t('admin.events') }}
-            <button class="button-primary" @click="openEvent()">{{ $t('table.add') }}</button>
-          </template>
-          <template slot="action" slot-scope="{ data }">
-            <button class="button button-primary" @click="openEvent(data, false)">更改</button>
-            <button class="button button-error" @click="confirmDelete(data.id, 'event')"
-            style="margin-left: .5rem;">删除</button>
-          </template>
-          <template slot="export" slot-scope="{ data }">
-            <button class="button-success" @click="exportData(data.id)">
-              {{ $t('admin.download') }}
-            </button>
-          </template>
-        </dt-table>
-      </div>
-
+      
       <div id="period">
         <dt-table
         :columns="columns.period"
