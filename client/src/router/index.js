@@ -23,12 +23,48 @@ const routes = [
     component: () => import('@/views/homepage.vue')
   },
   {
-    path: '/admin',
+    path: '/admin/',
     name: 'admin',
     meta: {
       permissions: [0]
     },
-    component: () => import('@/views/admin.vue')
+    component: () => import('@/views/admin.vue'),
+    children: [
+      {
+        path: '',
+        redirect: { name: 'adminUser' }
+      },
+      {
+        path: 'event',
+        name: 'adminEvent',
+        component: () => import('@/views/admin_pages/event.vue')
+      },
+      {
+        path: 'user',
+        name: 'adminUser',
+        component: () => import('@/views/admin_pages/user.vue')
+      },
+      {
+        path: 'period',
+        name: 'adminPeriod',
+        component: () => import('@/views/admin_pages/period.vue')
+      },
+      {
+        path: 'class',
+        name: 'adminClass',
+        component: () => import('@/views/admin_pages/class.vue')
+      },
+      {
+        path: 'subject',
+        name: 'adminSubject',
+        component: () => import('@/views/admin_pages/subject.vue')
+      },
+      {
+        path: 'day',
+        name: 'adminDay',
+        component: () => import('@/views/admin_pages/day.vue')
+      }
+    ]
   },
   {
     path: '/admin/choice',
