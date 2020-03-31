@@ -84,5 +84,12 @@ Route::middleware('admin')->get('choice/user/{id}','ChoiceController@get_related
 Route::middleware('auth')->post('choice/{id}','ChoiceController@edit');
 Route::middleware('auth')->delete('choice/{id}','ChoiceController@delete');
 
+/**
+ * Class User Route
+ */
+Route::middleware('admin')->get('class_user','Class_userController@get');
+Route::middleware('admin')->post('class_user','Class_userController@create');
+Route::middleware('admin')->delete('class_user/{id}','Class_userController@delete');
 
 Route::middleware('admin')->get('export/{id}', 'ExportController@export')->name('export');
+

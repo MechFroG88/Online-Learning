@@ -22,16 +22,16 @@ class Choice extends Model
 
     public function event()
     {
-        return $this->belongsTo('App\Event');
+        return $this->belongsTo('App\Event')->withTrashed();
     }
 
     public function period()
     {
-        return $this->belongsTo('App\Period');
+        return $this->belongsTo('App\Period')->withTrashed();
     }
 
     public function class_user()
     {
-        return $this->belongsTo('App\Class_user');
+        return $this->belongsTo('App\Class_user')->withTrashed();
     }
 }

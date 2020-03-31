@@ -72,25 +72,14 @@ class UserController extends Controller
 
     public function get_all()
     {
-        $users = User::all();
-        $data = [];
-        foreach($users as $user){
-            $user = json_decode($user->toJson());
-            $user->class_subject = DB::table('class_user')->where('user_id',$user->id)
-                                                          ->select('class_id','subject_id')
-                                                          ->get();
-            array_push($data,$user);
-        }
-        return response($data,200);
+        $data = User::with('class_user')->get();
+        return response((array)json_decode($data->toJson()),200);
     }
 
     public function get_current()
     {
-        $data = User::find(Auth::id());
+        $data = User::with('class_user')->find(Auth::id());
         $data = json_decode($data->toJson());
-        $data->class_subject = DB::table('class_user')->where('user_id',Auth::id())
-                                                      ->select('class_id','subject_id')
-                                                      ->get();
         return response((array)$data,200);
     }
 
