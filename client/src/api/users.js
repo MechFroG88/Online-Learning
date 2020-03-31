@@ -51,3 +51,27 @@ export function deleteUser(userId) {
     url: `/user/${userId}`
   })
 }
+
+// user-class-subject relations
+
+export function addSubjectClass(data) {
+  return request({
+    method: 'POST',
+    url: '/class_user',
+    data
+  })
+}
+
+export function getSubjectClass() {
+  return request({
+    method: 'GET',
+    url: '/class_user'
+  })
+}
+
+export function deleteSubjectClass(classSubjectId) {
+  return request({
+    method: 'DELETE',
+    url: `/class_user/${classSubjectId}`
+  })
+}

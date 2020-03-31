@@ -146,6 +146,19 @@ export default {
               }
             })
           }
+        }).catch((err) => {
+          if (err.response)
+            this.$notify({
+              type: 'error',
+              title: 'Error add',
+              text: err.response.data
+            })
+          else
+            this.$notify({
+              type: 'error',
+              title: 'Error add',
+              text: err.message
+            })
         })
       }
       else {
@@ -175,6 +188,19 @@ export default {
               }
             })
           }
+        }).catch((err) => {
+          if (err.response)
+            this.$notify({
+              type: 'error',
+              title: 'Error edit',
+              text: err.response.data
+            })
+          else
+            this.$notify({
+              type: 'error',
+              title: 'Error edit',
+              text: err.message
+            })
         })
       }
     },
@@ -199,6 +225,19 @@ export default {
             }
           })
         }
+      }).catch((err) => {
+        if (err.response)
+          this.$notify({
+            type: 'error',
+            title: 'Error delete',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error delete',
+            text: err.message
+          })
       })
     },
     exportData(id) {

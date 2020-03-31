@@ -72,15 +72,18 @@ export default {
       events: 'School week',
       periods: 'Periods',
       class: 'Class',
-      subjects: 'Subjects',
+      subjects: 'Subject',
       day: 'No. of period per day',
       export: 'Export Data',
       download: 'Download',
       choice: 'Choose',
+      teacher: 'Teachers',
       home: {
         currentLogin: 'Currently choosing as {name}',
         back: 'Back'
-      }
+      },
+      classUser: 'Subject and class teacher',
+      years: ['1', '2', '3', '4S', '4A', '5S', '5A', '6S', '6A', '6C'],
     }
   },
   cn: {
@@ -161,10 +164,13 @@ export default {
       export: '输出资料',
       download: '下载',
       choice: '选择',
+      teacher: '教师',
       home: {
         currentLogin: '正以{name}身份进行选择',
         back: '返回'
-      }
+      },
+      classUser: '教师班级与科目',
+      years: ['初一', '初二', '初三', '高一理', '高一文', '高二理', '高二文', '高三理', '高三文', '高三商'],
     }
   },
   bm: {
@@ -245,10 +251,13 @@ export default {
       export: 'Eksport maklumat',
       download: 'Muat turun',
       choice: 'Pilih',
+      teacher: 'Guru',
       home: {
         currentLogin: 'Currently choosing as {name}',
         back: 'Balik'
-      }
+      },
+      classUser: 'Subjek dan kelas cikgu',
+      years: ['1', '2', '3', '4S', '4A', '5S', '5A', '6S', '6A', '6C'],
     }
   }
 }

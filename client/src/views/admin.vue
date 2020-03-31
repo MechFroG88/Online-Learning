@@ -35,6 +35,11 @@
           :to="{name: 'adminDay'}"
           :class="{'active': $route.name == 'adminDay'}">{{ $t('admin.day') }}</router-link>
         </li>
+        <li>
+          <router-link tag="div" 
+          :to="{name: 'adminClassUser'}"
+          :class="{'active': $route.name == 'adminClassUser'}">{{ $t('admin.classUser') }}</router-link>
+        </li>
       </ul>
     </nav>
     <div class="dashboard">

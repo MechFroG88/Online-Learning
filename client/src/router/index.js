@@ -37,32 +37,58 @@ const routes = [
       {
         path: 'event',
         name: 'adminEvent',
+        meta: {
+          permissions: [0]
+        },
         component: () => import('@/views/admin_pages/event.vue')
       },
       {
         path: 'user',
         name: 'adminUser',
+        meta: {
+          permissions: [0]
+        },
         component: () => import('@/views/admin_pages/user.vue')
       },
       {
         path: 'period',
         name: 'adminPeriod',
+        meta: {
+          permissions: [0]
+        },
         component: () => import('@/views/admin_pages/period.vue')
       },
       {
         path: 'class',
         name: 'adminClass',
+        meta: {
+          permissions: [0]
+        },
         component: () => import('@/views/admin_pages/class.vue')
       },
       {
         path: 'subject',
         name: 'adminSubject',
+        meta: {
+          permissions: [0]
+        },
         component: () => import('@/views/admin_pages/subject.vue')
       },
       {
         path: 'day',
         name: 'adminDay',
+        meta: {
+          permissions: [0]
+        },
         component: () => import('@/views/admin_pages/day.vue')
+      },
+      {
+        path: 'class_user',
+        name: 'adminClassUser',
+        meta: {
+          permissions: [0]
+        },
+        component: () => import('@/views/admin_pages/class_user.vue')
       }
     ]
   },

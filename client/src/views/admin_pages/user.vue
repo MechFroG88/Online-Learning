@@ -2,7 +2,6 @@
   <div id="_user">
     <button class="button-primary" @click="openUser()">{{ $t('table.add') }}</button>
     <dt-table
-    v-if="showTable"
     :columns="user"
     :tableData="userArr"
     navbar="username"
@@ -14,13 +13,13 @@
       <template slot="type" slot-scope="{ data }">
         {{ data.type == 1 ?  $t('table.teacher') : $t('table.admin') }}
       </template>
-      <template slot="class_subjects" slot-scope="{ data }">
-        <template v-for="subj in data.class_subject">
-          {{ lang == 'cn' ? classRel[subj.class_id][0] : classRel[subj.class_id][1] }}:
-          {{ lang == 'cn' ? subjRel[subj.subject_id][0] : subjRel[subj.subject_id][1] }}
+      <template slot="class_user" slot-scope="{ data }">
+        <template v-for="subj in data.class_user">
+          {{ lang == 'cn' ? subj.class.cn_name : subj.class.en_name }}:
+          {{ lang == 'cn' ? subj.subject.cn_name : subj.subject.en_name }}
           <br :key="(subj.subject_id+subj.class_id)*subj.subject_id" />
         </template>
-        <template v-if="data.class_subject.length == 0">
+        <template v-if="data.class_user.length == 0">
           --
         </template>
       </template>
@@ -66,14 +65,14 @@
           <input class="u-full-width" type="text" id="user_en_name" 
           v-model="edit.user.en_name">
         </div>
-        <small style="color: red;" v-if="!isAdd"><em>
-          * {{ $t('modal.passwordHint') }} 
-        </em></small>
         <div class="u-full-width password">
           <label for="password">{{ $t('modal.password') }}: </label>
           <input class="u-full-width" type="text" id="password" 
           v-model="edit.user.password">
         </div>
+        <small style="color: red;" v-if="!isAdd"><em>
+          * {{ $t('modal.passwordHint') }} 
+        </em></small>
         <div class="u-full-width type">
           <label for="user_type">{{ $t('modal.user_type') }}: </label>
           <select name="user_type" id="user_type" v-model="edit.user.type">
@@ -101,8 +100,6 @@
 import { mapState, mapMutations } from 'vuex';
 import { user } from '@/api/tableColumns';
 import { createUser, getUsers, editUser, deleteUser } from '@/api/users';
-import { getAllClass } from '@/api/class';
-import { getAllSubjects } from '@/api/subject';
 
 import dtTable from '@/components/table';
 import modal from '@/components/modal';
@@ -112,34 +109,16 @@ export default {
     modal
   },
   mounted() {
-    getAllClass().then((data) => {
+    getUsers().then((data) => {
       if (data.status == 200) {
-        this.classArr = data.data;
-        this.buildClassRel();
-        getAllSubjects().then((data) => {
-          if (data.status == 200) {
-            this.subjectArr = data.data;
-            this.builSubjRel();
-            this.showTable = true;
-            getUsers().then((data) => {
-              if (data.status == 200) {
-                this.userArr = data.data;
-              }
-            })
-          }
-        })
+        this.userArr = data.data;
       }
     })
   },
   data: () => ({
     user,
     isAdd: false,
-    showTable: false,
     userArr: [],
-    classArr: [],
-    subjectArr: [],
-    classRel: {},
-    subjRel: {},
     edit: {
       id: 0,
       user: {
@@ -187,6 +166,19 @@ export default {
               }
             })
           }
+        }).catch((err) => {
+          if (err.response)
+            this.$notify({
+              type: 'error',
+              title: 'Error add',
+              text: err.response.data
+            })
+          else
+            this.$notify({
+              type: 'error',
+              title: 'Error add',
+              text: err.message
+            })
         })
       }
       else {
@@ -209,6 +201,19 @@ export default {
               }
             })
           }
+        }).catch((err) => {
+          if (err.response)
+            this.$notify({
+              type: 'error',
+              title: 'Error edit',
+              text: err.response.data
+            })
+          else
+            this.$notify({
+              type: 'error',
+              title: 'Error edit',
+              text: err.message
+            })
         })
       }
     },
@@ -227,23 +232,24 @@ export default {
             }
           })
         }
+      }).catch((err) => {
+        if (err.response)
+          this.$notify({
+            type: 'error',
+            title: 'Error delete',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error delete',
+            text: err.message
+          })
       })
     },
     enterChoice(sub_user) {
       this.setSub(sub_user);
       this.$router.push({ name: 'choice' });
-    },
-    buildClassRel() {
-      for (let single_class of this.classArr) {
-        this.classRel[single_class.id] = 
-          [single_class.cn_name, single_class.en_name];
-      }
-    },
-    builSubjRel() {
-      for (let subject of this.subjectArr) {
-        this.subjRel[subject.id] = 
-          [subject.cn_name, subject.en_name]
-      }
     },
   },
   computed: {

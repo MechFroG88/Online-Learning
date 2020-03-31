@@ -110,6 +110,19 @@ export default {
             }
           })
         }
+      }).catch((err) => {
+        if (err.response)
+          this.$notify({
+            type: 'error',
+            title: 'Error add',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error add',
+            text: err.message
+          })
       })
     },
     confirmDelete(id) {
@@ -131,6 +144,19 @@ export default {
             }
           })
         }
+      }).catch((err) => {
+        if (err.response)
+          this.$notify({
+            type: 'error',
+            title: 'Error delete',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error delete',
+            text: err.message
+          })
       })
     }
   }

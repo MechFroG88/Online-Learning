@@ -82,6 +82,19 @@ export default {
             }
           })
         }
+      }).catch((err) => {
+        if (err.response)
+          this.$notify({
+            type: 'error',
+            title: 'Error edit',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error edit',
+            text: err.message
+          })
       })
     },
   }
