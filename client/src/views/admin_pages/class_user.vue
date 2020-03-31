@@ -214,6 +214,8 @@ export default {
           this.userArr = data.data.filter(el => el.type == 1);
           this.oriUserArr = this.userArr;
           this.search();
+          this.selected_obj = this.oriUserArr
+            .filter(el => el.id == this.selected_obj.id)[0];
         }
       })
     }
