@@ -518,6 +518,7 @@ export default {
   watch: {
     selected_class(id) {
       this.setClass(id);
+      this.showCarousel = false;
       if (this.isMaster) {
         this.master.userArr = this.master.allUser
           .filter(el => el.class_user
