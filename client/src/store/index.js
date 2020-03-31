@@ -14,7 +14,7 @@ export default new Vuex.Store({
       cn_name: "",
       en_name: "",
       type: null,
-      class_subject: []
+      class_user: []
     },
     sub_user: {
       id: 0,
@@ -22,7 +22,7 @@ export default new Vuex.Store({
       cn_name: "",
       en_name: "",
       type: null,
-      class_subject: []
+      class_user: []
     },
     home: {
       event: {
@@ -46,7 +46,7 @@ export default new Vuex.Store({
         cn_name: "",
         en_name: "",
         type: null,
-        class_subject: []
+        class_user: []
       };
     },
     SET_SUBUSER(state, sub_user) {
@@ -59,7 +59,7 @@ export default new Vuex.Store({
         cn_name: "",
         en_name: "",
         type: null,
-        class_subject: []
+        class_user: []
       };
     },
     RESET_HOME(state) {

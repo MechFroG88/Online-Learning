@@ -13,7 +13,7 @@
       <div class="period-cell" 
       :class="[
         filtered_choice.filter(el => el.period_id == period.id)[0] ? 
-          filtered_choice.filter(el => el.period_id == period.id)[0].user_id == user.id 
+          filtered_choice.filter(el => el.period_id == period.id)[0].user_id == user.id || master
             ? 'self'
           : 'occupied' 
         : 'empty'
@@ -33,7 +33,7 @@
             
             <button class="button button-success" 
             style="margin-top: .5rem;"
-            v-if="fc.user_id == user.id"
+            v-if="fc.user_id == user.id || master"
             @click="edit(period, 
             filtered_choice.filter(el => el.period_id == period.id)[0])">
               {{ $t('timetable.modify') }}
@@ -78,6 +78,10 @@ export default {
     subjects: {
       type: Array,
       default: () => [],
+    },
+    master: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {

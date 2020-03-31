@@ -53,7 +53,11 @@ export default {
       password: 'Password',
       user_type: 'User type',
       user_typeSelect: 'Please select user type',
-      passwordHint: 'Leave blank if you wish to not change password'
+      passwordHint: 'Leave blank if you wish to not change password',
+      master: {
+        user: 'Teacher',
+        userSelect: 'Please select a teacher'
+      }
     },
     timetable: {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -72,15 +76,18 @@ export default {
       events: 'School week',
       periods: 'Periods',
       class: 'Class',
-      subjects: 'Subjects',
+      subjects: 'Subject',
       day: 'No. of period per day',
       export: 'Export Data',
       download: 'Download',
       choice: 'Choose',
+      teacher: 'Teachers',
       home: {
         currentLogin: 'Currently choosing as {name}',
         back: 'Back'
-      }
+      },
+      classUser: 'Subject and class teacher',
+      years: ['1', '2', '3', '4S', '4A', '5S', '5A', '6S', '6A', '6C'],
     }
   },
   cn: {
@@ -137,7 +144,11 @@ export default {
       password: '密码',
       user_type: '用户类型',
       user_typeSelect: '请选择用户类型',
-      passwordHint: '若不要更改密码，请将此处留空'
+      passwordHint: '若不要更改密码，请将此处留空',
+      master: {
+        user: '教师',
+        userSelect: '请选择教师'
+      }
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -161,10 +172,13 @@ export default {
       export: '输出资料',
       download: '下载',
       choice: '选择',
+      teacher: '教师',
       home: {
         currentLogin: '正以{name}身份进行选择',
         back: '返回'
-      }
+      },
+      classUser: '教师班级与科目',
+      years: ['初一', '初二', '初三', '高一理', '高一文', '高二理', '高二文', '高三理', '高三文', '高三商'],
     }
   },
   bm: {
@@ -221,7 +235,11 @@ export default {
       password: 'Kata laluan',
       user_type: 'Jenis pengguna',
       user_typeSelect: 'Sila pilih jenis pengguna',
-      passwordHint: 'Sila tinggalkan kosong jika anda tidak ingin mengubah password'
+      passwordHint: 'Sila tinggalkan kosong jika anda tidak ingin mengubah password',
+      master: {
+        user: 'Guru',
+        userSelect: 'Sila pilih seorang guru'
+      }
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
@@ -245,10 +263,13 @@ export default {
       export: 'Eksport maklumat',
       download: 'Muat turun',
       choice: 'Pilih',
+      teacher: 'Guru',
       home: {
         currentLogin: 'Currently choosing as {name}',
         back: 'Balik'
-      }
+      },
+      classUser: 'Subjek dan kelas cikgu',
+      years: ['1', '2', '3', '4S', '4A', '5S', '5A', '6S', '6A', '6C'],
     }
   }
 }
