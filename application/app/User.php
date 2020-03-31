@@ -11,7 +11,7 @@ class User extends Authenticatable
     use SoftDeletes;
     protected $table = 'users';
     public $timestamps = false;
-    //protected $with = ['classes','lessons','lessons_force'];
+    //protected $with = ['class_user'];
 
     /**
      * The attributes that are mass assignable.
@@ -29,5 +29,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password','deleted_at'
     ];
+
+    public function class_user()
+    {
+        return $this->hasMany('App\Class_user');
+    }
 
 }

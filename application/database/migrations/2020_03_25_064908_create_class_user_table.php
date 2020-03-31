@@ -18,6 +18,7 @@ class CreateClassUserTable extends Migration
             $table->integer('class_id');
             $table->integer('user_id');
             $table->integer('subject_id');
+            $table->softDeletes();
             $table->index('class_id');
             $table->index('user_id');
         });

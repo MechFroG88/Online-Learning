@@ -23,4 +23,9 @@ class _Class extends Model
         'deleted_at'
     ];
 
+    public function class_user()
+    {
+        return $this->hasMany('App\Class_user');
+    }
+
 }

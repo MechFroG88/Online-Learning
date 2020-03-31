@@ -68,11 +68,14 @@ paths:
                 type:
                   type: "integer"
                   example: "1"
-                class_subject:
+                class_user:
                   type: "array"
                   items:
                     type: "object"
                     properties:
+                      id:
+                        type: "integer"
+                        example: "1"
                       class:
                         type: "integer"
                         example: "1"
@@ -109,11 +112,14 @@ paths:
                 type:
                   type: "integer"
                   example: "1"
-                class_subject:
+                class_user:
                   type: "array"
                   items:
                     type: "object"
                     properties:
+                      id:
+                        type: "integer"
+                        example: "1"
                       class_id:
                         type: "integer"
                         example: "1"
@@ -148,7 +154,33 @@ paths:
 
       responses:
         200:
-          description: "Successful logged in"
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                username:
+                  type: "string"
+                  example: "T00123"
+                cn_name:
+                  type: "string"
+                  example: "常常"
+                type:
+                  type: "integer"
+                  example: "1"
+                class_subject:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      class:
+                        type: "integer"
+                        example: "1"
+                      subject:
+                        type: "integer"
+                        example: "1"
         401:
           description: "Unauthorized"
         400:
@@ -684,6 +716,73 @@ paths:
                 cn_name:
                   type: "string"
                   example: "米莱"
+                en_name:
+                  type: "string"
+                  example: "lolipop"
+                subject_id:
+                  type: "integer"
+                  example: "1"
+                period_id:
+                  type: "integer"
+                  example: "2"
+                date:
+                  type: "string"
+                  example: "2020-12-31"
+                class_id:
+                  type: "integer"
+                  example: "1"
+                method:
+                  type: "string"
+                  example: "zoom"
+                link:
+                  type: "string"
+                  example : "https://editor.swagger.io/"
+                streamid:
+                  type: "string"
+                  example: "123"
+                streamPassword:
+                  type: "string"
+                  example : "wtf"
+                description:
+                  type: "string"
+                  example: "god please save me"
+                  
+        401:  
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+  
+  /choice/user/{userId}:
+    get:
+      tags:
+      - "Choice"
+      summary: "Get all choice data related to the user"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to get"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                event_id:
+                  type: "integer"
+                  example: "1"
+                user_id:
+                  type: "integer"
+                  example: "1"
+                cn_name:
+                  type: "string"
+                  example: "米莱"
+                en_name:
+                  type: "string"
+                  example: "lolipop"
                 subject_id:
                   type: "integer"
                   example: "1"
@@ -890,6 +989,102 @@ paths:
         200:
           description: "Successful operation"
         401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+  /class_user:
+    post:
+      tags:
+      - "Class_user"
+      summary: "Create new class_user"
+      parameters:
+      - in: "body"
+        name: "Body"
+        schema:
+          type: "object"
+          properties:
+            user_id:
+              type: "integer"
+              example: 1
+            subject_id:
+              type: "integer"
+              example: 1
+            class_id:
+              type: "integer"
+              example: 1
+  
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    get:
+      tags:
+      - "Class_user"
+      summary: "Get all class_user data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: 1
+                user_id:
+                  type: "integer"
+                  example: 1
+                subject_id:
+                  type: "integer"
+                  example: 1
+                class_id:
+                  type: "integer"
+                  example: 1
+        401:  
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /class_user/{class_userId}:
+    delete:
+      tags:
+      - "Class_user"
+      summary: "Delete class"
+      parameters:
+      - name: "class_userId"
+        in: "path"
+        description: "ID of class_user to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+  /export/{eventId}:
+    get:
+      tags:
+      - "Export"
+      summary: "export data"
+      parameters:
+      - name: "eventId"
+        in: "path"
+        description: "ID of event to export"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+        401:  
           description: "Unauthorized"
         400:
           description: "Validation Error"

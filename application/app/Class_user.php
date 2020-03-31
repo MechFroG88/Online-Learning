@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Class_user extends Model
 {
-
+    use SoftDeletes;
     public $timestamps = false;
     protected $table = 'class_user';
 
@@ -32,16 +33,16 @@ class Class_user extends Model
 
     public function subject()
     {
-        return $this->belongsTo('App\Subject');
+        return $this->belongsTo('App\Subject')->withTrashed();
     }
 
     public function class()
     {
-        return $this->belongsTo('App\_Class');
+        return $this->belongsTo('App\_Class')->withTrashed();
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User')->withTrashed();
     }
 }
