@@ -41,6 +41,9 @@
           :class="{'active': $route.name == 'adminClassUser'}">{{ $t('admin.classUser') }}</router-link>
         </li>
       </ul>
+      <button class="button-primary" @click="$router.push({ name: 'masterChoice' })">
+        {{ $t('admin.master_choice') }}
+      </button>
     </nav>
     <div class="dashboard">
       <router-view></router-view>

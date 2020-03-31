@@ -93,6 +93,14 @@ const routes = [
     ]
   },
   {
+    path: '/admin/choice/master',
+    name: 'masterChoice',
+    meta: {
+      permissions: [0]
+    },
+    component: () => import('@/views/homepage.vue')
+  },
+  {
     path: '/admin/choice',
     name: 'choice',
     meta: {

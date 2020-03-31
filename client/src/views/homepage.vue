@@ -74,7 +74,8 @@
             :periods="periodArr" 
             :date="start_date | moment_add(ind)"
             :choices="choiceArr.filter(el => el.class_id == selected_class)"
-            :subjects="subjectArr"></timetable>
+            :subjects="subjectArr"
+            :master="isMaster"></timetable>
         </div>
       </slide>
     </carousel-3d>
@@ -104,6 +105,18 @@
           </div>
         </h5>
         <form class="ten columns" @submit.prevent="submit">
+          <div class="u-full-width user" v-if="isMaster && !modal.choice.id">
+            <label for="masterUser">{{ $t('modal.master.user') }}: </label>
+            <select name="subject" id="masterUser" v-model="user">
+              <option value="" selected disabled>
+                {{ $t('modal.master.userSelect') }}
+              </option>
+              <option v-for="user in master.userArr" :key="user.id"
+              :value="user">
+                {{ lang == 'cn' ? user.cn_name : user.en_name }}
+              </option>
+            </select>
+          </div>
           <div class="u-full-width subject">
             <label for="choiceSubject">{{ $t('modal.subject') }}: </label>
             <select name="subject" id="choiceSubject" v-model="modal.choice.subject_id"
@@ -180,7 +193,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-import { classes, periods, choices } from '@/api/mock/event';
+import { getUsers } from '@/api/users';
 import { getAllClass } from '@/api/class';
 import { getAllEvents } from '@/api/event';
 import { getAllPeriods } from '@/api/period';
@@ -197,6 +210,7 @@ export default {
   },
   data: () => ({
     isAdmin: false,
+    isMaster: false,
     classArr: [],
     eventArr: [],
     periodArr: [],
@@ -206,7 +220,7 @@ export default {
     availableSubject: [],
     start_date: null,
     diff_days: 0,
-    showCarousel: true,
+    showCarousel: false,
     selected_class: 0,
     selected_event: {
       id: 0
@@ -224,42 +238,68 @@ export default {
         description: ''
       },
       otherMethod: ''
+    },
+    master: {
+      allUser: [],
+      userArr: []
     }
   }),
   mounted() {
+    // Initial conditions for different modes
     if (this.$route.name == 'home') this.user = this.$store.state.user;
+    else if (this.$route.name == 'masterChoice') {
+      this.isMaster = true;
+      getUsers().then((data) => {
+        if (data.status == 200) {
+          this.master.allUser = data.data;
+          this.selected_class = this.home.class;
+          this.selected_event = this.home.event;
+        }
+      })
+    }
     else {
       this.isAdmin = true;
       this.user = this.$store.state.sub_user;
     }
+
+    // API calls
     getAllSubjects().then((data) => {
       if (data.status == 200) {
         this.subjectArr = data.data;
         }
       })
     getAllClass().then((data) => {
-      let classes = new Set();
-      for (let classobj of this.user.class_subject) classes.add(classobj.class_id);
       if (data.status == 200) {
-        let allClasses = data.data;
-        for (let class_id of classes)
-          this.classArr.push(allClasses.filter(el => el.id == class_id)[0]);
-        this.selected_class = this.home.class;
+        if (this.$route.name != 'masterChoice') {
+          let classes = new Set();
+          for (let classobj of this.user.class_user) classes.add(classobj.class_id);
+          let allClasses = data.data;
+          for (let class_id of classes)
+            this.classArr.push(allClasses.filter(el => el.id == class_id)[0]);
+        }
+        else {
+          this.classArr = data.data;
+        }
         getAllEvents().then((data) => {
           if (data.status == 200) {
             this.eventArr = data.data.sort((a, b) => 
               moment(a.start_date).isBefore(b.start_date) ? -1 : 1
             );
-            getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
-              if (data.status == 200) {
-                this.choiceArr = data.data;
-                this.selected_event = this.home.event;
-                this.$nextTick(() => {
-                  if (this.showCarousel && this.selected_class && this.selected_event.id && this.$refs.eventCarousel)
-                      this.$refs.eventCarousel.goSlide(this.home.index);
-                })
-              }
-            })
+            if (this.master.userArr.length || !this.isMaster) {
+              this.selected_class = this.home.class;
+              this.selected_event = this.home.event;
+              getUserChoice(this.isMaster ? this.master.userArr[0].id 
+                : this.isAdmin ? this.user.id : null).then((data) => {
+                if (data.status == 200) {
+                  this.choiceArr = data.data;
+                  this.showCarousel = true;
+                  this.$nextTick(() => {
+                    if (this.showCarousel && this.selected_class && this.selected_event.id && this.$refs.eventCarousel)
+                        this.$refs.eventCarousel.goSlide(this.home.index);
+                  })
+                }
+              })
+            }
           }
         })
       }
@@ -297,11 +337,12 @@ export default {
         streamId: '',
         streamPassword: '',
         description: ''
-      };C
-      if (this.availableSubject.length == 1) {
+      };
+      if (!this.isMaster && this.availableSubject.length == 1) {
         this.submit();
       }
       else {
+        this.user = {};
         this.$refs.modal.active = true;
       }
     },
@@ -321,7 +362,8 @@ export default {
       deleteChoice(this.modal.choice.id).then((data) => {
         if (data.status == 200) {
           this.$refs.modal.active = false;
-          getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
+          getUserChoice(this.isMaster ? this.master.userArr[0].id
+          : this.isAdmin ? this.user.id : null).then((data) => {
             if (data.status == 200) {
               this.showCarousel = false;
               this.choiceArr = data.data;
@@ -359,7 +401,8 @@ export default {
           description: this.modal.choice.description
         }, this.modal.choice.id).then((data) => {
           if (data.status == 200) {
-            getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
+            getUserChoice(this.isMaster ? this.master.userArr[0].id
+            : this.isAdmin ? this.user.id : null).then((data) => {
               if (data.status == 200) {
                 this.showCarousel = false;
                 this.choiceArr = data.data;
@@ -431,7 +474,8 @@ export default {
               text: err.message
             })
         }).finally(() => {
-          getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
+          getUserChoice(this.isMaster ? this.master.userArr[0].id
+          : this.isAdmin ? this.user.id : null).then((data) => {
             if (data.status == 200) {
               this.showCarousel = false;
               this.choiceArr = data.data;
@@ -445,6 +489,10 @@ export default {
           })
         })
       }
+    },
+    getAvailableSubjects(id) {
+      this.availableSubject = this.user.class_user.filter(el => el.class_id == id)
+          .map(el => this.subjectArr.filter(elem => elem.id == el.subject_id)[0]);
     },
     onAfterSlideChange(index) {
       this.setIndex(index);
@@ -462,14 +510,33 @@ export default {
   },
   watch: {
     selected_class(id) {
-      this.availableSubject = this.user.class_subject.filter(el => el.class_id == id)
-        .map(el => this.subjectArr.filter(elem => elem.id == el.subject_id)[0]);
       this.setClass(id);
+      if (this.isMaster) {
+        this.master.userArr = this.master.allUser
+          .filter(el => el.class_user
+            .some(elem => elem.class_id == id))
+        getUserChoice(this.master.userArr[0].id).then((data) => {
+          if (data.status == 200) {
+            this.choiceArr = data.data;
+            this.showCarousel = true;
+            this.$nextTick(() => {
+              if (this.showCarousel && this.selected_class && this.selected_event.id && this.$refs.eventCarousel)
+                this.$refs.eventCarousel.goSlide(this.home.index);
+            })
+          }
+        })
+      }
+      else this.getAvailableSubjects(id)
     },
     selected_event(event) {
       this.start_date = event.start_date;
       this.diff_days = moment(event.end_date).diff(moment(event.start_date), 'days') + 1;
       this.setEvent(event);
+    },
+    user(val) {
+      if (this.isMaster && Object.keys(val).length) {
+        this.getAvailableSubjects(this.selected_class);
+      }
     }
   },
   filters: {

@@ -53,7 +53,11 @@ export default {
       password: 'Password',
       user_type: 'User type',
       user_typeSelect: 'Please select user type',
-      passwordHint: 'Leave blank if you wish to not change password'
+      passwordHint: 'Leave blank if you wish to not change password',
+      master: {
+        user: 'Teacher',
+        userSelect: 'Please select a teacher'
+      }
     },
     timetable: {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -140,7 +144,11 @@ export default {
       password: '密码',
       user_type: '用户类型',
       user_typeSelect: '请选择用户类型',
-      passwordHint: '若不要更改密码，请将此处留空'
+      passwordHint: '若不要更改密码，请将此处留空',
+      master: {
+        user: '教师',
+        userSelect: '请选择教师'
+      }
     },
     timetable: {
       days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -227,7 +235,11 @@ export default {
       password: 'Kata laluan',
       user_type: 'Jenis pengguna',
       user_typeSelect: 'Sila pilih jenis pengguna',
-      passwordHint: 'Sila tinggalkan kosong jika anda tidak ingin mengubah password'
+      passwordHint: 'Sila tinggalkan kosong jika anda tidak ingin mengubah password',
+      master: {
+        user: 'Guru',
+        userSelect: 'Sila pilih seorang guru'
+      }
     },
     timetable: {
       days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
