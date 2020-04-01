@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Class_User;
+use App\Class_user;
 use Validator;
 
 class Class_userController extends Controller
