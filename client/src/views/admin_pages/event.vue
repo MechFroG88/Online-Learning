@@ -241,7 +241,7 @@ export default {
       })
     },
     exportData(id) {
-      window.open(request.defaults.baseURL + `export/${id}`, '_blank');
+      window.open(request.defaults.baseURL + `@/api/export/${id}`, '_blank');
     },
   }
 }
