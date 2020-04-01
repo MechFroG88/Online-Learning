@@ -10,7 +10,6 @@ class User extends Authenticatable
 {
     use SoftDeletes;
     protected $table = 'users';
-    public $timestamps = false;
     //protected $with = ['class_user'];
 
     /**
@@ -27,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password','deleted_at'
+        'password','deleted_at','created_at','updated_at'
     ];
 
     public function class_user()
