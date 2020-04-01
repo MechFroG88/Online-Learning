@@ -70,6 +70,7 @@ import { createEvent, getAllEvents, editEvent, deleteEvent } from '@/api/event';
 
 import dtTable from '@/components/table';
 import modal from '@/components/modal';
+import request from '@/api/request';
 export default {
   components: {
     dtTable,
@@ -241,7 +242,7 @@ export default {
       })
     },
     exportData(id) {
-      window.open(request.defaults.baseURL + `/export/${id}`, '_blank');
+      window.open(request.defaults.baseURL + `export/${id}`, '_blank');
     },
   }
 }
