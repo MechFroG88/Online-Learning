@@ -62,7 +62,7 @@
        {{ selected_event.end_pick_datetime | moment('DD-MM-YYYY, LT') }}
     </h5>
 
-    <carousel-3d v-if="showCarousel && selected_class && selected_event.id" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
+    <carousel-3d v-if="showCarousel" ref="eventCarousel" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
       @after-slide-change="onAfterSlideChange" :loop="false" :minSwipeDistance="2000"
       :controls-width="30" :controls-height="60" :controls-visible="true" :clickable="false"
       :height="600" :key="selected_class" 
@@ -299,12 +299,16 @@ export default {
               getUserChoice(this.isMaster ? this.master.userArr[0].id 
                 : this.isAdmin ? this.user.id : null).then((data) => {
                 if (data.status == 200) {
+                  this.showCarousel = false;
                   this.choiceArr = data.data;
-                  this.showCarousel = true;
-                  this.$nextTick(() => {
-                    if (this.showCarousel && this.selected_class && this.selected_event.id && this.$refs.eventCarousel)
-                        this.$refs.eventCarousel.goSlide(this.home.index);
-                  })
+                  if (this.selected_class && this.selected_event.id && this.$refs.eventCarousel) {
+                    this.$nextTick(() => {
+                      this.showCarousel = true;
+                      this.$nextTick(() => {
+                            this.$refs.eventCarousel.goSlide(this.home.index);
+                      })
+                    })
+                  }
                 }
               })
             }
@@ -536,7 +540,10 @@ export default {
           }
         })
       }
-      else this.getAvailableSubjects(id)
+      else {
+        this.getAvailableSubjects(id)
+        this.showCarousel = true;
+      }
     },
     selected_event(event) {
       this.start_date = event.start_date;
