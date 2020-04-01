@@ -301,11 +301,11 @@ export default {
                 if (data.status == 200) {
                   this.showCarousel = false;
                   this.choiceArr = data.data;
-                  if (this.selected_class && this.selected_event.id && this.$refs.eventCarousel) {
+                  if (this.selected_class && this.selected_event.id) {
                     this.$nextTick(() => {
                       this.showCarousel = true;
                       this.$nextTick(() => {
-                            this.$refs.eventCarousel.goSlide(this.home.index);
+                        this.$refs.eventCarousel.goSlide(this.home.index);
                       })
                     })
                   }
@@ -532,10 +532,11 @@ export default {
         getUserChoice(this.master.userArr[0].id).then((data) => {
           if (data.status == 200) {
             this.choiceArr = data.data;
-            this.showCarousel = true;
             this.$nextTick(() => {
-              if (this.showCarousel && this.selected_class && this.selected_event.id && this.$refs.eventCarousel)
+              if (this.selected_class && this.selected_event.id) {
+                this.showCarousel = true;
                 this.$refs.eventCarousel.goSlide(this.home.index);
+              }
             })
           }
         })
@@ -549,6 +550,13 @@ export default {
       this.start_date = event.start_date;
       this.diff_days = moment(event.end_date).diff(moment(event.start_date), 'days') + 1;
       this.setEvent(event);
+      this.showCarousel = false;
+      this.$nextTick(() => {
+        if (this.selected_class && this.selected_event.id) {
+          this.showCarousel = true;
+          this.$refs.eventCarousel.goSlide(this.home.index);
+        }
+      })
     },
     user(val) {
       if (this.isMaster && Object.keys(val).length) {
