@@ -9,6 +9,13 @@
       </button>
     </div>
 
+    <div class="u-full-width" v-if="$route.name == 'masterChoice'"
+    style="display: flex; justify-content: flex-end; margin-bottom: .8rem;">
+      <button class="button-error" @click="backToAdmin">
+        {{ $t('admin.home.back') }}
+      </button>
+    </div>
+
     <div class="selects row">
       <div class="event-select-group six columns">
         <label class="event-select">
@@ -511,6 +518,7 @@ export default {
   watch: {
     selected_class(id) {
       this.setClass(id);
+      this.showCarousel = false;
       if (this.isMaster) {
         this.master.userArr = this.master.allUser
           .filter(el => el.class_user

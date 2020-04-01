@@ -1,10 +1,10 @@
 <template>
   <div id="_class_user">
     <div class="search-container">
-      <h4 class="u-full-width">Filter</h4>
+      <h4 class="u-full-width">{{ $t('admin.filter') }}</h4>
       <div class="conditions row">
         <div class="year columns four">
-          <label for="year">Year</label>
+          <label for="year">{{ $t('admin.year') }}</label>
           <select class="u-full-width" id="year" v-model="selected_year">
             <option value="">--</option>
             <option v-for="y in year" :key="y"
@@ -12,7 +12,7 @@
           </select>
         </div>
         <div class="class columns four">
-          <label for="class">Class</label>
+          <label for="class">{{ $t('admin.class') }}</label>
           <select class="u-full-width" id="class" v-model="selected_class">
             <option value="">--</option>
             <option v-for="name in classname" :key="name"
@@ -20,8 +20,8 @@
           </select>
         </div>
         <div class="subject columns four">
-          <label for="class">Subject</label>
-          <select class="u-full-width" id="class" v-model="selected_subject">
+          <label for="subject">{{ $t('admin.subjects') }}</label>
+          <select class="u-full-width" id="subject" v-model="selected_subject">
             <option value="">--</option>
             <option v-for="subj in subjectArr" :key="subj.id"
             :value="subj.id">{{ lang == 'cn' ? subj.cn_name : subj.en_name }}</option>
@@ -29,8 +29,8 @@
         </div>
       </div>
       <div class="button-group row">
-        <button class="button-primary" @click="search">Search <i class="icon-search"></i></button>
-        <button class="button-error" @click="clear">Clear <i class="icon-cross"></i></button>
+        <button class="button-primary" @click="search">{{ $t('admin.search') }} <i class="icon-search"></i></button>
+        <button class="button-error" @click="clear">{{ $t('admin.clear') }} <i class="icon-cross"></i></button>
       </div>
     </div>
 
@@ -214,6 +214,8 @@ export default {
           this.userArr = data.data.filter(el => el.type == 1);
           this.oriUserArr = this.userArr;
           this.search();
+          this.selected_obj = this.oriUserArr
+            .filter(el => el.id == this.selected_obj.id)[0];
         }
       })
     }

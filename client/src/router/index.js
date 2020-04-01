@@ -32,7 +32,7 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: { name: 'adminUser' }
+        redirect: { name: 'adminEvent' }
       },
       {
         path: 'event',

@@ -75,6 +75,7 @@ export default {
       users: 'Users',
       events: 'School week',
       periods: 'Periods',
+      year: 'Year',
       class: 'Class',
       subjects: 'Subject',
       day: 'No. of period per day',
@@ -86,6 +87,10 @@ export default {
         currentLogin: 'Currently choosing as {name}',
         back: 'Back'
       },
+      filter: 'Filter',
+      search: 'Search',
+      clear: 'Clear',
+      master_choice: 'Period choice',
       classUser: 'Subject and class teacher',
       years: ['1', '2', '3', '4S', '4A', '5S', '5A', '6S', '6A', '6C'],
     }
@@ -166,6 +171,7 @@ export default {
       users: '用户',
       events: '上课周',
       periods: '节次',
+      year: '年级',
       class: '班级',
       subjects: '科目',
       day: '每日节数',
@@ -177,6 +183,10 @@ export default {
         currentLogin: '正以{name}身份进行选择',
         back: '返回'
       },
+      filter: '筛选',
+      search: '查询',
+      clear: '重制',
+      master_choice: '选课',
       classUser: '教师班级与科目',
       years: ['初一', '初二', '初三', '高一理', '高一文', '高二理', '高二文', '高三理', '高三文', '高三商'],
     }
@@ -257,6 +267,7 @@ export default {
       users: 'Akaun pengguna',
       events: 'Minggu bersekolah',
       periods: 'Waktu',
+      year: 'Tingkatan',
       class: 'Kelas',
       subjects: 'Subjek',
       day: 'Bilangan tempoh kelas setiap hari',
@@ -268,6 +279,10 @@ export default {
         currentLogin: 'Currently choosing as {name}',
         back: 'Balik'
       },
+      filter: 'Filter',
+      search: 'Cari',
+      clear: 'Clear',
+      master_choice: 'Pilihan kelas',
       classUser: 'Subjek dan kelas cikgu',
       years: ['1', '2', '3', '4S', '4A', '5S', '5A', '6S', '6A', '6C'],
     }
