@@ -70,6 +70,7 @@ import { createEvent, getAllEvents, editEvent, deleteEvent } from '@/api/event';
 
 import dtTable from '@/components/table';
 import modal from '@/components/modal';
+import request from '@/api/request';
 export default {
   components: {
     dtTable,
