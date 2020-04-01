@@ -120,7 +120,8 @@
               </option>
               <option v-for="user in master.userArr" :key="user.id"
               :value="user">
-                {{ lang == 'cn' ? user.cn_name : user.en_name }}
+                {{ lang == 'cn' ? user.cn_name : user.en_name }} 
+                ({{ user.username }})
               </option>
             </select>
           </div>
@@ -523,6 +524,7 @@ export default {
         this.master.userArr = this.master.allUser
           .filter(el => el.class_user
             .some(elem => elem.class_id == id))
+          .sort((a, b) => a.username.localeCompare(b.username))
         getUserChoice(this.master.userArr[0].id).then((data) => {
           if (data.status == 200) {
             this.choiceArr = data.data;
