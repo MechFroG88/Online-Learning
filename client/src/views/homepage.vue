@@ -544,7 +544,7 @@ export default {
       }
       else {
         this.getAvailableSubjects(id)
-        this.showCarousel = true;
+        if (this.selected_event.id) this.showCarousel = true;
       }
     },
     selected_event(event) {
