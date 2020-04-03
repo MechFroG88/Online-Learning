@@ -254,7 +254,8 @@ export default {
   }),
   mounted() {
     // Initial conditions for different modes
-    if (this.$route.name == 'home') this.user = this.$store.state.user;
+    if (this.$route.name == 'home')
+      this.user = this.$store.state.user;
     else if (this.$route.name == 'masterChoice') {
       this.isMaster = true;
       getUsers().then((data) => {
@@ -354,7 +355,7 @@ export default {
         this.submit();
       }
       else {
-        this.user = {};
+        if (this.isMaster) this.user = {};
         this.$refs.modal.active = true;
       }
     },
