@@ -294,11 +294,10 @@ export default {
             this.eventArr = data.data.sort((a, b) => 
               moment(a.start_date).isBefore(b.start_date) ? -1 : 1
             );
-            if (this.master.userArr.length || !this.isMaster) {
+            if (!this.isMaster) {
               this.selected_class = this.home.class;
               this.selected_event = this.home.event;
-              getUserChoice(this.isMaster ? this.master.userArr[0].id 
-                : this.isAdmin ? this.user.id : null).then((data) => {
+              getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
                 if (data.status == 200) {
                   this.showCarousel = false;
                   this.choiceArr = data.data;
@@ -525,6 +524,7 @@ export default {
     selected_class(id) {
       this.setClass(id);
       this.showCarousel = false;
+      if (!id) return;
       if (this.isMaster) {
         this.master.userArr = this.master.allUser
           .filter(el => el.class_user
@@ -534,7 +534,7 @@ export default {
           if (data.status == 200) {
             this.choiceArr = data.data;
             this.$nextTick(() => {
-              if (this.selected_class && this.selected_event.id) {
+              if (id && this.selected_event.id) {
                 this.showCarousel = true;
                 this.$refs.eventCarousel.goSlide(this.home.index);
               }
@@ -548,12 +548,13 @@ export default {
       }
     },
     selected_event(event) {
-      this.start_date = event.start_date;
-      this.diff_days = moment(event.end_date).diff(moment(event.start_date), 'days') + 1;
       this.setEvent(event);
       this.showCarousel = false;
+      if (!event.id) return;
+      this.start_date = event.start_date;
+      this.diff_days = moment(event.end_date).diff(moment(event.start_date), 'days') + 1;
       this.$nextTick(() => {
-        if (this.selected_class && this.selected_event.id) {
+        if (this.selected_class && event.id) {
           this.showCarousel = true;
           this.$refs.eventCarousel.goSlide(this.home.index);
         }

@@ -34,7 +34,7 @@ service.interceptors.response.use(function (response) {
       type: 'error',
       title: '网络异常，请稍后再试。'
     })
-  else if (error.response.status == 401 && router.app._route.fullPath != '/') {
+  else if (error.response.status == 401) {
     localStorage.clear();
   }
   return Promise.reject(error);
