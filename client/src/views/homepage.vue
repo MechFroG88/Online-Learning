@@ -258,13 +258,6 @@ export default {
       this.user = this.$store.state.user;
     else if (this.$route.name == 'masterChoice') {
       this.isMaster = true;
-      getUsers().then((data) => {
-        if (data.status == 200) {
-          this.master.allUser = data.data;
-          this.selected_class = this.home.class;
-          this.selected_event = this.home.event;
-        }
-      })
     }
     else {
       this.isAdmin = true;
@@ -309,6 +302,15 @@ export default {
                       })
                     })
                   }
+                }
+              })
+            }
+            else {
+              getUsers().then((data) => {
+                if (data.status == 200) {
+                  this.master.allUser = data.data;
+                  this.selected_class = this.home.class;
+                  this.selected_event = this.home.event;
                 }
               })
             }
