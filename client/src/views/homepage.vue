@@ -115,7 +115,7 @@
           <div class="u-full-width user" v-if="isMaster && !modal.choice.id">
             <label for="masterUser">{{ $t('modal.master.user') }}: </label>
             <select name="subject" id="masterUser" v-model="user">
-              <option value="" selected disabled>
+              <option :value="{}" selected disabled>
                 {{ $t('modal.master.userSelect') }}
               </option>
               <option v-for="user in master.userArr" :key="user.id"
@@ -129,7 +129,7 @@
             <label for="choiceSubject">{{ $t('modal.subject') }}: </label>
             <select name="subject" id="choiceSubject" v-model="modal.choice.subject_id"
             :disabled="modal.choice.id ? true : false">
-              <option value="" selected disabled>
+              <option :value="0" selected disabled>
                 {{ $t('modal.subjectSelect') }}
               </option>
               <option v-for="subject in availableSubject" :key="subject.id"
@@ -372,6 +372,13 @@ export default {
         this.modal.otherMethod = choice.method;
         this.modal.choice.method = 'others';
       }
+
+      if (this.isMaster) {
+        this.user = this.master.userArr
+          .filter(el => el.id == choice.user_id)[0];
+        this.getAvailableSubjects(this.selected_class);
+      }
+
       this.$refs.modal.active = true;
     },
     remove() {
