@@ -309,8 +309,10 @@ export default {
               getUsers().then((data) => {
                 if (data.status == 200) {
                   this.master.allUser = data.data;
-                  this.selected_class = this.home.class;
                   this.selected_event = this.home.event;
+                  this.$nextTick(() => {
+                    this.selected_class = this.home.class;
+                  })
                 }
               })
             }
@@ -538,7 +540,9 @@ export default {
             this.$nextTick(() => {
               if (id && this.selected_event.id) {
                 this.showCarousel = true;
-                this.$refs.eventCarousel.goSlide(this.home.index);
+                this.$nextTick(() => {
+                  this.$refs.eventCarousel.goSlide(this.home.index);
+                })
               }
             })
           }
@@ -555,12 +559,12 @@ export default {
       if (!event.id) return;
       this.start_date = event.start_date;
       this.diff_days = moment(event.end_date).diff(moment(event.start_date), 'days') + 1;
-      this.$nextTick(() => {
-        if (this.selected_class && event.id) {
-          this.showCarousel = true;
+      if (this.selected_class && event.id) {
+        this.showCarousel = true;
+        this.$nextTick(() => {
           this.$refs.eventCarousel.goSlide(this.home.index);
-        }
-      })
+        })
+      }
     },
     user(val) {
       if (this.isMaster && Object.keys(val).length) {
