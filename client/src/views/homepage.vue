@@ -115,7 +115,7 @@
           <div class="u-full-width user" v-if="isMaster && !modal.choice.id">
             <label for="masterUser">{{ $t('modal.master.user') }}: </label>
             <select name="subject" id="masterUser" v-model="user">
-              <option value="" selected disabled>
+              <option :value="{}" selected disabled>
                 {{ $t('modal.master.userSelect') }}
               </option>
               <option v-for="user in master.userArr" :key="user.id"
@@ -129,7 +129,7 @@
             <label for="choiceSubject">{{ $t('modal.subject') }}: </label>
             <select name="subject" id="choiceSubject" v-model="modal.choice.subject_id"
             :disabled="modal.choice.id ? true : false">
-              <option value="" selected disabled>
+              <option :value="0" selected disabled>
                 {{ $t('modal.subjectSelect') }}
               </option>
               <option v-for="subject in availableSubject" :key="subject.id"
@@ -254,16 +254,10 @@ export default {
   }),
   mounted() {
     // Initial conditions for different modes
-    if (this.$route.name == 'home') this.user = this.$store.state.user;
+    if (this.$route.name == 'home')
+      this.user = this.$store.state.user;
     else if (this.$route.name == 'masterChoice') {
       this.isMaster = true;
-      getUsers().then((data) => {
-        if (data.status == 200) {
-          this.master.allUser = data.data;
-          this.selected_class = this.home.class;
-          this.selected_event = this.home.event;
-        }
-      })
     }
     else {
       this.isAdmin = true;
@@ -293,22 +287,32 @@ export default {
             this.eventArr = data.data.sort((a, b) => 
               moment(a.start_date).isBefore(b.start_date) ? -1 : 1
             );
-            if (this.master.userArr.length || !this.isMaster) {
+            if (!this.isMaster) {
               this.selected_class = this.home.class;
               this.selected_event = this.home.event;
-              getUserChoice(this.isMaster ? this.master.userArr[0].id 
-                : this.isAdmin ? this.user.id : null).then((data) => {
+              getUserChoice(this.isAdmin ? this.user.id : null).then((data) => {
                 if (data.status == 200) {
                   this.showCarousel = false;
                   this.choiceArr = data.data;
-                  if (this.selected_class && this.selected_event.id && this.$refs.eventCarousel) {
+                  if (this.selected_class && this.selected_event.id) {
                     this.$nextTick(() => {
                       this.showCarousel = true;
                       this.$nextTick(() => {
-                            this.$refs.eventCarousel.goSlide(this.home.index);
+                        this.$refs.eventCarousel.goSlide(this.home.index);
                       })
                     })
                   }
+                }
+              })
+            }
+            else {
+              getUsers().then((data) => {
+                if (data.status == 200) {
+                  this.master.allUser = data.data;
+                  this.selected_event = this.home.event;
+                  this.$nextTick(() => {
+                    this.selected_class = this.home.class;
+                  })
                 }
               })
             }
@@ -354,7 +358,7 @@ export default {
         this.submit();
       }
       else {
-        this.user = {};
+        if (this.isMaster) this.user = {};
         this.$refs.modal.active = true;
       }
     },
@@ -368,6 +372,13 @@ export default {
         this.modal.otherMethod = choice.method;
         this.modal.choice.method = 'others';
       }
+
+      if (this.isMaster) {
+        this.user = this.master.userArr
+          .filter(el => el.id == choice.user_id)[0];
+        this.getAvailableSubjects(this.selected_class);
+      }
+
       this.$refs.modal.active = true;
     },
     remove() {
@@ -524,6 +535,7 @@ export default {
     selected_class(id) {
       this.setClass(id);
       this.showCarousel = false;
+      if (!id) return;
       if (this.isMaster) {
         this.master.userArr = this.master.allUser
           .filter(el => el.class_user
@@ -532,23 +544,34 @@ export default {
         getUserChoice(this.master.userArr[0].id).then((data) => {
           if (data.status == 200) {
             this.choiceArr = data.data;
-            this.showCarousel = true;
             this.$nextTick(() => {
-              if (this.showCarousel && this.selected_class && this.selected_event.id && this.$refs.eventCarousel)
-                this.$refs.eventCarousel.goSlide(this.home.index);
+              if (id && this.selected_event.id) {
+                this.showCarousel = true;
+                this.$nextTick(() => {
+                  this.$refs.eventCarousel.goSlide(this.home.index);
+                })
+              }
             })
           }
         })
       }
       else {
         this.getAvailableSubjects(id)
-        this.showCarousel = true;
+        if (this.selected_event.id) this.showCarousel = true;
       }
     },
     selected_event(event) {
+      this.setEvent(event);
+      this.showCarousel = false;
+      if (!event.id) return;
       this.start_date = event.start_date;
       this.diff_days = moment(event.end_date).diff(moment(event.start_date), 'days') + 1;
-      this.setEvent(event);
+      if (this.selected_class && event.id) {
+        this.showCarousel = true;
+        this.$nextTick(() => {
+          this.$refs.eventCarousel.goSlide(this.home.index);
+        })
+      }
     },
     user(val) {
       if (this.isMaster && Object.keys(val).length) {

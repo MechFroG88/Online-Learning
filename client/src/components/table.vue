@@ -108,7 +108,10 @@ export default {
               let found = false;
               Object.keys(row).forEach((k) => {
                 if(searchColumns.indexOf(k) > -1) {
-                  if(JSON.stringify(row[k]).toLowerCase().includes(searchMessage)) {
+                  if(JSON.stringify(row[k]).toLowerCase().includes(searchMessage)
+                  && this.displayData
+                    .filter(el => JSON.stringify(el[k]) == JSON.stringify(row[k]))
+                    .length == 0) {
                     found = true;
                   }
                 }
