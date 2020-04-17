@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Validator;	
 use App\User;
@@ -67,12 +68,15 @@ class UserController extends Controller
         if ($validator->fails()) return $this->fail($validator);
         $data->merge(['password' => Hash::make($data->password)]);
         User::create($data->all());
+        Cache::forever('user', User::with('class_user')->get());
         return $this->ok();
     }
 
     public function get_all()
     {
-        $data = User::with('class_user')->get();
+        $data = Cache::rememberForever('user', function(){
+            return User::with('class_user')->get();
+        });
         return response((array)json_decode($data->toJson()),200);
     }
 
@@ -99,12 +103,14 @@ class UserController extends Controller
                 "password" => $data->password,
                 "type" => $data->type,
             ]);
+        Cache::forever('user', User::with('class_user')->get());
         return $this->ok();
     }
 
     public function delete(Request $data,$id)
     {
         User::where('id', $id)->delete();
+        Cache::forever('user', User::with('class_user')->get());
         return $this->ok();
     }
 

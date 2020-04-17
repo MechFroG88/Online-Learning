@@ -27,7 +27,7 @@ class EventController extends Controller
 
     public function get()
     {
-        $data = Event::all();
+        $data = Event::withTrashed()->get();
         return response((array)json_decode($data->toJson()),200);
     }
 
@@ -48,6 +48,12 @@ class EventController extends Controller
     public function delete(Request $data,$id)
     {
         Event::where('id', $id)->delete();
+        return $this->ok();
+    }
+
+    public function restore(Request $data,$id)
+    {
+        Event::withTrashed()->where('id', $id)->restore();
         return $this->ok();
     }
 }

@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 /**
  * User Route
  */
 
-Route::post('hash','UserController@hash');
+//Route::post('hash','UserController@hash');
 
 Route::post('user/login','UserController@login');
 Route::middleware('auth')->post('user/logout','UserController@logout');
@@ -39,6 +39,7 @@ Route::middleware('admin')->post('event','EventController@create');
 Route::middleware('auth')->get('event','EventController@get');
 Route::middleware('admin')->post('event/{id}','EventController@edit');
 Route::middleware('admin')->delete('event/{id}','EventController@delete');
+Route::middleware('admin')->post('event/restore/{id}','EventController@restore');
 
 /**
  * Period Route

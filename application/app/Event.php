@@ -24,10 +24,6 @@ class Event extends Model
         'start_date','end_date','start_pick_datetime','end_pick_datetime'
     ];
 
-    protected $hidden = [
-        'deleted_at'
-    ];
-
     public function choices()
     {
         return $this->hasMany('App\Choice');
