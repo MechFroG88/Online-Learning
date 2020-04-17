@@ -284,9 +284,9 @@ export default {
         }
         getAllEvents().then((data) => {
           if (data.status == 200) {
-            this.eventArr = data.data.sort((a, b) => 
-              moment(a.start_date).isBefore(b.start_date) ? -1 : 1
-            );
+            this.eventArr = data.data
+              .filter(el => !el.deleted_at)
+              .sort((a, b) => moment(a.start_date).isBefore(b.start_date) ? -1 : 1);
             if (!this.isMaster) {
               this.selected_class = this.home.class;
               this.selected_event = this.home.event;
