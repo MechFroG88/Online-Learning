@@ -5,6 +5,7 @@ $primary-color: #1EAEDB;
 $primary-hover-color: #0FA0CE;
 $success-color: #28a745;
 $error-color: #ed093c;
+$warning-color: #ffc107;
 $text-color: #747474;
 $text-gray: #8a8a8a;
 $font-size: 1.6rem !default;
@@ -39,7 +40,7 @@ html {
   border-radius: .4rem;
 }
 
-.button-success, .button-error {
+.button-success, .button-error, .button-warning {
   color: white !important;
 }
 .button-success {
@@ -61,6 +62,15 @@ html {
   &:hover, &:focus, &:focus-within {
     background-color: $error-color;
     border-color: $error-color;
+  }
+}
+
+.button-warning {
+  background-color: lighten($warning-color, 5%);
+  border-color: lighten($warning-color, 5%);
+  &:hover, &:focus, &:focus-within {
+    background-color: $warning-color;
+    border-color: $warning-color;
   }
 }
 

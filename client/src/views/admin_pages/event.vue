@@ -10,9 +10,12 @@
         <button class="button-primary" @click="openEvent()">{{ $t('table.add') }}</button>
       </template>
       <template slot="action" slot-scope="{ data }">
-        <button class="button button-primary" @click="openEvent(data, false)">更改</button>
+        <button class="button button-primary" @click="openEvent(data, false)"
+        style="margin-right: .5rem;">更改</button>
         <button class="button button-error" @click="confirmDelete(data.id)"
-        style="margin-left: .5rem;">删除</button>
+        v-if="!data.deleted_at">关闭</button>
+        <button class="button button-warning" @click="doRestore(data.id)"
+        v-else>开启</button>
       </template>
       <template slot="export" slot-scope="{ data }">
         <button class="button-success" @click="exportData(data.id)">
@@ -66,7 +69,7 @@
 <script>
 import moment from 'moment';
 import { event } from '@/api/tableColumns';
-import { createEvent, getAllEvents, editEvent, deleteEvent } from '@/api/event';
+import { createEvent, getAllEvents, editEvent, deleteEvent, restoreEvent } from '@/api/event';
 
 import dtTable from '@/components/table';
 import modal from '@/components/modal';
@@ -84,7 +87,9 @@ export default {
           start_date: moment(el.start_date).format('DD-MM-YYYY'),
           end_date: moment(el.end_date).format('DD-MM-YYYY'),
           start_pick_datetime: moment(el.start_pick_datetime).format('DD-MM-YYYY h:mm A'),
-          end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A')
+          end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A'),
+          deleted_at: el.deleted_at,
+          rowDisabled: el.deleted_at ? true : false
         }));
       }
     })
@@ -135,7 +140,9 @@ export default {
                   start_date: moment(el.start_date).format('DD-MM-YYYY h:mm A'),
                   end_date: moment(el.end_date).format('DD-MM-YYYY h:mm A'),
                   start_pick_datetime: moment(el.start_pick_datetime).format('DD-MM-YYYY h:mm A'),
-                  end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A')
+                  end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A'),
+                  deleted_at: el.deleted_at,
+                  rowDisabled: el.deleted_at ? true : false
                 }));
                 this.edit.event = {
                   start_date: '',
@@ -177,7 +184,9 @@ export default {
                   start_date: moment(el.start_date).format('DD-MM-YYYY h:mm A'),
                   end_date: moment(el.end_date).format('DD-MM-YYYY h:mm A'),
                   start_pick_datetime: moment(el.start_pick_datetime).format('DD-MM-YYYY h:mm A'),
-                  end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A')
+                  end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A'),
+                  deleted_at: el.deleted_at,
+                  rowDisabled: el.deleted_at ? true : false
                 }));
                 this.edit.event = {
                   start_date: '',
@@ -220,7 +229,9 @@ export default {
                 start_date: moment(el.start_date).format('DD-MM-YYYY h:mm A'),
                 end_date: moment(el.end_date).format('DD-MM-YYYY h:mm A'),
                 start_pick_datetime: moment(el.start_pick_datetime).format('DD-MM-YYYY h:mm A'),
-                end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A')
+                end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A'),
+                deleted_at: el.deleted_at,
+                rowDisabled: el.deleted_at ? true : false
               }));
               this.$nextTick(this.$forceUpdate);
             }
@@ -237,6 +248,39 @@ export default {
           this.$notify({
             type: 'error',
             title: 'Error delete',
+            text: err.message
+          })
+      })
+    },
+    doRestore(id) {
+      restoreEvent(id).then((data) => {
+        if (data.status == 200) {
+          getAllEvents().then((data) => {
+            if (data.status == 200) {
+              this.eventArr = data.data.map(el => ({
+                id: el.id,
+                start_date: moment(el.start_date).format('DD-MM-YYYY h:mm A'),
+                end_date: moment(el.end_date).format('DD-MM-YYYY h:mm A'),
+                start_pick_datetime: moment(el.start_pick_datetime).format('DD-MM-YYYY h:mm A'),
+                end_pick_datetime: moment(el.end_pick_datetime).format('DD-MM-YYYY h:mm A'),
+                deleted_at: el.deleted_at,
+                rowDisabled: el.deleted_at ? true : false
+              }));
+              this.$nextTick(this.$forceUpdate);
+            }
+          })
+        }
+      }).catch((err) => {
+        if (err.response)
+          this.$notify({
+            type: 'error',
+            title: 'Error restore',
+            text: err.response.data
+          })
+        else
+          this.$notify({
+            type: 'error',
+            title: 'Error restore',
             text: err.message
           })
       })

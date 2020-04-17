@@ -50,7 +50,7 @@
       </tr>
 
       
-      <tr v-for="(row, row_num) in displayData" :key="row_num" :class="`row row_${row_num}`">
+      <tr v-for="(row, row_num) in displayData" :key="row_num" :class="`row row_${row_num}` + (row.rowDisabled ? ' row_disabled' : '')">
         <td v-for="column in columns" :key="column.field" :class="`col_${column.field}`"
         :style="[column.hide ? 'display: none' : '']">
           <slot

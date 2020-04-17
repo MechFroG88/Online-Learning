@@ -29,3 +29,10 @@ export function deleteEvent(eventId) {
     url: `/event/${eventId}`
   })
 }
+
+export function restoreEvent(eventId) {
+  return request({
+    method: 'POST',
+    url: `/event/restore/${eventId}`
+  })
+}
