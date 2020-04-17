@@ -113,6 +113,13 @@ class ChoiceController extends Controller
             $choice->subject_id = $choice->class_user->subject_id;
             unset($choice->class_user_id);
             unset($choice->class_user);
+            if (Auth::user()->type != 0 && $choice->user_id != Auth::id()){
+                unset($choice->method);
+                unset($choice->link);
+                unset($choice->streamId);
+                unset($choice->streamPassword);
+                unset($choice->description);
+            }
             array_push($data,$choice);
         }
         return response($data,200);

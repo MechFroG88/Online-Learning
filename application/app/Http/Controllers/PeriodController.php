@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use App\Period;
 use Validator;
 
@@ -20,18 +21,22 @@ class PeriodController extends Controller
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail($validator);
         Period::create($data->all());
+        Cache::forever('period', Period::all());
         return $this->ok();
     }
 
     public function get()
     {
-        $data = Period::all();
+        $data = Cache::rememberForever('period', function(){
+            return Period::all();
+        });
         return response((array)json_decode($data->toJson()),200);
     }
 
     public function delete(Request $data,$id)
     {
         Period::where('id', $id)->delete();
+        Cache::forever('period', Period::all());
         return $this->ok();
     }
 
