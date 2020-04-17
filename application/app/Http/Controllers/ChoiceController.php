@@ -102,7 +102,15 @@ class ChoiceController extends Controller
             array_push($ids,$id->id);
         }
 
-        $choices = Choice::whereIn('class_user_id',$ids)->get();
+        $active_events = [];
+        $events = Event::select('id')->get();
+        foreach ($event as $events){
+            array_push(active_events,$events->id);
+        }
+
+        $choices = Choice::whereIn('class_user_id',$ids)
+                         ->whereIn('event_id',$active_events)
+                         ->get();
         $data = [];
         foreach ($choices as $choice){
             $choice = json_decode($choice->toJson());
