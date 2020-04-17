@@ -522,7 +522,7 @@ export default {
     },
     backToAdmin() {
       this.resetSub();
-      this.$router.push({ name: 'admin' });
+      this.$router.push({ name: 'adminEvent' });
     }
   },
   computed: {
