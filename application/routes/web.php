@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 //Route::post('hash','UserController@hash');
 
 Route::post('user/login','UserController@login');
+Route::middleware('admin')->get('cache','UserController@clear_cache');
 Route::middleware('auth')->post('user/logout','UserController@logout');
 Route::middleware('auth')->get('user','UserController@get_current');
 Route::middleware('admin')->get('users','UserController@get_all');

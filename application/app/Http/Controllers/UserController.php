@@ -44,6 +44,11 @@ class UserController extends Controller
         }
         return $this->ok();
     }
+    
+    public function clear_cache()
+    {
+        Cache::flush();
+    }
 
     public function login(Request $data)
     {
