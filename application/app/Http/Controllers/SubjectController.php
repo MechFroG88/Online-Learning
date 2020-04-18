@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use App\Subject;
 use Validator;
 
@@ -22,12 +23,15 @@ class SubjectController extends Controller
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail($validator);
         Subject::create($data->all());
+        Cache::forever('subject', Subject::all());
         return $this->ok();
     }
 
     public function get()
     {
-        $data = Subject::all();
+        $data = Cache::rememberForever('subject', function(){
+            return Subject::all();
+        });
         return response((array)json_decode($data->toJson()),200);
     }
 
@@ -41,12 +45,14 @@ class SubjectController extends Controller
                 "day" => $data->day,
                 "week" => $data->week,
             ]);
+        Cache::forever('subject', Subject::all());
         return $this->ok();
     }
 
     public function delete(Request $data,$id)
     {
         Subject::where('id', $id)->delete();
+        Cache::forever('subject', Subject::all());
         return $this->ok();
     }
 
