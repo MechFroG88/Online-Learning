@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Class_user;
+use App\User;
 use Validator;
 
 class Class_userController extends Controller
