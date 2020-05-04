@@ -168,6 +168,7 @@ class UserController extends Controller
         $users = User::all();
         foreach ($users as $user){
             $password = Str::random(8);
+            if ($user->password_real != "") continue;
             if ($user->email == "") continue;
             Mail::to($user->email)->send(new ResetPassword($user->en_name,$password));
             $user->password_real = Hash::make($password);

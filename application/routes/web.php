@@ -27,7 +27,7 @@ Route::post('user/login','UserController@login');
 
 Route::middleware('auth')->post('user/reset_password','UserController@reset_password');
 Route::post('user/forget_password','UserController@forget_password');
-Route::middleware('admin')->post('user/reset_password_all','UserController@reset_password_all');
+Route::middleware('admin')->get('user/reset_password_all','UserController@reset_password_all');
 
 Route::middleware('admin')->get('cache','UserController@clear_cache');
 Route::middleware('auth')->post('user/logout','UserController@logout');
