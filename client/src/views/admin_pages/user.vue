@@ -65,6 +65,11 @@
           <input class="u-full-width" type="text" id="user_en_name" 
           v-model="edit.user.en_name">
         </div>
+        <div class="u-full-width email">
+          <label for="user_email">{{ $t('forgot.email') }}: </label>
+          <input class="u-full-width" type="text" id="user_email" 
+          v-model="edit.user.email">
+        </div>
         <div class="u-full-width password">
           <label for="password">{{ $t('modal.password') }}: </label>
           <input class="u-full-width" type="text" id="password" 
@@ -125,6 +130,7 @@ export default {
         username: '',
         cn_name: '',
         en_name: '',
+        email: '',
         password: '',
         type: -1,
       }
@@ -159,6 +165,7 @@ export default {
                   username: '',
                   cn_name: '',
                   en_name: '',
+                  email: '',
                   password: '',
                   type: -1,
                 };
@@ -194,6 +201,7 @@ export default {
                   username: '',
                   cn_name: '',
                   en_name: '',
+                  email: '',
                   password: '',
                   type: -1,
                 };

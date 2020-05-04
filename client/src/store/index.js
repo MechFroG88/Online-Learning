@@ -13,6 +13,7 @@ export default new Vuex.Store({
       username: "",
       cn_name: "",
       en_name: "",
+      email: "",
       type: null,
       class_user: []
     },
@@ -21,6 +22,7 @@ export default new Vuex.Store({
       username: "",
       cn_name: "",
       en_name: "",
+      email: "",
       type: null,
       class_user: []
     },
@@ -45,6 +47,7 @@ export default new Vuex.Store({
         username: "",
         cn_name: "",
         en_name: "",
+        email: "",
         type: null,
         class_user: []
       };
@@ -58,6 +61,7 @@ export default new Vuex.Store({
         username: "",
         cn_name: "",
         en_name: "",
+        email: "",
         type: null,
         class_user: []
       };
