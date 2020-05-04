@@ -3,19 +3,19 @@
     <form @submit.prevent="changePwd">
       <div class="old-form-group form-group container">
         <label for="old_password">{{ $t('change.old_password') }}</label>
-        <input class="old_password-input u-full-width" type="text" id="old_password"
+        <input class="old_password-input u-full-width" type="password" id="old_password"
         autocomplete="old_password"
         v-model="data.old_password">
       </div>
       <div class="new-form-group form-group container">
         <label for="new_password">{{ $t('change.new_password') }}</label>
-        <input class="new_password-input u-full-width" type="text" id="new_password"
+        <input class="new_password-input u-full-width" type="password" id="new_password"
         autocomplete="new_password"
         @keyup="check" v-model="data.new_password">
       </div>
       <div class="confirm-form-group form-group container">
         <label for="confirm">{{ $t('change.confirm') }}</label>
-        <input class="confirm-input u-full-width" type="text" id="confirm"
+        <input class="confirm-input u-full-width" type="password" id="confirm"
         @keyup="check" v-model="data.new_password_confirmation">
         <small class="text-error" v-if="wrong">{{ $t('change.wrong') }}</small>
       </div>
