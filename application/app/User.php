@@ -12,13 +12,17 @@ class User extends Authenticatable
     protected $table = 'users';
     //protected $with = ['class_user'];
 
+    public function getAuthPassword() {
+        return $this->password_real;
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username','password','cn_name','type','en_name'
+        'username','password','cn_name','type','en_name','password_real','email'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -26,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password','deleted_at','created_at','updated_at','remember_token'
+        'password','deleted_at','created_at','updated_at','remember_token','password_real'
     ];
 
     public function class_user()

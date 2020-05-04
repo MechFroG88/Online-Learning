@@ -27,6 +27,7 @@ class CreateChoicesTable extends Migration
             $table->index('class_user_id');
             $table->index('event_id');
             $table->index('period_id');
+            $table->index('date');
         });
     }
 

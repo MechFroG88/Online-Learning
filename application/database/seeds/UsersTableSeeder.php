@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'type' => 0,
             'cn_name' => '陈科锦',
             'en_name' => 'TAN KEL ZIN',
+            'email' => 'kelzzin2@gmail.com',
             'password' => Hash::make('010801-10-0351'),
         ],
         [
@@ -24,6 +25,7 @@ class UsersTableSeeder extends Seeder
             'type' => 0,
             'cn_name' => '陈伟辰',
             'en_name' => 'TAN WEIU CHENG',
+            'email' => 'david_weiucheng@hotmail.com',
             'password' => Hash::make('010527-14-0579'),
         ],
         [
@@ -31,6 +33,7 @@ class UsersTableSeeder extends Seeder
             'type' => 0,
             'cn_name' => '教务处',
             'en_name' => 'JIAO WU CHU',
+            'email' => 'tincy@chonghwakl.edu.my',
             'password' => Hash::make('111111-00-2222'),
         ],
         ]);
