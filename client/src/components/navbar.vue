@@ -1,7 +1,7 @@
 <template>
   <div id="_navbar" :key="user.id">
     <nav class="header">
-      <section>
+      <section class="title" @click="$router.push('/login')">
         <h4>{{ $t('header.title') }}</h4>
       </section>
       <section class="settings dropdown">
@@ -22,12 +22,18 @@
           </div>
 
           <hr style="margin: .5rem 0 1rem;">
-          
-          <button style="border: none" @click="logout">
-            {{ $t('header.logout') }}
-          </button>
-          
-          <hr style="margin: 0 0 1.5rem;">
+
+          <template v-if="user.id">
+            <button style="border: none" @click="logout">
+              {{ $t('header.logout') }}
+            </button>
+
+            <button style="border: none" @click="$router.push('/change_pass')">
+              {{ $t('header.changePassword') }}
+            </button>
+            
+            <hr style="margin: 0 0 1.5rem;">
+          </template>
           
           <label for="language-select">{{ $t('header.language') }}</label>
           <select v-model="locale" id="langauge-select">

@@ -13,6 +13,9 @@
         autocomplete="current-password"
         v-model="user.password">
       </div>
+      <div class="forget-form-group" @click="$router.push('/forgot_pass')">
+        {{ $t('login.forgotPass') }}
+      </div>
       <div class="submit-button">
         <input class="button button-primary" type="submit" :value="$t('login.title')">
       </div>
@@ -41,15 +44,7 @@ export default {
       setUser: 'SET_USER'
     }),
     login() {
-      let icArr = this.user.password.split("").filter(el => el != '-');
-      if (/^[0-9]{12}$/.test(icArr.join(''))) {
-        icArr.splice(8, 0, '-');
-        icArr.splice(6, 0, '-');
-      }
-      userLogin({
-        username: this.user.username, 
-        password: icArr.join('')
-      }).then((data) => {
+      userLogin(this.user).then((data) => {
         if (data.status == 200) {
           this.setUser(data.data);
           this.$nextTick(() => {

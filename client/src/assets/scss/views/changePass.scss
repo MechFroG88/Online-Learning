@@ -1,0 +1,19 @@
+#_changePass {
+  padding: 2rem;
+
+  form {
+    margin: 0 auto;
+    max-width: 600px;
+  }
+
+  .form-group {
+    margin-top: 2rem;
+  }
+
+  .submit {
+    margin-top: 5rem;
+  }
+  .text-error {
+    color: $error-color;
+  }
+}

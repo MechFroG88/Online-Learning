@@ -12,8 +12,17 @@
     letter-spacing: .8rem;
   }
 
+  .forget-form-group {
+    font-size: 1.3rem;
+    font-weight: 500;
+    display: inline-block;
+    color: #a0a5ae;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+
   .submit-button {
-    margin-top: 8rem;
+    margin-top: 6rem;
     .button {
       @media screen and (min-width: 550px) {
         font-size: 1.5rem; 

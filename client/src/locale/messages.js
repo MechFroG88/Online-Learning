@@ -6,14 +6,31 @@ export default {
       language: 'Language',
       loginStatus: 'Hello, ',
       noLogin: 'You are not logged in',
-      logout: 'Logout'
+      logout: 'Logout',
+      changePassword: 'Change password'
     },
     login: {
       title: 'Login',
+      forgotPass: 'Forgot password?',
       fields: {
         username: 'Teacher code',
-        password: 'IC'
+        password: 'Password'
       }
+    },
+    forgot: {
+      title: 'Forgot Password?',
+      subtitle: 'Enter your email to reset your password',
+      username: 'Teacher code',
+      email: 'Email',
+      submit: 'Confirm',
+      agree: 'I agree to the',
+      tnc: 'Terms and Condition'
+    },
+    change: {
+      old_password: 'Old password',
+      new_password: 'New password',
+      confirm: 'Confirm new password',
+      wrong: 'Password doesn\'t match',
     },
     home: {
       class: 'Class',
@@ -102,14 +119,31 @@ export default {
       language: '语言',
       loginStatus: '你好，',
       noLogin: '您还未登入',
-      logout: '登出'
+      logout: '登出',
+      changePassword: '更换密码'
     },
     login: {
       title: '登入',
+      forgotPass: '忘记密码？',
       fields: {
         username: '教师编号',
-        password: 'IC身份证号码'
+        password: '密码'
       }
+    },
+    forgot: {
+      title: '忘记密码？',
+      subtitle: '填写您的电邮址以重制密码',
+      username: '教师编号',
+      email: '电邮址',
+      submit: '确认',
+      agree: '我同意以下',
+      tnc: '合同等的条款'
+    },
+    change: {
+      old_password: '旧密码',
+      new_password: '新密码',
+      confirm: '确认新密码',
+      wrong: '密码不相符'
     },
     home: {
       class: '班级',
@@ -198,14 +232,31 @@ export default {
       language: 'Bahasa',
       loginStatus: 'Selamat datang, ',
       noLogin: 'Anda belum log masuk',
-      logout: 'Log keluar'
+      logout: 'Log keluar',
+      changePassword: 'Tukar kata laluan'
     },
     login: {
       title: 'Log masuk',
+      forgotPass: 'Lupa password?',
       fields: {
         username: 'ID Guru',
-        password: 'IC'
+        password: 'Password'
       }
+    },
+    forgot: {
+      title: 'Lupa password?',
+      subtitle: 'Isikan email anda untuk tetapkan semula password',
+      username: 'ID Guru',
+      email: 'Email',
+      submit: 'Sahkan',
+      agree: 'Saya setuju dengan',
+      tnc: 'Syarat dan Ketentuan'
+    },
+    change: {
+      old_password: 'Kata laluan lama',
+      new_password: 'Kata laluan baru',
+      confirm: 'Sahkan kata laluan baru',
+      wrong: 'Kata laluan tidak bersepadan'
     },
     home: {
       class: 'Kelas',

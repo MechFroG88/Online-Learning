@@ -17,10 +17,17 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    meta: {
-      permissions: [0, 1]
-    },
     component: () => import('@/views/homepage.vue')
+  },
+  {
+    path: '/change_pass',
+    name: 'change_pass',
+    component: () => import('@/views/changePass.vue')
+  },
+  {
+    path: '/forgot_pass',
+    name: 'forgot_pass',
+    component: () => import('@/views/forgotPass.vue')
   },
   {
     path: '/admin/',
