@@ -10,7 +10,7 @@
         <button class="button-primary" @click="openPeriod()">{{ $t('table.add') }}</button>
       </template>
       <template slot="action" slot-scope="{ data }">
-        <button class="button button-error" @click="confirmDelete(data.id)">删除</button>
+        <button class="button button-error" @click="confirmDelete(data.id)">{{ $t('admin.delete') }}</button>
       </template>
     </dt-table>
 

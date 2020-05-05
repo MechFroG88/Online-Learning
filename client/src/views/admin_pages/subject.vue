@@ -11,9 +11,9 @@
         <button class="button-primary" @click="openSubject()">{{ $t('table.add') }}</button>
       </template>
       <template slot="action" slot-scope="{ data }">
-        <button class="button button-primary" @click="openSubject(data, false)">更改</button>
+        <button class="button button-primary" @click="openSubject(data, false)">{{ $t('admin.edit') }}</button>
         <button class="button button-error" @click="confirmDelete(data.id)"
-        style="margin-left: .5rem;">删除</button>
+        style="margin-left: .5rem;">{{ $t('admin.delete') }}</button>
       </template>
     </dt-table>
 
