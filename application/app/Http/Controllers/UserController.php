@@ -26,7 +26,7 @@ class UserController extends Controller
     ];
 
     private $edit_rules = [
-        "cn_name"  => ["required","regex:/[\x{4e00}-\x{9fa5}]+/u"],
+        "cn_name"  => "required",
         "en_name"  => "required",
         "password" => "",
         "email"    => "required",
