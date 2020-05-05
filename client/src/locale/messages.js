@@ -237,15 +237,15 @@ export default {
     },
     login: {
       title: 'Log masuk',
-      forgotPass: 'Lupa password?',
+      forgotPass: 'Lupa kata laluan?',
       fields: {
         username: 'ID Guru',
-        password: 'Password'
+        password: 'Kata laluan'
       }
     },
     forgot: {
-      title: 'Lupa password?',
-      subtitle: 'Isikan email anda untuk tetapkan semula password',
+      title: 'Lupa kata laluan?',
+      subtitle: 'Isikan email anda untuk tetapkan semula kata laluan',
       username: 'ID Guru',
       email: 'Email',
       submit: 'Sahkan',
