@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use App\Choice;
 use Validator;
 use DB;
 
@@ -48,6 +49,7 @@ class EventController extends Controller
     public function delete(Request $data,$id)
     {
         Event::where('id', $id)->delete();
+        Choice::where('event_id',$id)->delete();
         return $this->ok();
     }
 
