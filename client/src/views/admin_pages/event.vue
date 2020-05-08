@@ -11,11 +11,11 @@
       </template>
       <template slot="action" slot-scope="{ data }">
         <button class="button button-primary" @click="openEvent(data, false)"
-        style="margin-right: .5rem;">更改</button>
+        style="margin-right: .5rem;">{{ $t('admin.edit') }}</button>
         <button class="button button-error" @click="confirmDelete(data.id)"
-        v-if="!data.deleted_at">关闭</button>
+        v-if="!data.deleted_at">{{ $t('admin.close') }}</button>
         <button class="button button-warning" @click="doRestore(data.id)"
-        v-else>开启</button>
+        v-else>{{ $t('admin.open') }}</button>
       </template>
       <template slot="export" slot-scope="{ data }">
         <button class="button-success" @click="exportData(data.id)">

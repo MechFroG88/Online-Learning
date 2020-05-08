@@ -12,7 +12,7 @@
         {{ $t('timetable.days')[data.id%7] }}
       </template>
       <template slot="action" slot-scope="{ data }">
-        <button class="button button-primary" @click="openDay(data)">更改</button>
+        <button class="button button-primary" @click="openDay(data)">{{ $t('admin.edit') }}</button>
       </template>
     </dt-table>
 

@@ -88,6 +88,10 @@ export default {
       add: 'Add'
     },
     admin: {
+      edit: 'Edit',
+      close: 'Close',
+      open: 'Open',
+      delete: 'Delete',
       navigate: 'Navigate',
       users: 'Users',
       events: 'School week',
@@ -201,6 +205,10 @@ export default {
       add: '新增'
     },
     admin: {
+      edit: '更改',
+      close: '关闭',
+      open: '开启',
+      delete: '删除 ',
       navigate: '导航',
       users: '用户',
       events: '上课周',
@@ -314,6 +322,10 @@ export default {
       add: 'Tambah'
     },
     admin: {
+      edit: 'Ubah',
+      close: 'Tutup',
+      open: 'Buka',
+      delete: 'Padam',
       navigate: 'Navigasi',
       users: 'Akaun pengguna',
       events: 'Minggu bersekolah',
