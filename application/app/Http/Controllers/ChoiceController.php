@@ -17,6 +17,7 @@ use Auth;
 
 class ChoiceController extends Controller
 {
+    private $class_user_id;
 
     private $edit_rules = [
         "method"         => "",
@@ -45,12 +46,7 @@ class ChoiceController extends Controller
         foreach($this->edit_rules as $key => $value){
             $data[$key] = $value; 
         }
-        $data['class_user_id'] = Class_user::where([
-            "class_id" => $data['class_id'],
-            "user_id" => $data['user_id'],
-            "subject_id" => $data['subject_id']
-        ])->first()->id;
-
+        $data['class_user_id'] = $this->class_user_id;
         $choice = Choice::create($data);
         return $this->get($choice->id);
     }
@@ -191,38 +187,45 @@ class ChoiceController extends Controller
             if ($now < $event->start_pick_datetime) return "The selection period has not started";
         }
 
-        $id = Class_user::where([
+        $this->class_user_id = Class_user::where([
             "user_id" => $data['user_id'],
             "class_id" => $data['class_id'],
             "subject_id" => $data['subject_id'],
         ])->select('id')->first();
 
-        if (!isset($id)) return "Teacher does not teach this class or subject";
+        if (!isset($this->class_user_id)) return "Teacher does not teach this class or subject";
+        $this->class_user_id = $this->class_user_id->id;
 
         $class_user_ids = Class_user::where('class_id',$data['class_id'])->select('id')->get();
         $ids = [];
         foreach($class_user_ids as $id_){
             array_push($ids,$id_->id);
         }
+        $choices = DB::table('choices')->where([
+                                           "event_id" => $data['event_id'],
+                                       ])->get();
+        sort($ids);
+        $daily = 0;
+        $weekly = 0;
+        $exist = false;
+        foreach ($choices as $choice){
+            if ($choice->class_user_id == $this->class_user_id){
+                $weekly++;
+                if (date_create($choice->date)->format('Y-m-d') == $date->format('Y-m-d')){
+                    $daily++;
+                }
+            }
+            if (date_create($choice->date)->format('Y-m-d') == $date->format('Y-m-d') &&
+                $choice->period_id == $data['period_id'] &&
+                in_array($choice->class_user_id,$ids)){
+                    $exist = true;
+                    break;
+                }           
+        }
+        if ($exist) return "The current period has been chosen";
 
-        if (DB::table('choices')->whereIn('class_user_id',$ids)
-        ->whereDate('date',$date)
-        ->where([
-            "event_id" => $data['event_id'],
-            "period_id" => $data['period_id']
-        ])->exists()) return "The current period has been chosen";
+        if ($daily >= $subject->day) return "The daily limit of the subject is reached";
 
-        if(DB::table('choices')->whereDate('date','=',$date->format('Y-m-d'))
-        ->where([
-            "class_user_id" => $id->id,
-            "event_id" => $data['event_id'],
-        ])->count() >= $subject->day) return "The daily limit of the subject is reached";
-
-        if(DB::table('choices')
-        ->where([
-            "class_user_id" => $id->id,
-            "event_id" => $data['event_id'],
-        ])->count() >= $subject->week) return "The weekly limit of the subject is reached";
+        if ($weekly >= $subject->week) return "The weekly limit of the subject is reached";
     }
-
 }
