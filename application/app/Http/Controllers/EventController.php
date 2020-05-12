@@ -28,7 +28,7 @@ class EventController extends Controller
 
     public function get()
     {
-        $data = Event::withTrashed()->get();
+        $data = Event::all();
         return response((array)json_decode($data->toJson()),200);
     }
 
