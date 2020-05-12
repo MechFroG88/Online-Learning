@@ -3,7 +3,7 @@ import app   from '@/main'
 import axios from 'axios'
 import qs from 'qs'
 
-let local = 'http://mechfrog88.ddns.net/';
+let local = 'http://mechfrog88kelzin.servehttp.com';
 
 let service = axios.create({
   baseURL: process.env.NODE_ENV == 'production' ? '/api' : local,
