@@ -26,6 +26,8 @@ export let period = [
 export let classes = [
   { field: 'cn_name', cn_label: '中文名称', en_label: 'chinese name', search: true },
   { field: 'en_name', cn_label: '英文名称', en_label: 'english name', search: true },
+  { field: 'class_teacher', cn_label: '班主任', en_label: 'class teacher' },
+  { field: 'code', cn_label: '班级编号', en_label: 'class code' },
   { field: 'action', cn_label: '操作', en_label: 'action' }
 ];
 

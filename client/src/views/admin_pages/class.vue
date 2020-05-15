@@ -10,6 +10,9 @@
         {{ $t('admin.class') }}
         <button class="button-primary" @click="openClass()">{{ $t('table.add') }}</button>
       </template>
+      <template v-if="users" slot="class_teacher" slot-scope="{ data }">
+        {{ user(data.user_id) }}
+      </template>
       <template slot="action" slot-scope="{ data }">
         <button class="button button-primary" @click="openClass(data, false)">{{ $t('admin.edit') }}</button>
         <button class="button button-error" @click="confirmDelete(data.id)"
@@ -203,12 +206,15 @@ export default {
             text: err.message
           })
       })
+    },
+    user(id) {
+      return this.users.filter(user => user.id == id)[0][this.lang == 'cn' ? "cn_name" : "en_name"];
     }
   },
   computed: {
     ...mapState({
       lang: 'lang'
-    })
+    }),
   }
 }
 </script>
