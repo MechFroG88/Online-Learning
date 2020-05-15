@@ -38,4 +38,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Class_user');
     }
 
+    public function class()
+    {
+        return $this->hasOne('App\_Class');
+    }
+
 }
