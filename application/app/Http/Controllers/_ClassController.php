@@ -25,7 +25,7 @@ class _ClassController extends Controller
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail($validator);
         _Class::create($data->all());
-        Cache::forever('class', _Class::all());
+        Cache::forever('class', _Class::select('id','cn_name','en_name')->get());
         return $this->ok();
     }
 
@@ -33,11 +33,11 @@ class _ClassController extends Controller
     {
         if (Auth::user()->type != 0){
             $data = Cache::rememberForever('class', function(){
-                return _Class::all();
+                return _Class::select('id','cn_name','en_name')->get();
             });
             return response((array)json_decode($data->toJson()),200);
         } else {
-            $data = DB::table('classes')->where('deleted_at',null)->get();
+            $data = _Class::all();
             return response((array)json_decode($data->toJson()),200);
         }
     }
@@ -54,14 +54,14 @@ class _ClassController extends Controller
                 "user_id" => $data->user_id,
                 "code"    => $data->code,
             ]);
-        Cache::forever('class', _Class::all());
+        Cache::forever('class', _Class::select('id','cn_name','en_name')->get());
         return $this->ok();
     }
 
     public function delete(Request $data,$id)
     {
         _Class::where('id', $id)->delete();
-        Cache::forever('class', _Class::all());
+        Cache::forever('class', _Class::select('id','cn_name','en_name')->get());
         return $this->ok();
     }
 

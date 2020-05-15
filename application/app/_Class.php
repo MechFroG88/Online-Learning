@@ -20,7 +20,7 @@ class _Class extends Model
     ];
 
     protected $hidden = [
-        'deleted_at','user_id','code'
+        'deleted_at'
     ];
 
     public function class_user()
