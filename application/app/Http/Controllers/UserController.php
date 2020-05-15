@@ -89,21 +89,26 @@ class UserController extends Controller
         if ($validator->fails()) return $this->fail($validator);
         $data->merge(['password_real' => Hash::make($data->password)]);
         User::create($data->all());
-        Cache::forever('user', User::with('class_user')->get());
+        Cache::forever('user', User::with('class_user','class')->get());
         return $this->ok();
     }
 
     public function get_all()
     {
         $data = Cache::rememberForever('user', function(){
-            return User::with('class_user')->get();
+            return User::with('class_user','class')->get();
         });
         return response((array)json_decode($data->toJson()),200);
     }
 
     public function get_current()
     {
-        $data = User::with('class_user')->find(Auth::id());
+        $data = Cache::rememberForever('user', function(){
+            return User::with('class_user','class')->get();
+        });
+        $data = $data->first(function($item) {
+            return $item->id == Auth::id();
+        });
         $data = json_decode($data->toJson());
         return response((array)$data,200);
     }
@@ -125,14 +130,14 @@ class UserController extends Controller
                 "email" => $data->email,
                 "type" => $data->type,
             ]);
-        Cache::forever('user', User::with('class_user')->get());
+        Cache::forever('user', User::with('class_user','class')->get());
         return $this->ok();
     }
 
     public function delete(Request $data,$id)
     {
         User::where('id', $id)->delete();
-        Cache::forever('user', User::with('class_user')->get());
+        Cache::forever('user', User::with('class_user','class')->get());
         return $this->ok();
     }
     

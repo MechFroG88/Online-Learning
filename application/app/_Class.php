@@ -16,7 +16,7 @@ class _Class extends Model
      * @var array
      */
     protected $fillable = [
-        'cn_name','en_name'
+        'cn_name','en_name','user_id','code'
     ];
 
     protected $hidden = [
@@ -26,6 +26,11 @@ class _Class extends Model
     public function class_user()
     {
         return $this->hasMany('App\Class_user');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo()->withTrashed();
     }
 
 }
