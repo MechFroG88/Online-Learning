@@ -7,7 +7,8 @@ export default {
       loginStatus: 'Hello, ',
       noLogin: 'You are not logged in',
       logout: 'Logout',
-      changePassword: 'Change password'
+      changePassword: 'Change password',
+      classCode: 'Class code'
     },
     login: {
       title: 'Login',
@@ -58,6 +59,8 @@ export default {
       description: 'Description',
       cn_name: 'Chinese name',
       en_name: 'English name',
+      code: 'Class code',
+      class_teacher: 'Class teacher',
       day: 'Period limit per day',
       week: 'Period limit per week',
       start_date: 'Start date of school week',
@@ -124,7 +127,8 @@ export default {
       loginStatus: '你好，',
       noLogin: '您还未登入',
       logout: '登出',
-      changePassword: '更换密码'
+      changePassword: '更换密码',
+      classCode: '班级编号'
     },
     login: {
       title: '登入',
@@ -175,6 +179,8 @@ export default {
       description: '其他详情',
       cn_name: '名字（中）',
       en_name: '名字（英）',
+      code: '班级编号',
+      class_teacher: '班主任',
       day: '每天选课限制',
       week: '每星期选课限制',
       start_date: '上课周开始日期',
@@ -241,7 +247,8 @@ export default {
       loginStatus: 'Selamat datang, ',
       noLogin: 'Anda belum log masuk',
       logout: 'Log keluar',
-      changePassword: 'Tukar kata laluan'
+      changePassword: 'Tukar kata laluan',
+      classCode: 'Kod kelas'
     },
     login: {
       title: 'Log masuk',
@@ -292,6 +299,8 @@ export default {
       description: 'Lain-lain Informasi',
       cn_name: 'Chinese name',
       en_name: 'English name',
+      code: 'Class code',
+      class_teacher: 'Guru kelas',
       day: 'Period limit per day',
       week: 'Period limit per week',
       start_date: 'Tarikh mula minggu kelas',

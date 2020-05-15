@@ -24,6 +24,11 @@
           <hr style="margin: .5rem 0 1rem;">
 
           <template v-if="user.id">
+            <template v-if="user.class && user.class.code">
+              <div>{{ $t('header.classCode') }}&nbsp;({{lang == 'cn' ? user.class.cn_name : user.class.en_name}}):&nbsp;{{user.class.code}}</div>
+              <hr style="margin: .5rem 0 1rem;">
+            </template>
+
             <button style="border: none" @click="logout">
               {{ $t('header.logout') }}
             </button>

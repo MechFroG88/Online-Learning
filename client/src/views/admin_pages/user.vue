@@ -1,6 +1,5 @@
 <template>
   <div id="_user">
-    <button class="button-primary" @click="openUser()">{{ $t('table.add') }}</button>
     <dt-table
     :columns="user"
     :tableData="userArr"
@@ -9,6 +8,7 @@
     title>
       <template slot="title">
         {{ $t('admin.users') }}
+        <button class="button-primary" @click="openUser()">{{ $t('table.add') }}</button>
       </template>
       <template slot="type" slot-scope="{ data }">
         {{ data.type == 1 ?  $t('table.teacher') : $t('table.admin') }}

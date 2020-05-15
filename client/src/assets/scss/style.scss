@@ -88,3 +88,20 @@ html {
     transform: translateY(-50%);
   }
 }
+
+// styling modification for v-select
+.style-chooser .vs__search::placeholder,
+.style-chooser .vs__dropdown-toggle,
+.style-chooser .vs__dropdown-menu {
+  border: none;
+  color: #394066;
+  font-variant: small-caps;
+}
+
+.vs__selected-options {
+  padding: 0 6px !important;
+}
+
+.vs__search {
+  height: inherit !important;
+}

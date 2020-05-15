@@ -40,6 +40,19 @@
           <input class="u-full-width" type="text" id="class_en_name" 
           v-model="edit.class.en_name">
         </div>
+        <div class="u-full-width code">
+          <label for="class_code">{{ $t('modal.code') }}: </label>
+          <input class="u-full-width" type="text" id="class_code" 
+          v-model="edit.class.code">
+        </div>
+        <div class="u-full-width class_teacher">
+          <label for="class_teacher">{{ $t('modal.class_teacher') }}</label>
+          <v-select 
+            :options="users" 
+            :reduce="user => user.id" 
+            v-model="edit.class.user_id"
+            :label="lang == 'cn' ? 'cn_name' : 'en_name'"></v-select>
+        </div>
 
         <input type="submit" class="button button-primary" 
         style="margin-top: 1rem;"
@@ -50,7 +63,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { classes } from '@/api/tableColumns';
+import { getUsers } from '@/api/users';
 import { createClass, getAllClass, editClass, deleteClass } from '@/api/class';
 
 import dtTable from '@/components/table';
@@ -66,20 +81,34 @@ export default {
         this.classArr = data.data;
       }
     })
+    getUsers().then((data) => {
+      if (data.status == 200) {
+        this.users = data.data;
+      }
+    })
   },
   data: () => ({
     classes,
     classArr: [],
+    users: [],
     isAdd: false,
     edit: {
       id: 0,
       class: {
         cn_name: '',
         en_name: '',
+        code : '',
+        user_id: null
       },
     },
     delete: {
       id: 0
+    },
+    class_obj: {
+      cn_name: '',
+      en_name: '',
+      code : '',
+      user_id: null
     }
   }),
   methods: {
@@ -97,10 +126,7 @@ export default {
             getAllClass().then((data) => {
               if (data.status == 200) {
                 this.classArr = data.data;
-                this.edit.class = {
-                  cn_name: '',
-                  en_name: ''
-                };
+                this.edit.class = {...this.class_obj};
                 this.$nextTick(this.$forceUpdate);
               }
             })
@@ -127,10 +153,7 @@ export default {
             getAllClass().then((data) => {
               if (data.status == 200) {
                 this.classArr = data.data;
-                this.edit.class = {
-                  cn_name: '',
-                  en_name: ''
-                };
+                this.edit.class = {...this.class_obj};
                 this.$nextTick(this.$forceUpdate);
               }
             })
@@ -182,6 +205,11 @@ export default {
       })
     }
   },
+  computed: {
+    ...mapState({
+      lang: 'lang'
+    })
+  }
 }
 </script>
 

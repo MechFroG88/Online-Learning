@@ -41,6 +41,12 @@ Vue.use(VueMeta, {
 import Notifications from 'vue-notification';
 Vue.use(Notifications);
 
+// select input with search function
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+
+Vue.component("v-select", vSelect);
+
 Vue.config.productionTip = false
 
 export default new Vue({
