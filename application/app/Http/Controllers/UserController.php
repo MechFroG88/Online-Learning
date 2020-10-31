@@ -89,7 +89,7 @@ class UserController extends Controller
         if ($validator->fails()) return $this->fail($validator);
         $data->merge(['password_real' => Hash::make($data->password)]);
         User::create($data->all());
-        Cache::forever('user', User::with('class_user','class')->get());
+        $this->clear_cache();
         return $this->ok();
     }
 
@@ -130,14 +130,14 @@ class UserController extends Controller
                 "email" => $data->email,
                 "type" => $data->type,
             ]);
-        Cache::forever('user', User::with('class_user','class')->get());
+        $this->clear_cache();
         return $this->ok();
     }
 
     public function delete(Request $data,$id)
     {
         User::where('id', $id)->delete();
-        Cache::forever('user', User::with('class_user','class')->get());
+        $this->clear_cache();
         return $this->ok();
     }
     

@@ -27,4 +27,9 @@ class Controller extends BaseController
     {
         return response("Successful operation",200);
     }
+
+    public function clear_cache()
+    {
+        Cache::flush();
+    }
 }

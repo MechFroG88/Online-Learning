@@ -23,7 +23,7 @@ class SubjectController extends Controller
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail($validator);
         Subject::create($data->all());
-        Cache::forever('subject', Subject::all());
+        $this->clear_cache();
         return $this->ok();
     }
 
@@ -45,14 +45,14 @@ class SubjectController extends Controller
                 "day" => $data->day,
                 "week" => $data->week,
             ]);
-        Cache::forever('subject', Subject::all());
+        $this->clear_cache();
         return $this->ok();
     }
 
     public function delete(Request $data,$id)
     {
         Subject::where('id', $id)->delete();
-        Cache::forever('subject', Subject::all());
+        $this->clear_cache();
         return $this->ok();
     }
 
