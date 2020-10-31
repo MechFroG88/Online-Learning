@@ -17,7 +17,7 @@ class UserController extends Controller
 {
 
     private $rules = [
-        "username" => "required|unique:users",
+        "username" => "required|unique:users,name,NULL,id,deleted_at,NULL",
         "cn_name"  => ["required","regex:/[\x{4e00}-\x{9fa5}]+/u"],
         "en_name"  => "required",
         "password" => "",
