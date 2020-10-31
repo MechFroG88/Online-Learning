@@ -103,6 +103,7 @@
         </div>
 
         <input type="submit" class="button button-primary" 
+        :disabled="!isPasswordOk"
         style="margin-top: 1rem;"
         :value="$t('modal.submit')">
       </form>
