@@ -71,9 +71,11 @@ export default {
       end_pick_datetime: 'End of period for class selection',
       username: 'Username',
       password: 'Password',
+      confirm_password: 'Confirm password',
       user_type: 'User type',
       user_typeSelect: 'Please select user type',
       passwordHint: 'Leave blank if you wish to not change password',
+      passwordError: 'Password does not match',
       master: {
         user: 'Teacher',
         userSelect: 'Please select a teacher'
@@ -191,9 +193,11 @@ export default {
       end_pick_datetime: '选课结束日期',
       username: '用户名',
       password: '密码',
+      confirm_password: '确认密码',
       user_type: '用户类型',
       user_typeSelect: '请选择用户类型',
       passwordHint: '若不要更改密码，请将此处留空',
+      passwordError: '密码不正确',
       master: {
         user: '教师',
         userSelect: '请选择教师'
@@ -310,10 +314,12 @@ export default {
       start_pick_datetime: 'Masa mula memilih kelas',
       end_pick_datetime: 'Masa tamat memilih kelas',
       username: 'Username',
-      password: 'Kata laluan',
+      password: 'Password',
+      confirm_password: 'Confirm password',
       user_type: 'Jenis pengguna',
       user_typeSelect: 'Sila pilih jenis pengguna',
       passwordHint: 'Sila tinggalkan kosong jika anda tidak ingin mengubah password',
+      passwordError: 'Password does not match',
       master: {
         user: 'Guru',
         userSelect: 'Sila pilih seorang guru'

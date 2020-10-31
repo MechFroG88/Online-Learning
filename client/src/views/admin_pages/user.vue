@@ -72,9 +72,18 @@
         </div>
         <div class="u-full-width password">
           <label for="password">{{ $t('modal.password') }}: </label>
-          <input class="u-full-width" type="text" id="password" 
+          <input class="u-full-width" type="password" id="password" 
           v-model="edit.user.password">
         </div>
+        <div class="u-full-width confirm_password">
+          <label for="confirm_password">{{ $t('modal.confirm_password') }}: </label>
+          <input class="u-full-width" type="password" id="confirm_password" 
+          @keyup="check_password"
+          v-model="confirm_password">
+        </div>
+        <small style="color: red; margin-bottom: 1rem;" v-if="!isPasswordOk"><em>
+          {{ $t('modal.passwordError') }} 
+        </em></small>
         <small style="color: red;" v-if="!isAdd"><em>
           * {{ $t('modal.passwordHint') }} 
         </em></small>
@@ -124,6 +133,8 @@ export default {
     user,
     isAdd: false,
     userArr: [],
+    confirm_password: "",
+    isPasswordOk: true,
     edit: {
       id: 0,
       user: {
@@ -155,6 +166,10 @@ export default {
     },
     submitUser() {
       if (this.isAdd) {
+        if (this.check_password != this.edit.user.password) {
+          this.isPasswordOk = false;
+          return ;
+        }
         createUser(this.edit.user).then((data) => {
           if (data.status == 200) {
             this.$refs.editUser.active = false;
@@ -259,6 +274,9 @@ export default {
       this.setSub(sub_user);
       this.$router.push({ name: 'choice' });
     },
+    checkPassword() {
+      this.isPasswordOk = this.edit.user.password == this.confirm_password;
+    }
   },
   computed: {
     ...mapState({
