@@ -167,6 +167,7 @@ export default {
       this.isAdd = isAdd;
       if (!this.isAdd) this.edit.id = data.id;
       this.edit.user = data || this.empty_user;
+      this.confirm_password = "";
       if (data) {
         delete this.edit.user.remember_token;
         delete this.edit.user.id;
