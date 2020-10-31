@@ -78,7 +78,7 @@
         <div class="u-full-width confirm_password">
           <label for="confirm_password">{{ $t('modal.confirm_password') }}: </label>
           <input class="u-full-width" type="password" id="confirm_password" 
-          @keyup="check_password"
+          @keyup="checkPassword"
           v-model="confirm_password">
         </div>
         <small style="color: red; margin-bottom: 1rem;" v-if="!isPasswordOk"><em>
@@ -167,7 +167,7 @@ export default {
     },
     submitUser() {
       if (this.isAdd) {
-        if (this.check_password != this.edit.user.password) {
+        if (this.confirm_password != this.edit.user.password) {
           this.isPasswordOk = false;
           return ;
         }
