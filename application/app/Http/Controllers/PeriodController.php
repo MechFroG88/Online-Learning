@@ -21,7 +21,7 @@ class PeriodController extends Controller
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail($validator);
         Period::create($data->all());
-        Cache::forever('period', Period::all());
+        $this->clear_cache();
         return $this->ok();
     }
 
@@ -36,7 +36,7 @@ class PeriodController extends Controller
     public function delete(Request $data,$id)
     {
         Period::where('id', $id)->delete();
-        Cache::forever('period', Period::all());
+        $this->clear_cache();
         return $this->ok();
     }
 

@@ -40,7 +40,7 @@ class Class_userController extends Controller
         } else {
             $deleted->restore();
         }
-        Cache::forever('user', User::with('class_user')->get());
+        $this->clear_cache();
         return $this->ok();
     }
 
@@ -53,7 +53,7 @@ class Class_userController extends Controller
     public function delete(Request $data,$id)
     {
         Class_user::where('id', $id)->delete();
-        Cache::forever('user', User::with('class_user')->get());
+        $this->clear_cache();
         return $this->ok();
     }
 

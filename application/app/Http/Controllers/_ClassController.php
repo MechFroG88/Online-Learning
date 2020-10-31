@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\_Class;
+use App\User;
 use Validator;
 use DB;
 use Auth;
@@ -19,13 +20,12 @@ class _ClassController extends Controller
         "code"     => "required",
     ];
 
-
     public function create(Request $data)
     {
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail($validator);
         _Class::create($data->all());
-        Cache::forever('class', _Class::select('id','cn_name','en_name')->get());
+        $this->clear_cache();
         return $this->ok();
     }
 
@@ -54,14 +54,14 @@ class _ClassController extends Controller
                 "user_id" => $data->user_id,
                 "code"    => $data->code,
             ]);
-        Cache::forever('class', _Class::select('id','cn_name','en_name')->get());
+        $this->clear_cache();
         return $this->ok();
     }
 
     public function delete(Request $data,$id)
     {
         _Class::where('id', $id)->delete();
-        Cache::forever('class', _Class::select('id','cn_name','en_name')->get());
+        $this->clear_cache();
         return $this->ok();
     }
 
