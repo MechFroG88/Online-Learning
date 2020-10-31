@@ -149,6 +149,14 @@ export default {
     },
     delete: {
       id: 0,
+    },
+    empty_user: {
+      username: '',
+      cn_name: '',
+      en_name: '',
+      email: '',
+      password: '',
+      type: -1,
     }
   }),
   methods: {
@@ -158,7 +166,7 @@ export default {
     openUser(data, isAdd = true) {
       this.isAdd = isAdd;
       if (!this.isAdd) this.edit.id = data.id;
-      this.edit.user = data || this.edit.user;
+      this.edit.user = data || this.empty_user;
       if (data) {
         delete this.edit.user.remember_token;
         delete this.edit.user.id;
@@ -177,14 +185,7 @@ export default {
             getUsers().then((data) => {
               if (data.status == 200) {
                 this.userArr = data.data;
-                this.edit.user = {
-                  username: '',
-                  cn_name: '',
-                  en_name: '',
-                  email: '',
-                  password: '',
-                  type: -1,
-                };
+                this.edit.user = this.empty_user;
                 this.$nextTick(this.$forceUpdate);
               }
             })
@@ -213,14 +214,7 @@ export default {
             getUsers().then((data) => {
               if (data.status == 200) {
                 this.userArr = data.data;
-                this.edit.user = {
-                  username: '',
-                  cn_name: '',
-                  en_name: '',
-                  email: '',
-                  password: '',
-                  type: -1,
-                };
+                this.edit.user = this.empty_user;
                 this.$nextTick(this.$forceUpdate);
               }
             })
